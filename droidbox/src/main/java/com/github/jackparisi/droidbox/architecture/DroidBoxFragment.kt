@@ -1,5 +1,6 @@
 package com.github.jackparisi.droidbox.architecture
 
+import android.arch.lifecycle.LifecycleFragment
 import android.arch.lifecycle.LifecycleRegistry
 import android.arch.lifecycle.LifecycleRegistryOwner
 import android.os.Bundle
@@ -14,7 +15,7 @@ import com.github.jackparisi.droidbox.architecture.model.error.ErrorLoadingWrapp
  * https://github.com/JackParisi
  */
 
-abstract class DroidBoxFragment : Fragment(), LifecycleRegistryOwner {
+abstract class DroidBoxFragment : LifecycleFragment() {
 
     private val lifecycleRegistry: LifecycleRegistry = LifecycleRegistry(this)
     protected var errorLoadingWrapper: ErrorLoadingWrapper? = null

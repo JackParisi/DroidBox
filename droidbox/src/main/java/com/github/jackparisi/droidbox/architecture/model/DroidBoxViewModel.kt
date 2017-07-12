@@ -1,6 +1,5 @@
 package com.github.jackparisi.droidbox.architecture.model
 
-import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
@@ -10,7 +9,7 @@ import android.databinding.ObservableField
  * https://github.com/JackParisi
  */
 
-open class DroidBoxViewModel(val lifecycleObserver: LifecycleObserver) : ViewModel(), LifecycleObserver{
+abstract class DroidBoxViewModel : ViewModel() {
     var error = ObservableBoolean()
 
     var lastError: Class<Throwable>? = null
@@ -19,5 +18,5 @@ open class DroidBoxViewModel(val lifecycleObserver: LifecycleObserver) : ViewMod
 
     var retryButtonMessage = ObservableField<String>()
 
-    var loading = ObservableBoolean();
+    var loading = ObservableBoolean()
 }
