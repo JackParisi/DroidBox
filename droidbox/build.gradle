@@ -62,6 +62,9 @@ dependencies {
 
     /*FIREBASE*/
     compile 'com.google.firebase:firebase-crash:11.0.2'
+
+    /*GLIDE*/
+    compile 'com.github.bumptech.glide:glide:3.7.0'
 }
 
 
