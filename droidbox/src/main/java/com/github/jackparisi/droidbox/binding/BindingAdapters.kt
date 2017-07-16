@@ -2,6 +2,7 @@ package com.github.jackparisi.droidbox.binding
 
 import android.databinding.BindingAdapter
 import android.graphics.Rect
+import android.util.Base64
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.Animation
@@ -47,10 +48,24 @@ fun bindLoading(v: ImageView, loading: Boolean) {
 }
 
 @BindingAdapter("srcUrlCenterCrop", "baseUrl", requireAll = false)
-fun bindImageUrl(v: ImageView, url: String?, baseUrl: String?) {
+fun bindImageUrlCenterCrop(v: ImageView, url: String?, baseUrl: String?) {
     if (url != null && !url.isEmpty()) {
         Glide.with(v.context)
                 .load(if (baseUrl != null) baseUrl + url else url)
+                .centerCrop()
+                .into(v)
+    }
+}
+
+@BindingAdapter("srcByteCenterCrop")
+fun bindImageByteCenterCrop(v: ImageView, byte: String?) {
+
+    if (byte != null && !byte.isEmpty()) {
+
+        val imageByteArray = Base64.decode(byte, Base64.DEFAULT)
+
+        Glide.with(v.context)
+                .load(imageByteArray)
                 .centerCrop()
                 .into(v)
     }
