@@ -25,30 +25,38 @@ abstract class DroidRxRepository<ResultType> {
     }
 
     private fun startRepository(emitter: FlowableEmitter<DroidResource<ResultType>>) {
-        val dbSource: Single<ResultType> = loadFromDb()
-        dbSource.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ data: ResultType ->
-                    if (shouldFetch(data)) {
-                        fetchFromNetwork(data, emitter)
-                    } else {
-                        emitter.onNext(DroidResource.Success(data))
-                    }
-                }, { throwable ->
-                    emitter.onNext(DroidResource.Error(throwable))
-                    Timber.e(throwable.message)
-                })
+        val dbSource = loadFromDb()
+        if(dbSource != null) {
+            dbSource?.subscribeOn(Schedulers.io())
+                    ?.observeOn(AndroidSchedulers.mainThread())
+                    ?.subscribe({ data: ResultType ->
+                        if (shouldFetch(data)) {
+                            fetchFromNetwork(data, emitter)
+                        } else {
+                            emitter.onNext(DroidResource.Success(data))
+                        }
+                    }, { throwable ->
+                        emitter.onNext(DroidResource.Error(throwable))
+                        Timber.e(throwable.message)
+                    })
+        }else if(shouldFetch(null)){
+            fetchFromNetwork(null, emitter)
+        }
     }
 
-    private fun fetchFromNetwork(dbSource: ResultType, emitter: FlowableEmitter<DroidResource<ResultType>>) {
+    private fun fetchFromNetwork(dbSource: ResultType?, emitter: FlowableEmitter<DroidResource<ResultType>>) {
         val apiResponse = createCall()
 
-        emitter.onNext(DroidResource.Success(dbSource))
+        if(dbSource != null) {
+            emitter.onNext(DroidResource.Success(dbSource))
+        }
 
-        apiResponse.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ data ->
-                    saveResultAndReInit(data)
+        apiResponse?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe({ data ->
+                    if(data != null) {
+                        saveResultAndReInit(data)
+                    }
                 }, { throwable -> emitter.onNext(DroidResource.Error(throwable)) })
     }
 
@@ -65,20 +73,20 @@ abstract class DroidRxRepository<ResultType> {
 
     // Called to save the result of the API response into the database
     @WorkerThread
-    protected abstract fun saveCallResult(item: ResultType)
+    protected abstract fun saveCallResult(item: ResultType?)
 
     // Called with the data in the database to decide whether it should be
     // fetched from the network.
     @MainThread
-    protected abstract fun shouldFetch(data: ResultType): Boolean
+    protected abstract fun shouldFetch(data: ResultType?): Boolean
 
     // Called to get the cached data from the database
     @MainThread
-    protected abstract fun loadFromDb(): Single<ResultType>
+    protected abstract fun loadFromDb(): Single<ResultType>?
 
     // Called to create the API call.
     @MainThread
-    protected abstract fun createCall(): Single<ResultType>
+    protected abstract fun createCall(): Single<ResultType>?
 
     // Called when the fetch fails. The child class may want to reset components
     // like rate limiter.
