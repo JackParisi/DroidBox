@@ -27,9 +27,9 @@ abstract class DroidRxRepository<ResultType> {
     private fun startRepository(emitter: FlowableEmitter<DroidResource<ResultType>>) {
         val dbSource = loadFromDb()
         if(dbSource != null) {
-            dbSource?.subscribeOn(Schedulers.io())
-                    ?.observeOn(AndroidSchedulers.mainThread())
-                    ?.subscribe({ data: ResultType ->
+            dbSource.subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({ data: ResultType ->
                         if (shouldFetch(data)) {
                             fetchFromNetwork(data, emitter)
                         } else {
@@ -82,7 +82,7 @@ abstract class DroidRxRepository<ResultType> {
 
     // Called to get the cached data from the database
     @MainThread
-    protected abstract fun loadFromDb(): Single<ResultType>?
+    protected abstract fun loadFromDb(): Flowable<ResultType>?
 
     // Called to create the API call.
     @MainThread
