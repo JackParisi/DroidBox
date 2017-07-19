@@ -4,7 +4,7 @@ import android.databinding.Observable
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import com.github.jackparisi.droidbox.architecture.model.DroidBoxViewModel
+import com.github.jackparisi.droidbox.architecture.model.DroidViewModel
 
 /**
  * Created by Giacomo Parisi on 30/06/2017.
@@ -14,15 +14,15 @@ class ErrorLoadingWrapper {
 
     private var loadingCallback: Observable.OnPropertyChangedCallback? = null
     private var errorCallback: Observable.OnPropertyChangedCallback? = null
-    private var viewModel: DroidBoxViewModel? = null
+    private var viewModel: DroidViewModel? = null
 
 
-    fun wrapLayout(viewModel: DroidBoxViewModel, root: View, wrapperRoot: ViewGroup): View {
+    fun wrapLayout(viewModel: DroidViewModel, root: View, wrapperRoot: ViewGroup): View {
         val params = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
         return wrapLayout(viewModel, root, wrapperRoot, params)
     }
 
-    fun wrapLayout(viewModel: DroidBoxViewModel, root: View, wrapperRoot: ViewGroup, params: FrameLayout.LayoutParams): View {
+    fun wrapLayout(viewModel: DroidViewModel, root: View, wrapperRoot: ViewGroup, params: FrameLayout.LayoutParams): View {
         this.viewModel = viewModel
         wrapperRoot.addView(root, params)
 

@@ -73,7 +73,7 @@ abstract class DroidRxRepository<ResultType> {
 
     // Called to save the result of the API response into the database
     @WorkerThread
-    protected abstract fun saveCallResult(item: ResultType?)
+    protected abstract fun saveCallResult(data: ResultType?)
 
     // Called with the data in the database to decide whether it should be
     // fetched from the network.

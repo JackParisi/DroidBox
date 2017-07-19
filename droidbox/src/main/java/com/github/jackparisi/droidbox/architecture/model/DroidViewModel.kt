@@ -9,7 +9,7 @@ import android.databinding.ObservableField
  * https://github.com/JackParisi
  */
 
-abstract class DroidBoxViewModel : ViewModel() {
+abstract class DroidViewModel : ViewModel() {
     var error = ObservableBoolean()
 
     var lastError: Class<Throwable>? = null

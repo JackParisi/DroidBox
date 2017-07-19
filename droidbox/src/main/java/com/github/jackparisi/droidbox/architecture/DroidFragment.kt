@@ -1,13 +1,11 @@
 package com.github.jackparisi.droidbox.architecture
 
-import android.app.Activity
-import android.arch.lifecycle.LifecycleActivity
+import android.arch.lifecycle.LifecycleFragment
 import android.arch.lifecycle.LifecycleRegistry
-import android.arch.lifecycle.LifecycleRegistryOwner
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import com.github.jackparisi.droidbox.architecture.model.DroidBoxViewModel
+import com.github.jackparisi.droidbox.architecture.model.DroidViewModel
 import com.github.jackparisi.droidbox.architecture.model.error.ErrorLoadingWrapper
 
 /**
@@ -15,7 +13,7 @@ import com.github.jackparisi.droidbox.architecture.model.error.ErrorLoadingWrapp
  * https://github.com/JackParisi
  */
 
-abstract class DroidBoxActivity : LifecycleActivity() {
+abstract class DroidFragment : LifecycleFragment() {
 
     private val lifecycleRegistry: LifecycleRegistry = LifecycleRegistry(this)
     protected var errorLoadingWrapper: ErrorLoadingWrapper? = null
@@ -27,13 +25,13 @@ abstract class DroidBoxActivity : LifecycleActivity() {
     }
 
 
-    protected fun wrapLayout(viewModel: DroidBoxViewModel, root: View): View {
+    protected fun wrapLayout(viewModel: DroidViewModel, root: View): View {
         errorLoadingWrapper = ErrorLoadingWrapper()
         val wrapperRoot = createErrorLoadingWrapper(viewModel)
         return errorLoadingWrapper!!.wrapLayout(viewModel, root, wrapperRoot)
     }
 
-    protected abstract fun createErrorLoadingWrapper(viewModel: DroidBoxViewModel): ViewGroup
+    protected abstract fun createErrorLoadingWrapper(viewModel: DroidViewModel): ViewGroup
 
     override fun onDestroy() {
         super.onDestroy()
