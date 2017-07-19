@@ -47,6 +47,7 @@ abstract class DroidRxRepository<ResultType> {
     private fun fetchFromNetwork(dbSource: ResultType?, emitter: FlowableEmitter<DroidResource<ResultType>>) {
         val apiResponse = createCall()
 
+        //TODO check if repository wants emit database value
         if(dbSource != null) {
             emitter.onNext(DroidResource.Success(dbSource))
         }

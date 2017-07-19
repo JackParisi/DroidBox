@@ -25,6 +25,8 @@ sealed class DroidResource<out T> {
     object Empty : DroidResource<Nothing>() {
         override fun <R> map(f: (Nothing) -> R): DroidResource<R> = this
     }
+
+    //Todo add DatabaseValue case
 }
 
 fun <T> DroidResource<T>.orElse(defaultValue: T): T =
