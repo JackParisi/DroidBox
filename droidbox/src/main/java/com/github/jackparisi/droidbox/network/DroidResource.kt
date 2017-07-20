@@ -8,11 +8,11 @@ sealed class DroidResource<out T> {
 
     abstract fun <R> map(f: (T) -> R): DroidResource<R>
 
-    data class Success<out T>(val data: T) : DroidResource<T>() {
-        override fun <R> map(f: (T) -> R): DroidResource<R> = Success(f(data))
+    data class Network<out T>(val data: T) : DroidResource<T>() {
+        override fun <R> map(f: (T) -> R): DroidResource<R> = Network(f(data))
     }
 
-    data class Error(val message: String) : DroidResource<Nothing>() {
+    data class NetworkError(val message: String) : DroidResource<Nothing>() {
         constructor(t: Throwable) : this(t.message ?: "")
 
         override fun <R> map(f: (Nothing) -> R): DroidResource<R> = this
@@ -26,11 +26,13 @@ sealed class DroidResource<out T> {
         override fun <R> map(f: (Nothing) -> R): DroidResource<R> = this
     }
 
-    //Todo add DatabaseValue case
+    data class Database<out T>(val data: T) : DroidResource<T>() {
+        override fun <R> map(f: (T) -> R): DroidResource<R> = Database(f(data))
+    }
 }
 
 fun <T> DroidResource<T>.orElse(defaultValue: T): T =
-        if (this is DroidResource.Success)
+        if (this is DroidResource.Network)
             data ?: defaultValue
         else
             defaultValue

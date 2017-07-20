@@ -33,10 +33,10 @@ abstract class DroidRxRepository<ResultType> {
                         if (shouldFetch(data)) {
                             fetchFromNetwork(data, emitter)
                         } else {
-                            emitter.onNext(DroidResource.Success(data))
+                            emitter.onNext(DroidResource.NetworkSuccess(data))
                         }
                     }, { throwable ->
-                        emitter.onNext(DroidResource.Error(throwable))
+                        emitter.onNext(DroidResource.NetworkError(throwable))
                         Timber.e(throwable.message)
                     })
         }else if(shouldFetch(null)){
@@ -49,7 +49,7 @@ abstract class DroidRxRepository<ResultType> {
 
         //TODO check if repository wants emit database value
         if(dbSource != null) {
-            emitter.onNext(DroidResource.Success(dbSource))
+            emitter.onNext(DroidResource.NetworkSuccess(dbSource))
         }
 
         apiResponse?.subscribeOn(Schedulers.io())
@@ -58,7 +58,7 @@ abstract class DroidRxRepository<ResultType> {
                     if(data != null) {
                         saveResultAndReInit(data)
                     }
-                }, { throwable -> emitter.onNext(DroidResource.Error(throwable)) })
+                }, { throwable -> emitter.onNext(DroidResource.NetworkError(throwable)) })
     }
 
     private fun saveResultAndReInit(apiResponse: ResultType) {
