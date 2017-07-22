@@ -32,8 +32,8 @@ abstract class DroidRxRepository<ResultType> {
                     .subscribe({ data: ResultType ->
                         if (shouldFetch(data)) {
                             fetchFromNetwork(data, emitter)
-                        } else {
-                            emitter.onNext(DroidResource.NetworkSuccess(data))
+                        }else{
+                            emitter.onNext(DroidResource.Database(data))
                         }
                     }, { throwable ->
                         emitter.onNext(DroidResource.NetworkError(throwable))
@@ -45,11 +45,10 @@ abstract class DroidRxRepository<ResultType> {
     }
 
     private fun fetchFromNetwork(dbSource: ResultType?, emitter: FlowableEmitter<DroidResource<ResultType>>) {
-        val apiResponse = createCall()
+        val apiResponse = fetchFromNetwork()
 
-        //TODO check if repository wants emit database value
-        if(dbSource != null) {
-            emitter.onNext(DroidResource.NetworkSuccess(dbSource))
+        if(shouldLoadFromDbBeforeFetch() && dbSource != null){
+            emitter.onNext(DroidResource.Database(dbSource))
         }
 
         apiResponse?.subscribeOn(Schedulers.io())
@@ -81,13 +80,16 @@ abstract class DroidRxRepository<ResultType> {
     @MainThread
     protected abstract fun shouldFetch(data: ResultType?): Boolean
 
+    @MainThread
+    protected abstract fun shouldLoadFromDbBeforeFetch(): Boolean
+
     // Called to get the cached data from the database
     @MainThread
     protected abstract fun loadFromDb(): Flowable<ResultType>?
 
     // Called to create the API call.
     @MainThread
-    protected abstract fun createCall(): Single<ResultType>?
+    protected abstract fun fetchFromNetwork(): Single<ResultType>?
 
     // Called when the fetch fails. The child class may want to reset components
     // like rate limiter.
