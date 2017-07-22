@@ -2,31 +2,17 @@ package com.github.jackparisi.droidbox.binding
 
 import android.databinding.BindingAdapter
 import android.graphics.Rect
-import android.util.Base64
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import android.view.animation.RotateAnimation
 import android.widget.ImageView
-import com.bumptech.glide.Glide
-
 
 /**
- * Created by Giacomo Parisi on 02/07/2017.
+ * Created by Giacomo Parisi on 22/07/17.
  * https://github.com/JackParisi
  */
-
-
-@BindingAdapter("visibleOrGone")
-fun bindVisibleOrGone(v: View, visible: Boolean) {
-    v.visibility = if (visible) View.VISIBLE else View.GONE
-}
-
-@BindingAdapter("visibleOrInvisible")
-fun bindVisibleOrInvisible(v: View, visible: Boolean) {
-    v.visibility = if (visible) View.VISIBLE else View.INVISIBLE
-}
 
 @BindingAdapter("loading")
 fun bindLoading(v: ImageView, loading: Boolean) {
@@ -47,29 +33,6 @@ fun bindLoading(v: ImageView, loading: Boolean) {
     }
 }
 
-@BindingAdapter("srcUrlCenterCrop", "baseUrl", requireAll = false)
-fun bindImageUrlCenterCrop(v: ImageView, url: String?, baseUrl: String?) {
-    if (url != null && !url.isEmpty()) {
-        Glide.with(v.context)
-                .load(if (baseUrl != null) baseUrl + url else url)
-                .centerCrop()
-                .into(v)
-    }
-}
-
-@BindingAdapter("srcByteCenterCrop")
-fun bindImageByteCenterCrop(v: ImageView, byte: String?) {
-
-    if (byte != null && !byte.isEmpty()) {
-
-        val imageByteArray = Base64.decode(byte, Base64.DEFAULT)
-
-        Glide.with(v.context)
-                .load(imageByteArray)
-                .centerCrop()
-                .into(v)
-    }
-}
 
 @BindingAdapter("bounce")
 fun bindBounce(v: View, enabled: Boolean) {
@@ -119,9 +82,4 @@ fun bindBounce(v: View, enabled: Boolean) {
 fun scaleView(v: View, endScale: Float) {
     v.animate().scaleX(endScale)
             .scaleY(endScale).duration = 100
-}
-
-@BindingAdapter("srcRes")
-fun bindSrcRes(v: ImageView, i: Int) {
-    v.setImageResource(i)
 }
