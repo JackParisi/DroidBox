@@ -11,8 +11,7 @@ import com.github.jackparisi.droidbox.architecture.model.DroidViewModel
  */
 abstract class DroidWrapper {
 
-    protected var viewModel: DroidViewModel? = null
     protected val params = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
 
-    abstract fun wrapLayout(viewModel: DroidViewModel, pageLayout: View, wrapperLayout: View?, context: Context, params: ViewGroup.LayoutParams = this.params): View
+    abstract fun wrapLayout(viewModels: List<DroidViewModel>, pageLayout: View, wrapperLayout: View?, context: Context, params: ViewGroup.LayoutParams = this.params): View
 }

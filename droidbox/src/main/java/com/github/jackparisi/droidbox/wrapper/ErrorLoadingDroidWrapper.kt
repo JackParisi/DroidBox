@@ -16,33 +16,40 @@ class ErrorLoadingDroidWrapper : DroidWrapper() {
 
     private var loadingCallback: Observable.OnPropertyChangedCallback? = null
     private var errorCallback: Observable.OnPropertyChangedCallback? = null
+    private lateinit var viewModels: List<DroidViewModel>
 
-    override fun wrapLayout(viewModel: DroidViewModel, pageLayout: View, wrapperLayout: View?, context: Context, params: ViewGroup.LayoutParams): View {
+    override fun wrapLayout(viewModels: List<DroidViewModel>, pageLayout: View, wrapperLayout: View?, context: Context, params: ViewGroup.LayoutParams): View {
 
         val frameLayout = FrameLayout(context)
         frameLayout.addView(pageLayout, params)
 
+        this.viewModels = viewModels
+
         if(wrapperLayout != null) {
             frameLayout.addView(wrapperLayout, params)
 
-            this.viewModel = viewModel
-
             loadingCallback = object : Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(observable: Observable, i: Int) {
-                    pageLayout.visibility = if (viewModel.loading.get()) View.GONE else View.VISIBLE
+                    wrapperLayout.visibility = if (shouldShowWrapper()) View.GONE else View.VISIBLE
                 }
             }
-            viewModel.loading.addOnPropertyChangedCallback(loadingCallback)
+
+            for(viewModel in viewModels) {
+                viewModel.loading.addOnPropertyChangedCallback(loadingCallback)
+            }
 
             errorCallback = object : Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(observable: Observable, i: Int) {
-                    wrapperLayout.visibility = if (viewModel.error.get()) View.GONE else View.VISIBLE
+                    wrapperLayout.visibility = if (shouldShowWrapper()) View.GONE else View.VISIBLE
                 }
             }
-            viewModel.error.addOnPropertyChangedCallback(errorCallback)
+
+            for (viewModel in viewModels) {
+                viewModel.error.addOnPropertyChangedCallback(errorCallback)
+            }
 
 
-            wrapperLayout.visibility = if (viewModel.loading.get() || viewModel.error.get()) View.GONE else View.VISIBLE
+            wrapperLayout.visibility = if (shouldShowWrapper()) View.GONE else View.VISIBLE
         }else{
             //TODO throw exception
             Timber.e("Error Loading Wrapper is null")
@@ -51,8 +58,15 @@ class ErrorLoadingDroidWrapper : DroidWrapper() {
         return frameLayout
     }
 
+    private fun shouldShowWrapper(): Boolean{
+
+        return viewModels.any { it.loading.get() || it.error.get() }
+    }
+
     fun removeCallbacks() {
-        viewModel!!.loading.removeOnPropertyChangedCallback(loadingCallback)
-        viewModel!!.error.removeOnPropertyChangedCallback(errorCallback)
+        for(viewModel in viewModels) {
+            viewModel.loading.removeOnPropertyChangedCallback(loadingCallback)
+            viewModel.error.removeOnPropertyChangedCallback(errorCallback)
+        }
     }
 }
