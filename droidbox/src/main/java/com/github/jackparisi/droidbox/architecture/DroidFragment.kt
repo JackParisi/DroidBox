@@ -3,7 +3,7 @@ package com.github.jackparisi.droidbox.architecture
 import android.arch.lifecycle.LifecycleFragment
 import android.arch.lifecycle.LifecycleRegistry
 import android.os.Bundle
-import com.github.jackparisi.droidbox.architecture.model.wrapper.DroidWrapperService
+import com.github.jackparisi.droidbox.wrapper.DroidWrapperService
 
 /**
  * Created by Giacomo Parisi on 30/06/2017.

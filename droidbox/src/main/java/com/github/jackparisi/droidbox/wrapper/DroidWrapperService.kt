@@ -1,4 +1,4 @@
-package com.github.jackparisi.droidbox.architecture.model.wrapper
+package com.github.jackparisi.droidbox.wrapper
 
 import android.content.Context
 import android.databinding.ViewDataBinding
