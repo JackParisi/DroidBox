@@ -12,31 +12,22 @@ import timber.log.Timber
  * Created by Giacomo Parisi on 30/06/2017.
  * https://github.com/JackParisi
  */
-class ErrorLoadingDroidWrapper : DroidWrapper() {
 
-    private var loadingCallback: Observable.OnPropertyChangedCallback? = null
+class ErrorDroidWrapper : DroidWrapper() {
+
     private var errorCallback: Observable.OnPropertyChangedCallback? = null
-    private lateinit var viewModels: List<DroidViewModel>
+    private lateinit var viewModel: DroidViewModel
 
-    override fun wrapLayout(viewModels: List<DroidViewModel>, pageLayout: View, wrapperLayout: View?, context: Context, params: ViewGroup.LayoutParams): View {
+
+    override fun wrapLayout(viewModel: DroidViewModel, pageLayout: View, wrapperLayout: View?, context: Context, params: ViewGroup.LayoutParams): View {
 
         val frameLayout = FrameLayout(context)
         frameLayout.addView(pageLayout, params)
 
-        this.viewModels = viewModels
+        this.viewModel = viewModel
 
         if(wrapperLayout != null) {
             frameLayout.addView(wrapperLayout, params)
-
-            loadingCallback = object : Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(observable: Observable, i: Int) {
-                    wrapperLayout.visibility = if (shouldShowWrapper()) View.GONE else View.VISIBLE
-                }
-            }
-
-            for(viewModel in viewModels) {
-                viewModel.loading.addOnPropertyChangedCallback(loadingCallback)
-            }
 
             errorCallback = object : Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(observable: Observable, i: Int) {
@@ -44,9 +35,7 @@ class ErrorLoadingDroidWrapper : DroidWrapper() {
                 }
             }
 
-            for (viewModel in viewModels) {
-                viewModel.error.addOnPropertyChangedCallback(errorCallback)
-            }
+            viewModel.error.addOnPropertyChangedCallback(errorCallback)
 
 
             wrapperLayout.visibility = if (shouldShowWrapper()) View.GONE else View.VISIBLE
@@ -60,13 +49,10 @@ class ErrorLoadingDroidWrapper : DroidWrapper() {
 
     private fun shouldShowWrapper(): Boolean{
 
-        return viewModels.any { it.loading.get() || it.error.get() }
+        return viewModel.loading.get()
     }
 
-    fun removeCallbacks() {
-        for(viewModel in viewModels) {
-            viewModel.loading.removeOnPropertyChangedCallback(loadingCallback)
-            viewModel.error.removeOnPropertyChangedCallback(errorCallback)
-        }
+    fun removeCallback() {
+        viewModel.error.removeOnPropertyChangedCallback(errorCallback)
     }
 }

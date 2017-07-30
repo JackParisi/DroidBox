@@ -11,6 +11,7 @@ import timber.log.Timber
  * Created by Giacomo Parisi on 30/06/2017.
  * https://github.com/JackParisi
  */
+
 class ToolbarDroidWrapper : DroidWrapper(){
 
     override fun wrapLayout(viewModel: DroidViewModel, pageLayout: View, wrapperLayout: View?, context: Context, params: ViewGroup.LayoutParams): View {
@@ -24,8 +25,6 @@ class ToolbarDroidWrapper : DroidWrapper(){
             Timber.e("Toolbar wrapper is null")
         }
         linearLayout.addView(pageLayout, params)
-
-        this.viewModel = viewModel
 
         return linearLayout
     }

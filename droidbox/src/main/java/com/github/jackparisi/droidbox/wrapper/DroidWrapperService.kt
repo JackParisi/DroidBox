@@ -12,24 +12,31 @@ import kotlin.reflect.KClass
  */
 abstract class DroidWrapperService(val context: Context) {
 
-    var errorLoadingWrapper = ErrorLoadingDroidWrapper()
+    var errorWrapper = ErrorDroidWrapper()
+    val loadingWrapper = LoadingDroidWrapper()
     var toolbarWrapper = ToolbarDroidWrapper()
 
-    protected fun <W : ViewDataBinding> wrapErrorLoadingLayout(viewModel: DroidViewModel, root: View, wrapperClass: KClass<W>): View {
-        val wrapperRoot = createErrorLoadingWrapper(viewModel, wrapperClass)
-        return errorLoadingWrapper.wrapLayout(viewModel, root, wrapperRoot, context)
+    protected fun <W : ViewDataBinding> wrapErrorLayout(toolbarViewModel: DroidViewModel, viewModel: DroidViewModel, root: View, wrapperClass: KClass<W>): View {
+        val wrapperRoot = createErrorWrapper(wrapperClass)
+        return errorWrapper.wrapLayout(listOf(toolbarViewModel, viewModel), root, wrapperRoot, context)
     }
 
-    protected fun <W : ViewDataBinding> wrapToolbarLayout(viewModel: DroidViewModel, root: View, wrapperClass: KClass<W>): View {
-        val wrapperRoot = createErrorLoadingWrapper(viewModel, wrapperClass)
-        return toolbarWrapper.wrapLayout(viewModel, root, wrapperRoot, context)
+    protected fun <W : ViewDataBinding> wrapLoadingLayout(toolbarViewModel: DroidViewModel, viewModel: DroidViewModel, root: View, wrapperClass: KClass<W>): View {
+        val wrapperRoot = createErrorWrapper(wrapperClass)
+        return loadingWrapper.wrapLayout(listOf(toolbarViewModel, viewModel), root, wrapperRoot, context)
     }
 
-    protected abstract fun <W : ViewDataBinding> createErrorLoadingWrapper(viewModel: DroidViewModel, wrapperClass: KClass<W>): View?
+    protected fun <W : ViewDataBinding> wrapToolbarLayout(toolbarViewModel: DroidViewModel, viewModel: DroidViewModel, root: View, wrapperClass: KClass<W>): View {
+        val wrapperRoot = createToolbarWrapper(viewModel, wrapperClass)
+        return toolbarWrapper.wrapLayout(listOf(toolbarViewModel, viewModel), root, wrapperRoot, context)
+    }
 
-    protected abstract fun <W : ViewDataBinding> createToolbarWrapper(viewModel: DroidViewModel, wrapperClass: KClass<W>): View?
+    protected abstract fun <W : ViewDataBinding> createErrorWrapper(wrapperClass: KClass<W>): View?
+
+    protected abstract fun <W : ViewDataBinding> createToolbarWrapper(toolbarViewModel: DroidViewModel, wrapperClass: KClass<W>): View?
 
     fun onViewDestroy(){
-        errorLoadingWrapper.removeCallbacks()
+        errorWrapper.removeCallback()
+        loadingWrapper.removeCallback()
     }
 }
