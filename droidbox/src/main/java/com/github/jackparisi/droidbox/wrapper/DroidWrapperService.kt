@@ -12,21 +12,21 @@ import kotlin.reflect.KClass
  */
 abstract class DroidWrapperService(val context: Context) {
 
-    var errorWrapper = ErrorDroidWrapper()
-    val loadingWrapper = LoadingDroidWrapper()
-    var toolbarWrapper = ToolbarDroidWrapper()
+    private var errorWrapper = ErrorDroidWrapper()
+    private val loadingWrapper = LoadingDroidWrapper()
+    private var toolbarWrapper = ToolbarDroidWrapper()
 
-    protected fun <W : ViewDataBinding> wrapErrorLayout(viewModel: DroidViewModel, root: View, wrapperClass: KClass<W>): View {
+    fun <W : ViewDataBinding> wrapErrorLayout(viewModel: DroidViewModel, root: View, wrapperClass: KClass<W>): View {
         val wrapperRoot = createErrorWrapper(viewModel, wrapperClass)
         return errorWrapper.wrapLayout(viewModel, root, wrapperRoot, context)
     }
 
-    protected fun <W : ViewDataBinding> wrapLoadingLayout(viewModel: DroidViewModel, root: View, wrapperClass: KClass<W>): View {
+    fun <W : ViewDataBinding> wrapLoadingLayout(viewModel: DroidViewModel, root: View, wrapperClass: KClass<W>): View {
         val wrapperRoot = createLoadingWrapper(viewModel, wrapperClass)
         return loadingWrapper.wrapLayout(viewModel, root, wrapperRoot, context)
     }
 
-    protected fun <W : ViewDataBinding> wrapToolbarLayout(viewModel: DroidViewModel, root: View, wrapperClass: KClass<W>): View {
+    fun <W : ViewDataBinding> wrapToolbarLayout(viewModel: DroidViewModel, root: View, wrapperClass: KClass<W>): View {
         val wrapperRoot = createToolbarWrapper(viewModel, wrapperClass)
         return toolbarWrapper.wrapLayout(viewModel, root, wrapperRoot, context)
     }

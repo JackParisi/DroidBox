@@ -31,14 +31,14 @@ class ErrorDroidWrapper : DroidWrapper() {
 
             errorCallback = object : Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(observable: Observable, i: Int) {
-                    wrapperLayout.visibility = if (shouldShowWrapper()) View.GONE else View.VISIBLE
+                    wrapperLayout.visibility = if (shouldShowWrapper()) View.VISIBLE else View.GONE
                 }
             }
 
             viewModel.error.addOnPropertyChangedCallback(errorCallback)
 
 
-            wrapperLayout.visibility = if (shouldShowWrapper()) View.GONE else View.VISIBLE
+            wrapperLayout.visibility = if (shouldShowWrapper()) View.VISIBLE else View.GONE
         }else{
             //TODO throw exception
             Timber.e("Error Loading Wrapper is null")

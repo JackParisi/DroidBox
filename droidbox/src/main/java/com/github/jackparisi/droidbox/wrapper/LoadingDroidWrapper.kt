@@ -20,8 +20,8 @@ class LoadingDroidWrapper : DroidWrapper() {
 
     override fun wrapLayout(viewModel: DroidViewModel, pageLayout: View, wrapperLayout: View?, context: Context, params: ViewGroup.LayoutParams): View {
         val frameLayout = FrameLayout(context)
+        frameLayout.layoutParams = params
         frameLayout.addView(pageLayout, params)
-
         this.viewModel = viewModel
 
         if(wrapperLayout != null) {
@@ -29,14 +29,14 @@ class LoadingDroidWrapper : DroidWrapper() {
 
             loadingCallback = object : Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(observable: Observable, i: Int) {
-                    wrapperLayout.visibility = if (shouldShowWrapper()) View.GONE else View.VISIBLE
+                    wrapperLayout.visibility = if (shouldShowWrapper()) View.VISIBLE else View.GONE
                 }
             }
 
             viewModel.loading.addOnPropertyChangedCallback(loadingCallback)
 
 
-            wrapperLayout.visibility = if (shouldShowWrapper()) View.GONE else View.VISIBLE
+            wrapperLayout.visibility = if (shouldShowWrapper()) View.VISIBLE else View.GONE
         }else{
             //TODO throw exception
             Timber.e("Error Loading Wrapper is null")
