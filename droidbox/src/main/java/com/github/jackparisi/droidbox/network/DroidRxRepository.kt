@@ -98,7 +98,7 @@ abstract class DroidRxRepository<ResultType> {
     }
 
     // returns a LiveData that represents the resource
-    fun getAsObservable(): Flowable<DroidResource<ResultType>> {
+    fun getAsFlowable(): Flowable<DroidResource<ResultType>> {
         return result
     }
 }
