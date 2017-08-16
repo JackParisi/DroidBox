@@ -12,49 +12,46 @@ import timber.log.Timber
  * Created by Giacomo Parisi on 09/07/2017.
  * https://github.com/JackParisi
  */
-abstract class DroidRxRepository<ResultType> {
+abstract class DroidRxDataProvider<ResultType> : DroidDataProvider<Flowable<DroidResource<ResultType>>>() {
 
-    private var result: Flowable<DroidResource<ResultType>>
 
-    init {
-
-        result = Flowable.create({ emitter: FlowableEmitter<DroidResource<ResultType>> ->
-            startRepository(emitter)
-        }, BackpressureStrategy.BUFFER)
-
-    }
+    override final var result: Flowable<DroidResource<ResultType>> =
+            Flowable.create({
+                emitter: FlowableEmitter<DroidResource<ResultType>> ->
+                startRepository(emitter)
+            }, BackpressureStrategy.BUFFER)
 
     private fun startRepository(emitter: FlowableEmitter<DroidResource<ResultType>>) {
-        val dbSource = loadFromDb()
-        if(dbSource != null) {
+        val dbSource = loadFromDb(databaseData)
+        if (dbSource != null) {
             dbSource.subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ data: ResultType ->
                         if (shouldFetch(data)) {
                             fetchFromNetwork(data, emitter)
-                        }else{
+                        } else {
                             emitter.onNext(DroidResource.Database(data))
                         }
                     }, { throwable ->
                         emitter.onNext(DroidResource.NetworkError(throwable))
                         Timber.e(throwable.message)
                     })
-        }else if(shouldFetch(null)){
+        } else if (shouldFetch(null)) {
             fetchFromNetwork(null, emitter)
         }
     }
 
     private fun fetchFromNetwork(dbSource: ResultType?, emitter: FlowableEmitter<DroidResource<ResultType>>) {
-        val apiResponse = fetchFromNetwork()
+        val apiResponse = fetchFromNetwork(networkData)
 
-        if(shouldLoadFromDbBeforeFetch() && dbSource != null){
+        if (shouldLoadFromDbBeforeFetch() && dbSource != null) {
             emitter.onNext(DroidResource.Database(dbSource))
         }
 
         apiResponse?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe({ data ->
-                    if(data != null) {
+                    if (data != null) {
                         saveResultAndReInit(data)
                     }
                 }, { throwable -> emitter.onNext(DroidResource.NetworkError(throwable)) })
@@ -68,7 +65,7 @@ abstract class DroidRxRepository<ResultType> {
 
         save.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ loadFromDb() }, { })
+                .subscribe({ loadFromDb(databaseData) }, { })
     }
 
     // Called to save the result of the API response into the database
@@ -76,7 +73,7 @@ abstract class DroidRxRepository<ResultType> {
     protected abstract fun saveCallResult(data: ResultType?)
 
     // Called with the data in the database to decide whether it should be
-    // fetched from the network.
+// fetched from the network.
     @MainThread
     protected abstract fun shouldFetch(data: ResultType?): Boolean
 
@@ -85,11 +82,11 @@ abstract class DroidRxRepository<ResultType> {
 
     // Called to get the cached data from the database
     @MainThread
-    protected abstract fun loadFromDb(): Flowable<ResultType>?
+    protected abstract fun loadFromDb(data: Any?): Flowable<ResultType>?
 
     // Called to create the API call.
     @MainThread
-    protected abstract fun fetchFromNetwork(): Single<ResultType>?
+    protected abstract fun fetchFromNetwork(data: Any?): Single<ResultType>?
 
     // Called when the fetch fails. The child class may want to reset components
     // like rate limiter.
@@ -97,8 +94,4 @@ abstract class DroidRxRepository<ResultType> {
     protected fun onFetchFailed() {
     }
 
-    // returns a LiveData that represents the resource
-    fun getAsFlowable(): Flowable<DroidResource<ResultType>> {
-        return result
-    }
 }
