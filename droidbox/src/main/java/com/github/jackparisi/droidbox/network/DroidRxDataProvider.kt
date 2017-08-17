@@ -2,6 +2,7 @@ package com.github.jackparisi.droidbox.network
 
 import android.support.annotation.MainThread
 import android.support.annotation.WorkerThread
+import android.util.Log
 import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -15,7 +16,7 @@ import timber.log.Timber
 abstract class DroidRxDataProvider<ResultType> : DroidDataProvider<Flowable<DroidResource<ResultType>>>() {
 
 
-    override final var result: Flowable<DroidResource<ResultType>> =
+    override final var repository: Flowable<DroidResource<ResultType>> =
             Flowable.create({
                 emitter: FlowableEmitter<DroidResource<ResultType>> ->
                 startRepository(emitter)
@@ -26,15 +27,16 @@ abstract class DroidRxDataProvider<ResultType> : DroidDataProvider<Flowable<Droi
         if (dbSource != null) {
             dbSource.subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({ data: ResultType ->
-                        if (shouldFetch(data)) {
-                            fetchFromNetwork(data, emitter)
+                    .subscribe({
+                        if (shouldFetch(it)) {
+                            fetchFromNetwork(it, emitter)
                         } else {
-                            emitter.onNext(DroidResource.Database(data))
+                            emitter.onNext(DroidResource.Database(it))
                         }
-                    }, { throwable ->
-                        emitter.onNext(DroidResource.NetworkError(throwable))
-                        Timber.e(throwable.message)
+                    }, {
+
+                        Timber.e(it.message)
+                        emitter.onNext(DroidResource.NetworkError(it))
                     })
         } else if (shouldFetch(null)) {
             fetchFromNetwork(null, emitter)
@@ -50,25 +52,30 @@ abstract class DroidRxDataProvider<ResultType> : DroidDataProvider<Flowable<Droi
 
         apiResponse?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribe({ data ->
-                    if (data != null) {
-                        saveResultAndReInit(data)
+                ?.subscribe({
+                    if (it != null) {
+                        saveResultAndReInit(it, emitter)
                     }
-                }, { throwable -> emitter.onNext(DroidResource.NetworkError(throwable)) })
+                }, { emitter.onNext(DroidResource.NetworkError(it)) })
     }
 
-    private fun saveResultAndReInit(apiResponse: ResultType) {
-        val save = Single.create(SingleOnSubscribe<ResultType> { e ->
+    private fun saveResultAndReInit(apiResponse: ResultType, emitter: FlowableEmitter<DroidResource<ResultType>>) {
+        val save = Single.create(SingleOnSubscribe<ResultType> {
             saveCallResult(apiResponse)
-            e.onSuccess(apiResponse)
+            it.onSuccess(apiResponse)
         })
 
         save.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ loadFromDb(databaseData) }, { })
+                .subscribe(
+                        { loadFromDb(databaseData) }, {
+                            Timber.e(it.message)
+                            emitter.onNext(DroidResource.NetworkError(it))
+                        }
+                )
     }
 
-    // Called to save the result of the API response into the database
+    // Called to save the repository of the API response into the database
     @WorkerThread
     protected abstract fun saveCallResult(data: ResultType?)
 
@@ -82,11 +89,11 @@ abstract class DroidRxDataProvider<ResultType> : DroidDataProvider<Flowable<Droi
 
     // Called to get the cached data from the database
     @MainThread
-    protected abstract fun loadFromDb(data: Any?): Flowable<ResultType>?
+    protected abstract fun loadFromDb(data: Map<String, String>?): Flowable<ResultType>?
 
     // Called to create the API call.
     @MainThread
-    protected abstract fun fetchFromNetwork(data: Any?): Single<ResultType>?
+    protected abstract fun fetchFromNetwork(data: Map<String, String>?): Single<ResultType>?
 
     // Called when the fetch fails. The child class may want to reset components
     // like rate limiter.
