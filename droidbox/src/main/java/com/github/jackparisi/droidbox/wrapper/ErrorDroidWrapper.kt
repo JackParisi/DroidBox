@@ -16,7 +16,7 @@ import timber.log.Timber
 class ErrorDroidWrapper : DroidWrapper() {
 
     private var errorCallback: Observable.OnPropertyChangedCallback? = null
-    private lateinit var viewModel: DroidViewModel
+    private var viewModel: DroidViewModel? = null
 
 
     override fun wrapLayout(viewModel: DroidViewModel, pageLayout: View, wrapperLayout: View?, context: Context, params: ViewGroup.LayoutParams): View {
@@ -49,10 +49,10 @@ class ErrorDroidWrapper : DroidWrapper() {
 
     private fun shouldShowWrapper(): Boolean{
 
-        return viewModel.loading.get()
+        return viewModel?.loading!!.get()
     }
 
     fun removeCallback() {
-        viewModel.error.removeOnPropertyChangedCallback(errorCallback)
+        viewModel?.error?.removeOnPropertyChangedCallback(errorCallback)
     }
 }

@@ -16,7 +16,7 @@ import timber.log.Timber
 class LoadingDroidWrapper : DroidWrapper() {
 
     private var loadingCallback: Observable.OnPropertyChangedCallback? = null
-    private lateinit var viewModel: DroidViewModel
+    private var viewModel: DroidViewModel? = null
 
     override fun wrapLayout(viewModel: DroidViewModel, pageLayout: View, wrapperLayout: View?, context: Context, params: ViewGroup.LayoutParams): View {
         val frameLayout = FrameLayout(context)
@@ -47,10 +47,10 @@ class LoadingDroidWrapper : DroidWrapper() {
 
     private fun shouldShowWrapper(): Boolean{
 
-        return viewModel.loading.get()
+        return viewModel?.loading!!.get()
     }
 
     fun removeCallback() {
-        viewModel.loading.removeOnPropertyChangedCallback(loadingCallback)
+        viewModel?.loading?.removeOnPropertyChangedCallback(loadingCallback)
     }
 }
