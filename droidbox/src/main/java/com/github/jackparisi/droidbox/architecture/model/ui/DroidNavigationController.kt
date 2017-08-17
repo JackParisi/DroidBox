@@ -1,6 +1,7 @@
 package com.github.jackparisi.droidbox.architecture.model.ui
 
 import android.content.Intent
+import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 
 /**
@@ -10,8 +11,9 @@ import android.support.v4.app.FragmentActivity
 
 class DroidNavigationController {
 
-    fun openActivity(currentActivity: FragmentActivity, nextActivity: Class<*>, finish: Boolean = false){
+    fun openActivity(currentActivity: FragmentActivity, nextActivity: Class<*>, bundle: Bundle? = null, finish: Boolean = false){
         val intent = Intent(currentActivity, nextActivity)
+        bundle?.let { intent.putExtras(bundle) }
         currentActivity.startActivity(intent)
         if(finish){
             currentActivity.finish()
