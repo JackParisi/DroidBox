@@ -2,7 +2,6 @@ package com.github.jackparisi.droidbox.network
 
 import android.support.annotation.MainThread
 import android.support.annotation.WorkerThread
-import android.util.Log
 import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -36,7 +35,7 @@ abstract class DroidRxDataProvider<ResultType> : DroidDataProvider<Flowable<Droi
                     }, {
 
                         Timber.e(it.message)
-                        emitter.onNext(DroidResource.NetworkError(it))
+                        emitter.onError(it)
                     })
         } else if (shouldFetch(null)) {
             fetchFromNetwork(null, emitter)
@@ -70,7 +69,7 @@ abstract class DroidRxDataProvider<ResultType> : DroidDataProvider<Flowable<Droi
                 .subscribe(
                         { loadFromDb(databaseData) }, {
                             Timber.e(it.message)
-                            emitter.onNext(DroidResource.NetworkError(it))
+                    emitter.onError(it)
                         }
                 )
     }
