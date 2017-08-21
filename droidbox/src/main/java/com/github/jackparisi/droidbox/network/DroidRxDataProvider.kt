@@ -30,7 +30,7 @@ abstract class DroidRxDataProvider<ResultType> : DroidDataProvider<Flowable<Droi
                         if (shouldFetch(it)) {
                             fetchFromNetwork(it, emitter)
                         } else {
-                            emitter.onNext(DroidResource.Database(it))
+                            emitter.onNext(DroidResource.DatabaseResource(it))
                         }
                     }, {
 
@@ -46,7 +46,7 @@ abstract class DroidRxDataProvider<ResultType> : DroidDataProvider<Flowable<Droi
         val apiResponse = fetchFromNetwork(networkData)
 
         if (shouldLoadFromDbBeforeFetch() && dbSource != null) {
-            emitter.onNext(DroidResource.Database(dbSource))
+            emitter.onNext(DroidResource.DatabaseResource(dbSource))
         }
 
         apiResponse?.subscribeOn(Schedulers.io())
@@ -55,7 +55,7 @@ abstract class DroidRxDataProvider<ResultType> : DroidDataProvider<Flowable<Droi
                     if (it != null) {
                         saveResultAndReInit(it, emitter)
                     }
-                }, { emitter.onNext(DroidResource.NetworkError(it)) })
+                }, { emitter.onError(it) })
     }
 
     private fun saveResultAndReInit(apiResponse: ResultType, emitter: FlowableEmitter<DroidResource<ResultType>>) {
