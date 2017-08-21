@@ -19,7 +19,7 @@ class ToolbarDroidWrapper : DroidWrapper(){
         val linearLayout = LinearLayout(context)
         linearLayout.orientation = LinearLayout.VERTICAL
         if(wrapperLayout != null) {
-            linearLayout.addView(wrapperLayout, params)
+            linearLayout.addView(wrapperLayout)
         }else{
             //TODO throw exception
             Timber.e("Toolbar wrapper is null")
