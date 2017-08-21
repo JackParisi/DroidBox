@@ -3,6 +3,7 @@ package com.github.jackparisi.droidbox.architecture.model
 import android.arch.lifecycle.ViewModel
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
+import android.databinding.ObservableInt
 
 /**
  * Created by Giacomo Parisi on 30/06/2017.
@@ -19,4 +20,6 @@ abstract class DroidViewModel : ViewModel() {
     var retryButtonMessage = ObservableField<String>()
 
     var loading = ObservableBoolean()
+
+    var title = ObservableInt()
 }
