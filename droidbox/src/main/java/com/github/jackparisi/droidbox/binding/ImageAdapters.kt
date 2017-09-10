@@ -23,13 +23,16 @@ fun bindSrcRes(v: ImageView, i: Int) {
 /**
  * NETWORK
  */
-@BindingAdapter("srcUrlCenterCrop", "baseUrl", requireAll = false)
-fun bindImageUrlCenterCrop(v: ImageView, url: String?, baseUrl: String?) {
+@BindingAdapter("srcUrl", "baseUrl", "centerCrop", requireAll = false)
+fun bindImageUrl(v: ImageView, url: String?, baseUrl: String?, centerCrop: Boolean?) {
     if (url != null && !url.isEmpty()) {
-        Glide.with(v.context)
-                .load(if (baseUrl != null) baseUrl + url else url)
-                .centerCrop()
-                .into(v)
+        val request = Glide.with(v.context).load(if (baseUrl != null) baseUrl + url else url)
+
+        if (centerCrop != null && centerCrop) {
+            request.centerCrop()
+        }
+
+        request.into(v)
     }
 }
 
@@ -37,29 +40,19 @@ fun bindImageUrlCenterCrop(v: ImageView, url: String?, baseUrl: String?) {
 /**
  * BYTE
  */
-@BindingAdapter("srcByteCenterCrop")
-fun bindImageByteCenterCrop(v: ImageView, byte: String?) {
+@BindingAdapter("srcByte", "centerCrop", requireAll = false)
+fun bindImageByte(v: ImageView, byte: String?, centerCrop: Boolean?) {
 
     if (byte != null && !byte.isEmpty()) {
 
         val imageByteArray = Base64.decode(byte, Base64.DEFAULT)
 
-        Glide.with(v.context)
-                .load(imageByteArray)
-                .centerCrop()
-                .into(v)
-    }
-}
+        val request = Glide.with(v.context).load(imageByteArray)
 
-@BindingAdapter("srcByte")
-fun bindImageByte(v: ImageView, byte: String?) {
+        if (centerCrop != null && centerCrop) {
+            request.centerCrop()
+        }
 
-    if (byte != null && !byte.isEmpty()) {
-
-        val imageByteArray = Base64.decode(byte, Base64.DEFAULT)
-
-        Glide.with(v.context)
-                .load(imageByteArray)
-                .into(v)
+        request.into(v)
     }
 }
