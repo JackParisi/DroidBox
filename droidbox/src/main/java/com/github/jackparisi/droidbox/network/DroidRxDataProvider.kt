@@ -53,12 +53,12 @@ abstract class DroidRxDataProvider<ResultType> : DroidDataProvider<Flowable<Droi
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe({
                     if (it != null) {
-                        saveResultAndReInit(it, emitter)
+                        saveResult(it, emitter)
                     }
                 }, { emitter.onError(it) })
     }
 
-    private fun saveResultAndReInit(apiResponse: ResultType, emitter: FlowableEmitter<DroidResource<ResultType>>) {
+    private fun saveResult(apiResponse: ResultType, emitter: FlowableEmitter<DroidResource<ResultType>>) {
         val save = Single.create(SingleOnSubscribe<ResultType> {
             saveCallResult(apiResponse)
             it.onSuccess(apiResponse)
@@ -67,7 +67,7 @@ abstract class DroidRxDataProvider<ResultType> : DroidDataProvider<Flowable<Droi
         save.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { loadFromDb(databaseData) }, {
+                        { emitter.onNext(DroidResource.NetworkResource(apiResponse)) }, {
                             Timber.e(it.message)
                     emitter.onError(it)
                         }
