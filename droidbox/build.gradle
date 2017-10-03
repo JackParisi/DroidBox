@@ -45,9 +45,9 @@ dependencies {
     kapt "com.android.databinding:compiler:$android_plugin_version"
 
     /*ANDROID LIFECYCLE*/
-    compile "android.arch.lifecycle:runtime:1.0.0-alpha7"
-    compile "android.arch.lifecycle:extensions:1.0.0-alpha7"
-    kapt "android.arch.lifecycle:compiler:1.0.0-alpha7"
+    compile "android.arch.lifecycle:runtime:1.0.0-alpha9-1"
+    compile "android.arch.lifecycle:extensions:1.0.0-alpha9-1"
+    kapt "android.arch.lifecycle:compiler:1.0.0-alpha9-1"
 
     /*TIMBER*/
     compile "com.jakewharton.timber:timber:4.5.1"
@@ -63,7 +63,7 @@ dependencies {
     compile "com.squareup.okhttp3:logging-interceptor:3.8.1"
 
     /*FIREBASE*/
-    compile "com.google.firebase:firebase-crash:11.2.2"
+    compile "com.google.firebase:firebase-crash:11.4.0"
 
     /*GLIDE*/
     compile "com.github.bumptech.glide:glide:3.7.0"
