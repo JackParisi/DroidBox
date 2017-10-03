@@ -1,9 +1,12 @@
 package com.github.jackparisi.droidbox.binding
 
 import android.databinding.BindingAdapter
+import android.graphics.Bitmap
 import android.util.Base64
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.animation.GlideAnimation
+import com.bumptech.glide.request.target.SimpleTarget
 
 /**
  * Created by Giacomo Parisi on 22/07/17.
@@ -14,7 +17,7 @@ import com.bumptech.glide.Glide
 /**
  * RESOURCES
  */
-@BindingAdapter("srcRes")
+@BindingAdapter("imageRes_src")
 fun bindSrcRes(v: ImageView, i: Int) {
     v.setImageResource(i)
 }
@@ -23,24 +26,42 @@ fun bindSrcRes(v: ImageView, i: Int) {
 /**
  * NETWORK
  */
-@BindingAdapter("srcUrl", "baseUrl", "centerCrop", requireAll = false)
-fun bindImageUrl(v: ImageView, url: String?, baseUrl: String?, centerCrop: Boolean?) {
+@BindingAdapter("imageUrl_src", "imageUrl_baseUrl", "imageUrl_centerCrop", "imageUrl_dynamicHeight", requireAll = false)
+fun bindImageUrl(v: ImageView, url: String?, baseUrl: String?, centerCrop: Boolean?, dynamicHeight: Boolean?) {
     if (url != null && !url.isEmpty()) {
         val request = Glide.with(v.context).load(if (baseUrl != null) baseUrl + url else url)
 
         if (centerCrop != null && centerCrop) {
             request.centerCrop()
+        } else {
+            request.fitCenter()
         }
 
-        request.into(v)
+        if (dynamicHeight != null && dynamicHeight) {
+            request.asBitmap()
+                    .into(object : SimpleTarget<Bitmap>() {
+                        override fun onResourceReady(resource: Bitmap?, glideAnimation: GlideAnimation<in Bitmap>?) {
+                            if (resource != null) {
+                                val height = (v.width / resource.width) * resource.height
+                                val layoutParams = v.layoutParams
+                                layoutParams.height = height
+                                v.layoutParams = layoutParams
+                                val bitmap = Bitmap.createScaledBitmap(resource, v.width, height, false)
+                                v.setImageBitmap(bitmap)
+                            }
+                        }
+
+                    })
+        } else {
+            request.into(v)
+        }
     }
 }
-
 
 /**
  * BYTE
  */
-@BindingAdapter("srcByte", "centerCrop", requireAll = false)
+@BindingAdapter("imageByte_src", "imageByte_centerCrop", requireAll = false)
 fun bindImageByte(v: ImageView, byte: String?, centerCrop: Boolean?) {
 
     if (byte != null && !byte.isEmpty()) {
