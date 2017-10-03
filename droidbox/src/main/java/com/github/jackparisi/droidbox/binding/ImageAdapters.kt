@@ -4,6 +4,7 @@ import android.databinding.BindingAdapter
 import android.graphics.Bitmap
 import android.util.Base64
 import android.widget.ImageView
+import com.bumptech.glide.DrawableTypeRequest
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.SimpleTarget
@@ -15,65 +16,91 @@ import com.bumptech.glide.request.target.SimpleTarget
 
 
 /**
- * RESOURCES
+ *
+ * Get image form NETWORK-BYTE-RESOURCES image and set it in the imageView with the required properties
+ *
+ * @param view The imageView that need the image
+ * @param url The endpoint/url of the image for download
+ * @param baseUrl The baseUrl to use with the url param imageUrl = baseUrl + url
+ * @param centerCrop Set it to true if you want that Glide use centerCrop for the image
+ * @param dynamicHeight Set it to true if you want the height of the view to be adjusted proportionally based on the height of the downloaded image
  */
-@BindingAdapter("imageRes_src")
-fun bindSrcRes(v: ImageView, i: Int) {
-    v.setImageResource(i)
-}
+@BindingAdapter(
+        "image_url",
+        "image_baseUrl",
+        "image_res",
+        "image_byte",
+        "image_centerCrop",
+        "image_dynamicHeight",
+        requireAll = false)
+fun bindImage(
+        view: ImageView,
+        url: String?,
+        baseUrl: String?,
+        resId: Int?,
+        byte: String?,
+        centerCrop: Boolean?,
+        dynamicHeight: Boolean?) {
 
+    if (!url.isNullOrBlank()) {
 
-/**
- * NETWORK
- */
-@BindingAdapter("imageUrl_src", "imageUrl_baseUrl", "imageUrl_centerCrop", "imageUrl_dynamicHeight", requireAll = false)
-fun bindImageUrl(v: ImageView, url: String?, baseUrl: String?, centerCrop: Boolean?, dynamicHeight: Boolean?) {
-    if (url != null && !url.isEmpty()) {
-        val request = Glide.with(v.context).load(if (baseUrl != null) baseUrl + url else url)
+        // LOAD IMAGE FROM NETWORK (baseUrl + url or url)
+        val urlRequest = Glide.with(view.context).load(if (baseUrl != null) baseUrl + url else url)
+        executeGlideOperations(urlRequest, view, centerCrop, dynamicHeight)
 
-        if (centerCrop != null && centerCrop) {
-            request.centerCrop()
-        } else {
-            request.fitCenter()
-        }
+    }else if (!byte.isNullOrBlank()){
 
-        if (dynamicHeight != null && dynamicHeight) {
-            request.asBitmap()
-                    .into(object : SimpleTarget<Bitmap>() {
-                        override fun onResourceReady(resource: Bitmap?, glideAnimation: GlideAnimation<in Bitmap>?) {
-                            if (resource != null) {
-                                val height = (v.width / resource.width) * resource.height
-                                val layoutParams = v.layoutParams
-                                layoutParams.height = height
-                                v.layoutParams = layoutParams
-                                val bitmap = Bitmap.createScaledBitmap(resource, v.width, height, false)
-                                v.setImageBitmap(bitmap)
-                            }
-                        }
+        // LOAD IMAGE FROM BYTE ARRAY
+        val imageByteArray = Base64.decode(byte, Base64.DEFAULT)
+        val byteRequest = Glide.with(view.context).load(imageByteArray)
+        executeGlideOperations(byteRequest, view, centerCrop, dynamicHeight)
 
-                    })
-        } else {
-            request.into(v)
+    }else if(resId != null){
+
+        // LOAD IMAGE FROM RESOURCE
+        view.setImageResource(resId)
+        if(centerCrop != null && centerCrop){
+            view.scaleType = ImageView.ScaleType.CENTER_CROP
         }
     }
 }
 
 /**
- * BYTE
+ *
+ * Set the property for the glide request and set the result in the imageView
+ *
+ * @param glideRequest The glide request for the image
+ * @param view The imageView that need the image
+ * @param centerCrop Set it to true if you want that Glide use centerCrop for the image
+ * @param dynamicHeight Set it to true if you want the height of the view to be adjusted proportionally based on the height of the downloaded image
  */
-@BindingAdapter("imageByte_src", "imageByte_centerCrop", requireAll = false)
-fun bindImageByte(v: ImageView, byte: String?, centerCrop: Boolean?) {
+private fun <T> executeGlideOperations(glideRequest: DrawableTypeRequest<T>, view: ImageView, centerCrop: Boolean?, dynamicHeight: Boolean?){
 
-    if (byte != null && !byte.isEmpty()) {
+    // SELECT SCALE TYPE METHOD
+    if (centerCrop != null && centerCrop) {
+        glideRequest.centerCrop()
+    } else {
+        glideRequest.fitCenter()
+    }
 
-        val imageByteArray = Base64.decode(byte, Base64.DEFAULT)
+    if (dynamicHeight != null && dynamicHeight) {
 
-        val request = Glide.with(v.context).load(imageByteArray)
+        // UPDATE THE VIEW HEIGHT PROPORTIONALLY TO IMAGE HEIGHT
+        glideRequest.asBitmap()
+                .into(object : SimpleTarget<Bitmap>() {
+                    override fun onResourceReady(resource: Bitmap?, glideAnimation: GlideAnimation<in Bitmap>?) {
+                        if (resource != null) {
+                            val height = (view.width / resource.width) * resource.height
+                            val layoutParams = view.layoutParams
+                            layoutParams.height = height
+                            view.layoutParams = layoutParams
+                            val bitmap = Bitmap.createScaledBitmap(resource, view.width, height, false)
+                            view.setImageBitmap(bitmap)
+                        }
+                    }
 
-        if (centerCrop != null && centerCrop) {
-            request.centerCrop()
-        }
-
-        request.into(v)
+                })
+    } else {
+        glideRequest.into(view)
     }
 }
