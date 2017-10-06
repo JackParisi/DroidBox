@@ -9,7 +9,17 @@ import timber.log.Timber
  * https://github.com/JackParisi
  */
 class CrashReportingTree : Timber.Tree() {
-     override fun log(priority: Int, tag: String, message: String, throwable: Throwable?) {
+
+    /**
+     *
+     * Send the exception to Firebase after the priority is not VERBOSE or DEBUG
+     *
+     * @param priority The priority value of the exception
+     * @param tag The tag of the exception
+     * @param message The error message of the exception
+     * @param throwable The exception that need to be analyzed
+     */
+    override fun log(priority: Int, tag: String, message: String, throwable: Throwable?) {
         if (priority == Log.VERBOSE || priority == Log.DEBUG) {
             return
         }
