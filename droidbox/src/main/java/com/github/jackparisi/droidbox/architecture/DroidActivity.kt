@@ -1,7 +1,6 @@
 package com.github.jackparisi.droidbox.architecture
 
-import android.arch.lifecycle.LifecycleActivity
-import android.arch.lifecycle.LifecycleRegistry
+import android.app.Activity
 import com.github.jackparisi.droidbox.wrapper.DroidWrapperService
 
 /**
@@ -9,12 +8,9 @@ import com.github.jackparisi.droidbox.wrapper.DroidWrapperService
  * https://github.com/JackParisi
  */
 
-abstract class DroidActivity<out W : DroidWrapperService> : LifecycleActivity() {
+abstract class DroidActivity<out W : DroidWrapperService> : Activity() {
 
-    private val lifecycleRegistry: LifecycleRegistry = LifecycleRegistry(this)
     abstract protected val wrapper: W
-
-    override fun getLifecycle(): LifecycleRegistry = lifecycleRegistry
 
     override fun onDestroy() {
         super.onDestroy()
