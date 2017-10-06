@@ -1,15 +1,7 @@
 package com.github.jackparisi.droidbox.binding
 
 import android.databinding.BindingAdapter
-import android.graphics.Rect
-import android.util.Base64
-import android.view.MotionEvent
 import android.view.View
-import android.view.animation.Animation
-import android.view.animation.LinearInterpolator
-import android.view.animation.RotateAnimation
-import android.widget.ImageView
-import com.bumptech.glide.Glide
 
 
 /**
@@ -17,13 +9,25 @@ import com.bumptech.glide.Glide
  * https://github.com/JackParisi
  */
 
-
+/**
+ * Update the visibility of te view status VISIBLE/GONE based on boolean value
+ *
+ * @param view The view that need the visibility update
+ * @param visible Set it to true for VISIBLE status or false for GONE status
+ */
 @BindingAdapter("visibleOrGone")
-fun bindVisibleOrGone(v: View, visible: Boolean) {
-    v.visibility = if (visible) View.VISIBLE else View.GONE
+fun bindVisibleOrGone(view: View, visible: Boolean) {
+    view.visibility = if (visible) View.VISIBLE else View.GONE
 }
 
+/**
+ *
+ * Update the visibility of te view status VISIBLE/INVISIBLE based on boolean value
+ *
+ * @param view The view that need the visibility update
+ * @param visible Set it to true for VISIBLE status or false for INVISIBLE status
+ */
 @BindingAdapter("visibleOrInvisible")
-fun bindVisibleOrInvisible(v: View, visible: Boolean) {
-    v.visibility = if (visible) View.VISIBLE else View.INVISIBLE
+fun bindVisibleOrInvisible(view: View, visible: Boolean) {
+    view.visibility = if (visible) View.VISIBLE else View.INVISIBLE
 }
