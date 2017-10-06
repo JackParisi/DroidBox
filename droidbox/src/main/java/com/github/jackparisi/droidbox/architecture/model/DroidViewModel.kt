@@ -11,15 +11,22 @@ import android.databinding.ObservableInt
  */
 
 abstract class DroidViewModel : ViewModel() {
+
+    // True if error view is needed
     var error = ObservableBoolean()
 
+    // Class type of the last error produced
     var lastError: Class<Throwable>? = null
 
+    // Error message text
     var errorMessage = ObservableField<String>()
 
+    // Retry button text
     var retryButtonMessage = ObservableField<String>()
 
+    // True if loading view is needed
     var loading = ObservableBoolean()
 
+    // Title text
     var title = ObservableInt()
 }
