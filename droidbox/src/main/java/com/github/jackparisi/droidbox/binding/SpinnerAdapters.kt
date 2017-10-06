@@ -10,17 +10,25 @@ import com.github.jackparisi.droidbox.utility.dpToPx
  * https://github.com/JackParisi
  */
 
+/**
+ *
+ * Set a fixed height for the view dropdown popup
+ *
+ * @param view The spinner view that need a custom dropdown popup height
+ * @param height The height value in dp for the dropdown popup
+ *
+ */
 @BindingAdapter("popupHeight")
-fun bindSpinnerPopupHeight(spinner: Spinner, height: Float) {
+fun bindSpinnerPopupHeight(view: Spinner, height: Float) {
 
     try {
         val popup = Spinner::class.java.getDeclaredField("mPopup")
         popup.isAccessible = true
 
-        val popupWindow = popup.get(spinner)
+        val popupWindow = popup.get(view)
 
         if (popupWindow is ListPopupWindow) {
-            popupWindow.height = dpToPx(height, spinner.context).toInt()
+            popupWindow.height = dpToPx(height, view.context).toInt()
         }
 
     } catch (e: NoSuchFieldException) {
