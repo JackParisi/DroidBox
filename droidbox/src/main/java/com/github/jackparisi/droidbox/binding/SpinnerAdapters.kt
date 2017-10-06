@@ -18,7 +18,7 @@ import com.github.jackparisi.droidbox.utility.dpToPx
  * @param height The height value in dp for the dropdown popup
  *
  */
-@BindingAdapter("popupHeight")
+@BindingAdapter("spinner_popupHeight")
 fun bindSpinnerPopupHeight(view: Spinner, height: Float) {
 
     try {
