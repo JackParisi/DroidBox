@@ -1,6 +1,6 @@
 @file:Suppress("UNCHECKED_CAST")
 
-package com.github.jackparisi.droidbox.architecture.model.factory
+package com.github.jackparisi.droidbox.delegate
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
@@ -12,6 +12,15 @@ import android.support.v4.app.FragmentActivity
  * Created by Giacomo Parisi on 12/07/2017.
  * https://github.com/JackParisi
  */
+
+/**
+ *
+ * Delegate that initialize the android viewModel for Fragments by the provider function
+ *
+ * @param mode The LazyThreadSafetyMode used for the initialization
+ * (default: LazyThreadSafetyMode.NONE)
+ * @param provider The function that provides the viewModel
+ */
 inline fun <reified VM : ViewModel> Fragment.viewModelProvider(
         mode: LazyThreadSafetyMode = LazyThreadSafetyMode.NONE,
         crossinline provider: () -> VM) = lazy(mode) {
@@ -20,6 +29,14 @@ inline fun <reified VM : ViewModel> Fragment.viewModelProvider(
     }).get(VM::class.java)
 }
 
+/**
+ *
+ * Delegate that initialize the android viewModel for FragmentActivities by the provider function
+ *
+ * @param mode The LazyThreadSafetyMode used for the initialization
+ * (default: LazyThreadSafetyMode.NONE)
+ * @param provider The function that provides the viewModel
+ */
 inline fun <reified VM : ViewModel> FragmentActivity.viewModelProvider(
         mode: LazyThreadSafetyMode = LazyThreadSafetyMode.NONE,
         crossinline provider: () -> VM) = lazy(mode) {
