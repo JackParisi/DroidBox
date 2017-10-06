@@ -15,11 +15,20 @@ import java.util.ArrayList
 typealias UiAction = (FragmentActivity) -> Unit
 
 class DroidUiActions {
+
+    // MutableLiveData for the UIAction lists
     private val delegate = MutableLiveData<List<UiAction>>()
 
+    // List of UIAction that need to be delegate to the view
     private var list: MutableList<UiAction> = ArrayList()
 
-    fun execute(action: UiAction) {
+    /**
+     *
+     * Add a UIAction to the list of the actions that are going to invoked on the view
+     *
+     * @param action UIAction that will be added to the list
+     */
+    private fun execute(action: UiAction) {
         list.add(action)
         delegate.value = list
     }
@@ -28,12 +37,25 @@ class DroidUiActions {
         execute(action)
     }
 
+    /**
+     *
+     * Observe the list of actions and execute it on the owner view
+     *
+     * @param owner The view that observe the action list and perform it when actions are added
+     * @param executor The executor function that execute the action
+     */
     fun observe(owner: LifecycleOwner, executor: (UiAction) -> Unit) =
             delegate.observe(owner, Observer {
                 list.forEach { executor(it) }
                 list = ArrayList()
             })
 
+    /**
+     *
+     * Observe forever the list of actions and execute it
+     *
+     * @param executor The executor function that execute the action
+     */
     @MainThread fun observeForever(executor: (UiAction) -> Unit) =
             delegate.observeForever {
                 list.forEach { executor(it) }
