@@ -8,5 +8,12 @@ import android.util.TypedValue
  * https://github.com/JackParisi
  */
 
-
+/**
+ *
+ * Convert the float value for dp to pixel
+ *
+ * @param dp The value in dp
+ * @param context The context object for access to displayMetrics
+ * @return The converted value in pixels
+ */
 fun dpToPx(dp: Float, context: Context): Float = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.resources.displayMetrics)
