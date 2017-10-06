@@ -9,13 +9,21 @@ import kotlin.reflect.KProperty
  * https://github.com/JackParisi
  */
 
+/**
+ * Delegate property that access to the SharedPreferences for save the value in the setter
+ * and load the value in the get
+ *
+ * @param defaultValue The default value to return if the key is not present in the SharedPreferences
+ * @param key The key used for store the value in the SharedPreferences
+ * @param getter The getter function from SharedPreferences that need to be invoked
+ * @param setter The setter function from SharedPreferences that need to be invoked
+ *
+ */
 private inline fun <T> SharedPreferences.delegate(
         defaultValue: T,
         key: String?,
-        crossinline getter:
-        SharedPreferences.(String, T) -> T,
-        crossinline setter:
-        SharedPreferences.Editor.(String, T) -> SharedPreferences.Editor
+        crossinline getter: SharedPreferences.(String, T) -> T,
+        crossinline setter: SharedPreferences.Editor.(String, T) -> SharedPreferences.Editor
 ): ReadWriteProperty<Any, T> {
 
     return object : ReadWriteProperty<Any, T> {
@@ -27,30 +35,66 @@ private inline fun <T> SharedPreferences.delegate(
     }
 }
 
+/**
+ *
+ * SharedPreferences Delegate for Int property
+ *
+ * @param defaultValue The default value to return if the key is not present in the SharedPreferences
+ * @param key The key used for store the value in the SharedPreferences
+ */
 fun SharedPreferences.int(defaultValue: Int = -1, key: String? = null) = delegate(
         defaultValue = defaultValue,
         key = key,
         getter = SharedPreferences::getInt,
         setter = SharedPreferences.Editor::putInt)
 
+/**
+ *
+ * SharedPreferences Delegate for Long property
+ *
+ * @param defaultValue The default value to return if the key is not present in the SharedPreferences
+ * @param key The key used for store the value in the SharedPreferences
+ */
 fun SharedPreferences.long(defaultValue: Long = -1, key: String? = null) = delegate(
         defaultValue = defaultValue,
         key = key,
         getter = SharedPreferences::getLong,
         setter = SharedPreferences.Editor::putLong)
 
+/**
+ *
+ * SharedPreferences Delegate for Float property
+ *
+ * @param defaultValue The default value to return if the key is not present in the SharedPreferences
+ * @param key The key used for store the value in the SharedPreferences
+ */
 fun SharedPreferences.float(defaultValue: Float = -1f, key: String? = null) = delegate(
         defaultValue = defaultValue,
         key = key,
         getter = SharedPreferences::getFloat,
         setter = SharedPreferences.Editor::putFloat)
 
+
+/**
+ *
+ * SharedPreferences Delegate for Boolean property
+ *
+ * @param defaultValue The default value to return if the key is not present in the SharedPreferences
+ * @param key The key used for store the value in the SharedPreferences
+ */
 fun SharedPreferences.boolean(defaultValue: Boolean = false, key: String? = null) = delegate(
         defaultValue = defaultValue,
         key = key,
         getter = SharedPreferences::getBoolean,
         setter = SharedPreferences.Editor::putBoolean)
 
+/**
+ *
+ * SharedPreferences Delegate for String property
+ *
+ * @param defaultValue The default value to return if the key is not present in the SharedPreferences
+ * @param key The key used for store the value in the SharedPreferences
+ */
 fun SharedPreferences.string(defaultValue: String = "", key: String? = null) = delegate(
         defaultValue = defaultValue,
         key = key,
