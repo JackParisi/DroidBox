@@ -7,4 +7,6 @@ import com.github.jackparisi.droidbox.R
  * https://github.com/JackParisi
  */
 
-class ConnectionNotAvailableException : ManagedException(R.string.connection_error_message, R.string.reconnect)
+class ConnectionNotAvailableException(
+        errorMessageId: Int = R.string.connection_error_message,
+        retryMessageId: Int = R.string.reconnect) : ManagedException(errorMessageId, retryMessageId)

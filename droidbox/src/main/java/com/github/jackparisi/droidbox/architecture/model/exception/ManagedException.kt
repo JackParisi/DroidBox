@@ -6,32 +6,38 @@ package com.github.jackparisi.droidbox.architecture.model.exception
  */
 abstract class ManagedException : Exception {
 
+    // Error message resource's id
     var errorMessageRes: Int = 0
         private set
+    
+    // Error message string
     var errorMessage: String? = null
         private set
-    var retryButtonText: Int = 0
+
+    // Retry button label resource's id
+    var retryButtonLabelId: Int = 0
         private set
 
-    constructor(errorMessageRes: Int, retryButtonText: Int) {
+
+    constructor(errorMessageRes: Int, retryButtonLabelId: Int) {
         this.errorMessageRes = errorMessageRes
-        this.retryButtonText = retryButtonText
+        this.retryButtonLabelId = retryButtonLabelId
     }
 
-    constructor(errorMessageRes: Int, retryButtonText: Int, cause: Throwable) : super(cause) {
+    constructor(errorMessageRes: Int, retryButtonLabelId: Int, cause: Throwable) : super(cause) {
         this.errorMessageRes = errorMessageRes
-        this.retryButtonText = retryButtonText
+        this.retryButtonLabelId = retryButtonLabelId
     }
 
-    constructor(errorMessage: String, retryButtonText: Int) {
+    constructor(errorMessage: String, retryButtonLabelId: Int) {
         this.errorMessage = errorMessage
         this.errorMessageRes = 0
-        this.retryButtonText = retryButtonText
+        this.retryButtonLabelId = retryButtonLabelId
     }
 
-    constructor(errorMessage: String, retryButtonText: Int, cause: Throwable) : super(cause) {
+    constructor(errorMessage: String, retryButtonLabelId: Int, cause: Throwable) : super(cause) {
         this.errorMessage = errorMessage
         this.errorMessageRes = 0
-        this.retryButtonText = retryButtonText
+        this.retryButtonLabelId = retryButtonLabelId
     }
 }
