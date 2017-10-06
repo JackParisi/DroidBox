@@ -9,10 +9,17 @@ import io.reactivex.functions.Consumer
  * https://github.com/JackParisi
  */
 class LogErrorHandler : Consumer<Throwable> {
+
+    /**
+     *
+     * Handle the exception and check if it can be throw
+     *
+     * @param throwable The exception that need to be handled
+     */
     @Throws(Exception::class)
-    override fun accept(@NonNull e: Throwable) {
-        if (e is UndeliverableException) {
-            val cause : Throwable = e.cause!!
+    override fun accept(@NonNull throwable: Throwable) {
+        if (throwable is UndeliverableException) {
+            val cause : Throwable = throwable.cause!!
             if (LogUtils.isConnectionError(cause)) {
                 // fine, irrelevant network problem or API that throws on cancellation
                 return
@@ -23,6 +30,6 @@ class LogErrorHandler : Consumer<Throwable> {
             }
         }
         Thread.currentThread().uncaughtExceptionHandler
-                .uncaughtException(Thread.currentThread(), e)
+                .uncaughtException(Thread.currentThread(), throwable)
     }
 }
