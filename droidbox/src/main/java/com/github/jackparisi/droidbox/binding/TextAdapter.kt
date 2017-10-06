@@ -9,7 +9,15 @@ import android.widget.TextView
  * https://github.com/JackParisi
  */
 
-@BindingAdapter("textHtml")
+
+/**
+ *
+ * Format and set an HTML text in the textView
+ *
+ * @param view The textView that need the html text
+ * @param html The html string
+ */
+@BindingAdapter("text_Html")
 fun bindTextHtml(view: TextView, html: String?) {
 
     if (html != null) {
