@@ -10,6 +10,7 @@ import com.github.jackparisi.droidbox.wrapper.DroidWrapperService
 
 abstract class DroidActivity<out W : DroidWrapperService> : Activity() {
 
+    // Wrapper for build Activity view
     abstract protected val wrapper: W
 
     override fun onDestroy() {

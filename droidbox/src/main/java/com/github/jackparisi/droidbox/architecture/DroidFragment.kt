@@ -10,6 +10,7 @@ import com.github.jackparisi.droidbox.wrapper.DroidWrapperService
 
 abstract class DroidFragment<out W : DroidWrapperService> : Fragment() {
 
+    // Wrapper for build Fragment view
     abstract protected val wrapper: W
 
     override fun onDestroy() {
