@@ -14,17 +14,37 @@ import com.github.jackparisi.droidbox.architecture.model.DroidViewModel
  * https://github.com/JackParisi
  */
 
+/**
+ *
+ * RecyclerView ViewHolder that support the DroidBox architecture
+ */
 abstract class DroidViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+    // DroidViewModel of the page that menage the recyclerView
     var viewModel: DroidViewModel? = null
 
+    // The global position of the item in the list
     var globalPosition = ObservableInt()
 
+    // The local position of the item in the list
     var localPosition = ObservableInt()
 
+    /**
+     *
+     * Bind the viewHolder with the specific data of an DroidItem
+     *
+     * @param data The droidItem to bind with the viewHolder
+     */
     abstract fun bind(data: DroidItem)
 
 
+    /**
+     *
+     * Factory class to setup the DroidViewHolder
+     *
+     * @param layoutId The layout id of the view that the viewHolder menage
+     * @param factory The ViewHolderFatctory to build the viewHolder
+     */
     class Factory<B : ViewDataBinding>(private val layoutId: Int, private val factory: ViewHolderFactory<B>) {
 
         fun create(inflater: LayoutInflater, parent: ViewGroup): DroidViewHolder {
