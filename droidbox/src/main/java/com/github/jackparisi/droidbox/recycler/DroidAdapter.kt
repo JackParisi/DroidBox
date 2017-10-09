@@ -10,13 +10,27 @@ import com.github.jackparisi.droidbox.architecture.model.DroidViewModel
  * https://github.com/JackParisi
  */
 
+/**
+ *
+ * The recyclerView.Adapter that populate the recyclerView with DroidItems
+ * and bind them with the data.
+ * The adapter support the following features:
+ *
+ * - Android data binding
+ * - Different DroidItem (with different DroidViewHolder.Factory)
+ *
+ * @param itemList The list of DroidItem for populate the recyclerView
+ * @param layoutInflater The layoutInflater reference for layout inflating
+ * @param viewModel The viewModel of the view that hold the recyclerView
+ */
 class DroidAdapter(
-        var itemList: List<DroidItem>,
-        val layoutInflater: LayoutInflater,
-        val viewModel: DroidViewModel? = null)
+        private var itemList: List<DroidItem>,
+        private val layoutInflater: LayoutInflater,
+        private val viewModel: DroidViewModel? = null)
     : RecyclerView.Adapter<DroidViewHolder>() {
 
-    var viewHolderMap: MutableMap<Int, DroidViewHolder.Factory<*>> = mutableMapOf()
+    // Map of the all DroidViewHolder.Factory for the different DroidItems
+    private var viewHolderMap: MutableMap<Int, DroidViewHolder.Factory<*>> = mutableMapOf()
 
     override fun onBindViewHolder(holder: DroidViewHolder?, position: Int) {
         holder?.globalPosition?.set(position)
