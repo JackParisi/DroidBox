@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">DroidBox</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="connection_error_message">No connection!</string>
     <string name="reconnect">Reconnect</string>
     <string name="retry">Retry</string>
+
+    <!--EXCEPTION-->
+    <string name="EXCEPTION_EmptyRepository">The repository is empty: it can not fetch from the network or upload data from databases</string>
 </resources>
