@@ -7,6 +7,10 @@ import com.github.jackparisi.droidbox.R
  * https://github.com/JackParisi
  */
 
+/**
+ *
+ * ManagedException used for networking error
+ */
 class ConnectionNotAvailableException(
         errorMessageId: Int = R.string.connection_error_message,
         retryMessageId: Int = R.string.reconnect) : ManagedException(errorMessageId, retryMessageId)
