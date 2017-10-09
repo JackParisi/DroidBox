@@ -12,6 +12,11 @@ import timber.log.Timber
  * https://github.com/JackParisi
  */
 
+/**
+ *
+ * DroidWrapper for toolbar.
+ * Put the page layout below the toolbar using a linearLayout
+ */
 class ToolbarDroidWrapper : DroidWrapper(){
 
     override fun wrapLayout(viewModel: DroidViewModel, pageLayout: View, wrapperLayout: View?, context: Context, params: ViewGroup.LayoutParams): View {
