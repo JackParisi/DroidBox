@@ -6,7 +6,7 @@ import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
+import android.support.v7.app.AppCompatActivity
 
 /**
  * Created by Giacomo Parisi on 12/07/2017.
@@ -37,7 +37,7 @@ inline fun <reified VM : ViewModel> Fragment.viewModelProvider(
  * (default: LazyThreadSafetyMode.NONE)
  * @param provider The function that provides the viewModel
  */
-inline fun <reified VM : ViewModel> FragmentActivity.viewModelProvider(
+inline fun <reified VM : ViewModel> AppCompatActivity.viewModelProvider(
         mode: LazyThreadSafetyMode = LazyThreadSafetyMode.NONE,
         crossinline provider: () -> VM) = lazy(mode) {
     ViewModelProviders.of(this, object : ViewModelProvider.Factory {

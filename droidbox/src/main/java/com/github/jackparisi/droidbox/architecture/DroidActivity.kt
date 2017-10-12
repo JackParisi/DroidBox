@@ -1,6 +1,6 @@
 package com.github.jackparisi.droidbox.architecture
 
-import android.app.Activity
+import android.support.v7.app.AppCompatActivity
 import com.github.jackparisi.droidbox.wrapper.DroidWrapperService
 
 /**
@@ -8,7 +8,7 @@ import com.github.jackparisi.droidbox.wrapper.DroidWrapperService
  * https://github.com/JackParisi
  */
 
-abstract class DroidActivity<out W : DroidWrapperService> : Activity() {
+abstract class DroidActivity<out W : DroidWrapperService> : AppCompatActivity() {
 
     // Wrapper for build Activity view
     abstract protected val wrapper: W
