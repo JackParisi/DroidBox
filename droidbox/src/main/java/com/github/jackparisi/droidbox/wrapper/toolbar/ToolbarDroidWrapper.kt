@@ -1,10 +1,11 @@
-package com.github.jackparisi.droidbox.wrapper
+package com.github.jackparisi.droidbox.wrapper.toolbar
 
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.github.jackparisi.droidbox.architecture.model.DroidViewModel
+import com.github.jackparisi.droidbox.wrapper.DroidWrapper
 import timber.log.Timber
 
 /**
