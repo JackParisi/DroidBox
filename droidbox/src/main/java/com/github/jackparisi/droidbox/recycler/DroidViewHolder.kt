@@ -45,7 +45,7 @@ abstract class DroidViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
      * @param layoutId The layout id of the view that the viewHolder menage
      * @param factory The ViewHolderFatctory to build the viewHolder
      */
-    class Factory<B : ViewDataBinding>(private val layoutId: Int, private val factory: ViewHolderFactory<B>) {
+    class Factory<B : ViewDataBinding>(val layoutId: Int, private val factory: ViewHolderFactory<B>) {
 
         fun create(inflater: LayoutInflater, parent: ViewGroup): DroidViewHolder {
             val binding = DataBindingUtil.inflate<B>(inflater, layoutId, parent, false)

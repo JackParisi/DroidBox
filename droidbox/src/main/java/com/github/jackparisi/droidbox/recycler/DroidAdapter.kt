@@ -49,10 +49,10 @@ class DroidAdapter(
 
     override fun getItemViewType(position: Int): Int {
 
-        val viewHolderClassName = itemList[position].getItemViewHolder().javaClass.name
+        val viewHolderlayoutId = itemList[position].getItemViewHolder().layoutId
 
         for ((key, value) in viewHolderMap) {
-            if (value.javaClass.name == viewHolderClassName) {
+            if (value.layoutId == viewHolderlayoutId) {
                 return key
             }
         }
