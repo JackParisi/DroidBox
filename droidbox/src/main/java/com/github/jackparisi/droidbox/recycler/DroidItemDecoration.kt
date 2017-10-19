@@ -14,13 +14,13 @@ class DroidItemDecoration(
         private val context: Context,
         private val listSize: Int) : RecyclerView.ItemDecoration() {
 
-    var leftMarginDp: Float = 0f
+    var leftMarginDp: Float = 0.0f
         set(value) {
-            dpToPx(value, context)
+            field = dpToPx(value, context)
         }
-    var rightMarginDp: Float = 0f
+    var rightMarginDp: Float = 0.0f
         set(value) {
-            dpToPx(value, context)
+            field = dpToPx(value, context)
         }
 
     override fun getItemOffsets(outRect: Rect?, view: View?, parent: RecyclerView?, state: RecyclerView.State?) {
