@@ -49,7 +49,7 @@ class ErrorDroidWrapper : DroidWrapper() {
 
     private fun shouldShowWrapper(): Boolean{
 
-        return viewModel?.loading!!.get()
+        return viewModel?.error!!.get()
     }
 
     fun removeCallback() {
