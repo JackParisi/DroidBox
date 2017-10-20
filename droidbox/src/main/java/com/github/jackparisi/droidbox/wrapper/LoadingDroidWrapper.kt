@@ -1,9 +1,7 @@
 package com.github.jackparisi.droidbox.wrapper
 
-import android.content.Context
 import android.databinding.Observable
 import android.view.View
-import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.github.jackparisi.droidbox.architecture.model.DroidViewModel
 import timber.log.Timber
@@ -27,25 +25,25 @@ class LoadingDroidWrapper : DroidWrapper() {
     // Reference of the droidViewModel of the page
     private var viewModel: DroidViewModel? = null
 
-    override fun wrapLayout(viewModel: DroidViewModel, pageLayout: View, wrapperLayout: View?, context: Context, params: ViewGroup.LayoutParams): View {
-        val frameLayout = FrameLayout(context)
-        frameLayout.layoutParams = params
-        frameLayout.addView(pageLayout, params)
+    override fun <T : DroidWrapperSettings> wrapLayout(settings: T): View {
+        val frameLayout = FrameLayout(settings.context)
+        frameLayout.layoutParams = settings.params
+        frameLayout.addView(settings.pageLayout, settings.params)
         this.viewModel = viewModel
 
-        if(wrapperLayout != null) {
-            frameLayout.addView(wrapperLayout, params)
+        if (settings.wrapperLayout != null) {
+            frameLayout.addView(settings.wrapperLayout, settings.params)
 
             loadingCallback = object : Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(observable: Observable, i: Int) {
-                    wrapperLayout.visibility = if (shouldShowWrapper()) View.VISIBLE else View.GONE
+                    settings.wrapperLayout.visibility = if (shouldShowWrapper()) View.VISIBLE else View.GONE
                 }
             }
 
-            viewModel.loading.addOnPropertyChangedCallback(loadingCallback)
+            viewModel?.loading?.addOnPropertyChangedCallback(loadingCallback)
 
 
-            wrapperLayout.visibility = if (shouldShowWrapper()) View.VISIBLE else View.GONE
+            settings.wrapperLayout.visibility = if (shouldShowWrapper()) View.VISIBLE else View.GONE
         }else{
             //TODO throw exception
             Timber.e("Error Loading Wrapper is null")

@@ -1,11 +1,10 @@
 package com.github.jackparisi.droidbox.wrapper.toolbar
 
-import android.content.Context
 import android.view.View
-import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.LinearLayout
-import com.github.jackparisi.droidbox.architecture.model.DroidViewModel
 import com.github.jackparisi.droidbox.wrapper.DroidWrapper
+import com.github.jackparisi.droidbox.wrapper.DroidWrapperSettings
 import timber.log.Timber
 
 /**
@@ -20,18 +19,34 @@ import timber.log.Timber
  */
 class ToolbarDroidWrapper : DroidWrapper(){
 
-    override fun wrapLayout(viewModel: DroidViewModel, pageLayout: View, wrapperLayout: View?, context: Context, params: ViewGroup.LayoutParams): View {
+    override fun <T : DroidWrapperSettings> wrapLayout(settings: T): View {
+        if (settings is ToolbarDroidSettings) {
+            if (settings.overPageLayout) {
+                val frameLayout = FrameLayout(settings.context)
+                if (settings.wrapperLayout != null) {
+                    frameLayout.addView(settings.pageLayout, settings.params)
+                } else {
+                    //TODO throw exception
+                    Timber.e("Toolbar wrapper is null")
+                }
+                frameLayout.addView(settings.wrapperLayout)
 
-        val linearLayout = LinearLayout(context)
-        linearLayout.orientation = LinearLayout.VERTICAL
-        if(wrapperLayout != null) {
-            linearLayout.addView(wrapperLayout)
-        }else{
-            //TODO throw exception
-            Timber.e("Toolbar wrapper is null")
+                return frameLayout
+            } else {
+                val linearLayout = LinearLayout(settings.context)
+                linearLayout.orientation = LinearLayout.VERTICAL
+                if (settings.wrapperLayout != null) {
+                    linearLayout.addView(settings.wrapperLayout)
+                } else {
+                    //TODO throw exception
+                    Timber.e("Toolbar wrapper is null")
+                }
+                linearLayout.addView(settings.pageLayout, settings.params)
+
+                return linearLayout
+            }
         }
-        linearLayout.addView(pageLayout, params)
 
-        return linearLayout
+        return settings.pageLayout
     }
 }

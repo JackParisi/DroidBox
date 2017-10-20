@@ -1,9 +1,7 @@
 package com.github.jackparisi.droidbox.wrapper
 
-import android.content.Context
 import android.databinding.Observable
 import android.view.View
-import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.github.jackparisi.droidbox.architecture.model.DroidViewModel
 import timber.log.Timber
@@ -19,26 +17,26 @@ class ErrorDroidWrapper : DroidWrapper() {
     private var viewModel: DroidViewModel? = null
 
 
-    override fun wrapLayout(viewModel: DroidViewModel, pageLayout: View, wrapperLayout: View?, context: Context, params: ViewGroup.LayoutParams): View {
+    override fun <T : DroidWrapperSettings> wrapLayout(settings: T): View {
 
-        val frameLayout = FrameLayout(context)
-        frameLayout.addView(pageLayout, params)
+        val frameLayout = FrameLayout(settings.context)
+        frameLayout.addView(settings.pageLayout, settings.params)
 
         this.viewModel = viewModel
 
-        if(wrapperLayout != null) {
-            frameLayout.addView(wrapperLayout, params)
+        if (settings.wrapperLayout != null) {
+            frameLayout.addView(settings.wrapperLayout, settings.params)
 
             errorCallback = object : Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(observable: Observable, i: Int) {
-                    wrapperLayout.visibility = if (shouldShowWrapper()) View.VISIBLE else View.GONE
+                    settings.wrapperLayout.visibility = if (shouldShowWrapper()) View.VISIBLE else View.GONE
                 }
             }
 
-            viewModel.error.addOnPropertyChangedCallback(errorCallback)
+            viewModel?.error?.addOnPropertyChangedCallback(errorCallback)
 
 
-            wrapperLayout.visibility = if (shouldShowWrapper()) View.VISIBLE else View.GONE
+            settings.wrapperLayout.visibility = if (shouldShowWrapper()) View.VISIBLE else View.GONE
         }else{
             //TODO throw exception
             Timber.e("Error Loading Wrapper is null")
