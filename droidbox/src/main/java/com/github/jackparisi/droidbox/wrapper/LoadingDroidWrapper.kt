@@ -29,7 +29,7 @@ class LoadingDroidWrapper : DroidWrapper() {
         val frameLayout = FrameLayout(settings.context)
         frameLayout.layoutParams = settings.params
         frameLayout.addView(settings.pageLayout, settings.params)
-        this.viewModel = viewModel
+        this.viewModel = settings.viewModel
 
         if (settings.wrapperLayout != null) {
             frameLayout.addView(settings.wrapperLayout, settings.params)

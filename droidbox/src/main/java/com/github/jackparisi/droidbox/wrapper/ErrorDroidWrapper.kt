@@ -22,7 +22,7 @@ class ErrorDroidWrapper : DroidWrapper() {
         val frameLayout = FrameLayout(settings.context)
         frameLayout.addView(settings.pageLayout, settings.params)
 
-        this.viewModel = viewModel
+        this.viewModel = settings.viewModel
 
         if (settings.wrapperLayout != null) {
             frameLayout.addView(settings.wrapperLayout, settings.params)
