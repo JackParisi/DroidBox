@@ -50,6 +50,14 @@ abstract class DroidViewModel : ViewModel() {
         loading.set(false)
     }
 
+    fun retryFromError() {
+        hideError()
+    }
+
+    fun hideError() {
+        error.set(false)
+    }
+
     private fun getErrorMessage(throwable: Throwable) {
         if (throwable is ManagedException) {
             errorMessage.set(throwable.errorMessageRes)
