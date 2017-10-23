@@ -12,7 +12,7 @@ import com.github.jackparisi.droidbox.architecture.model.DroidViewModel
 
 /**
  *
- * Data for the wrapper
+ * Class of date used for perform a wrap
  *
  * @param viewModel The droidViewModel of the page to bind the wrapper
  * @param pageLayout The layout of the page
