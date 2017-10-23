@@ -1,0 +1,84 @@
+ext.app_config = [
+        versionCode: 1,
+        versionName: '1.0'
+]
+
+ext.android_config = [
+        minSdk    : 21,
+        targetSdk : 26,
+        compileSdk: 26,
+        buildTools: '26.0.2'
+]
+
+ext.versions = [
+
+        /* ANDROID */
+        supportLibs  : '26.1.0',
+        androidPlugin: '3.0.0-alpha9',
+        kotlin       : '1.1.51',
+        architecture : '1.0.0-rc1',
+
+        /* GOOGLE */
+        playServices : '11.4.2',
+
+        /* 3RD */
+        retrofit     : '2.3.0',
+        glide        : '4.2.0',
+        timber       : '4.5.1',
+        rxJava       : '2.1.0',
+        rxAndroid    : '2.0.1',
+
+        /* TEST */
+        junit        : '4.12',
+        espresso     : '3.0.1',
+        runner       : '1.0.1'
+]
+
+ext.deps = [
+
+        /* DATA BINDING */
+        dataBinding       : "com.android.databinding:compiler:$versions.androidPlugin",
+
+        /* KOTLIN */
+        kotlinStdlib      : "org.jetbrains.kotlin:kotlin-stdlib-jre7:$versions.kotlin",
+
+        /* ANDROID */
+        androidPlugin     : "com.android.tools.build:gradle:$versions.androidPlugin",
+
+        /* ANDROID ARCHITECTURE */
+        lifecycleExtension: "android.arch.lifecycle:extensions:$versions.architecture",
+        lifecycleCompiler : "android.arch.lifecycle:compiler:$versions.architecture",
+]
+
+ext.deps3RD = [
+
+        /* RETROFIT */
+        retrofit     : "com.squareup.retrofit2:retrofit:$versions.retrofit",
+
+        /* GLIDE */
+        glide        : "com.github.bumptech.glide:glide:$versions.glide",
+        glideCompiler: "com.github.bumptech.glide:compiler:$versions.glide",
+
+        /* TIMBER */
+        timber       : "com.jakewharton.timber:timber:$versions.timber",
+
+        /* RX */
+        rxJava       : "io.reactivex.rxjava2:rxjava:$versions.rxJava",
+        rxAndroid    : "io.reactivex.rxjava2:rxandroid:$versions.rxAndroid",
+]
+
+ext.support = [
+        appCompact  : "com.android.support:appcompat-v7:$versions.supportLibs",
+        recyclerView: "com.android.support:recyclerview-v7:$versions.supportLibs",
+]
+
+ext.google = [
+        firebaseCrash: "com.google.firebase:firebase-crash:$versions.playServices"
+]
+
+ext.test = [
+        junit   : "junit:junit:$versions.junit",
+        runner  : "com.android.support.test:runner:$versions.runner",
+        espresso: "com.android.support.test.espresso:espresso-core:$versions.espresso"
+]
+

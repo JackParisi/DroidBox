@@ -4,10 +4,10 @@ import android.databinding.BindingAdapter
 import android.graphics.Bitmap
 import android.util.Base64
 import android.widget.ImageView
-import com.bumptech.glide.DrawableTypeRequest
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
+import com.github.jackparisi.droidbox.architecture.glide.GlideApp
+import com.github.jackparisi.droidbox.architecture.glide.GlideRequest
 
 /**
  * Created by Giacomo Parisi on 22/07/17.
@@ -43,23 +43,22 @@ fun bindImage(
         dynamicHeight: Boolean?) {
 
     if (!url.isNullOrBlank()) {
-
         // LOAD IMAGE FROM NETWORK (baseUrl + url or url)
-        val urlRequest = Glide.with(view.context).load(if (baseUrl != null) baseUrl + url else url)
+        val urlRequest = GlideApp.with(view.context).asBitmap().load(if (baseUrl != null) baseUrl + url else url)
         executeGlideOperations(urlRequest, view, centerCrop, dynamicHeight)
 
-    }else if (!byte.isNullOrBlank()){
+    } else if (!byte.isNullOrBlank()) {
 
         // LOAD IMAGE FROM BYTE ARRAY
         val imageByteArray = Base64.decode(byte, Base64.DEFAULT)
-        val byteRequest = Glide.with(view.context).load(imageByteArray)
+        val byteRequest = GlideApp.with(view.context).asBitmap().load(imageByteArray)
         executeGlideOperations(byteRequest, view, centerCrop, dynamicHeight)
 
-    }else if(resId != null){
+    } else if (resId != null) {
 
         // LOAD IMAGE FROM RESOURCE
         view.setImageResource(resId)
-        if(centerCrop != null && centerCrop){
+        if (centerCrop != null && centerCrop) {
             view.scaleType = ImageView.ScaleType.CENTER_CROP
         }
     }
@@ -74,7 +73,7 @@ fun bindImage(
  * @param centerCrop Set it to true if you want that Glide use centerCrop for the image
  * @param dynamicHeight Set it to true if you want the height of the view to be adjusted proportionally based on the height of the downloaded image
  */
-private fun <T> executeGlideOperations(glideRequest: DrawableTypeRequest<T>, view: ImageView, centerCrop: Boolean?, dynamicHeight: Boolean?){
+private fun executeGlideOperations(glideRequest: GlideRequest<Bitmap>, view: ImageView, centerCrop: Boolean?, dynamicHeight: Boolean?) {
 
     // SELECT SCALE TYPE METHOD
     if (centerCrop != null && centerCrop) {
@@ -86,9 +85,9 @@ private fun <T> executeGlideOperations(glideRequest: DrawableTypeRequest<T>, vie
     if (dynamicHeight != null && dynamicHeight) {
 
         // UPDATE THE VIEW HEIGHT PROPORTIONALLY TO IMAGE HEIGHT
-        glideRequest.asBitmap()
+        glideRequest
                 .into(object : SimpleTarget<Bitmap>() {
-                    override fun onResourceReady(resource: Bitmap?, glideAnimation: GlideAnimation<in Bitmap>?) {
+                    override fun onResourceReady(resource: Bitmap?, transition: Transition<in Bitmap>?) {
                         if (resource != null) {
                             val height = (view.width / resource.width) * resource.height
                             val layoutParams = view.layoutParams
@@ -98,7 +97,6 @@ private fun <T> executeGlideOperations(glideRequest: DrawableTypeRequest<T>, vie
                             view.setImageBitmap(bitmap)
                         }
                     }
-
                 })
     } else {
         glideRequest.into(view)

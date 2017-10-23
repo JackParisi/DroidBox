@@ -50,7 +50,6 @@ class ToolbarDroidWrapper : DroidWrapper() {
 
                                 }
                             }
-
                         }
                 )
 
