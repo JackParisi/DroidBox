@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion android_config.compileSdk
     buildToolsVersion android_config.buildTools
@@ -24,6 +26,9 @@ android {
         }
     }
 
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -44,6 +49,20 @@ dependencies {
     /* ANDROID LIFECYCLE */
     kapt deps.lifecycleCompiler
     implementation deps.lifecycleExtension
+
+    /* RETROFIT */
+    implementation deps3RD.retrofit
+    implementation deps3RD.retorfitGsonConverter
+    implementation deps3RD.retrofitRxAdapter
+    implementation deps3RD.retorfitOkHttpInterceptor
+
+    /* DAGGER */
+    implementation deps.dagger
+    kapt deps.daggerAndroidProcessor
+    kapt deps.daggerCompiler
+
+    /* TIMBER */
+    implementation deps3RD.timber
 
     /* DROIDBOX */
     implementation project(':droidbox')

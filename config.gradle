@@ -13,64 +13,74 @@ ext.android_config = [
 ext.versions = [
 
         /* ANDROID */
-        supportLibs  : '26.1.0',
-        constraintLayout: '1.0.2',
-        androidPlugin: '3.0.0-alpha9',
-        kotlin       : '1.1.51',
-        architecture : '1.0.0-rc1',
+        supportLibs              : '26.1.0',
+        constraintLayout         : '1.0.2',
+        androidPlugin            : '3.0.0-alpha9',
+        kotlin                   : '1.1.51',
+        architecture             : '1.0.0-rc1',
+        dagger                   : '2.11-rc2',
 
         /* GOOGLE */
-        playServices : '11.4.2',
+        playServices             : '11.4.2',
 
         /* 3RD */
-        retrofit     : '2.3.0',
-        glide        : '4.2.0',
-        timber       : '4.5.1',
-        rxJava       : '2.1.0',
-        rxAndroid    : '2.0.1',
+        retrofit                 : '2.3.0',
+        retorfitOkHttpInterceptor: '3.8.1',
+        glide                    : '4.2.0',
+        timber                   : '4.5.1',
+        rxJava                   : '2.1.0',
+        rxAndroid                : '2.0.1',
 
         /* TEST */
-        junit        : '4.12',
-        espresso     : '3.0.1',
-        runner       : '1.0.1'
+        junit                    : '4.12',
+        espresso                 : '3.0.1',
+        runner                   : '1.0.1'
 ]
 
 ext.deps = [
 
         /* DATA BINDING */
-        dataBinding       : "com.android.databinding:compiler:$versions.androidPlugin",
+        dataBinding           : "com.android.databinding:compiler:$versions.androidPlugin",
 
         /* KOTLIN */
-        kotlinStdlib      : "org.jetbrains.kotlin:kotlin-stdlib-jre7:$versions.kotlin",
+        kotlinStdlib          : "org.jetbrains.kotlin:kotlin-stdlib-jre7:$versions.kotlin",
 
         /* ANDROID */
-        androidPlugin     : "com.android.tools.build:gradle:$versions.androidPlugin",
+        androidPlugin         : "com.android.tools.build:gradle:$versions.androidPlugin",
 
         /* ANDROID ARCHITECTURE */
-        lifecycleExtension: "android.arch.lifecycle:extensions:$versions.architecture",
-        lifecycleCompiler : "android.arch.lifecycle:compiler:$versions.architecture",
+        lifecycleExtension    : "android.arch.lifecycle:extensions:$versions.architecture",
+        lifecycleCompiler     : "android.arch.lifecycle:compiler:$versions.architecture",
+
+        /* DAGGER 2 */
+        dagger                : "com.google.dagger:dagger:$versions.dagger",
+        daggerCompiler        : "com.google.dagger:dagger-compiler:$versions.dagger",
+        daggerAndroidProcessor: "com.google.dagger:dagger-android-processor:$versions.dagger",
 ]
 
 ext.deps3RD = [
 
         /* RETROFIT */
-        retrofit     : "com.squareup.retrofit2:retrofit:$versions.retrofit",
+        retrofit                 : "com.squareup.retrofit2:retrofit:$versions.retrofit",
+        retorfitGsonConverter    : "com.squareup.retrofit2:converter-gson:$versions.retrofit",
+        retrofitRxAdapter        : "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit",
+        retorfitOkHttpInterceptor: "com.squareup.okhttp3:logging-interceptor:$versions.retorfitOkHttpInterceptor",
 
         /* GLIDE */
-        glide        : "com.github.bumptech.glide:glide:$versions.glide",
-        glideCompiler: "com.github.bumptech.glide:compiler:$versions.glide",
+        glide                    : "com.github.bumptech.glide:glide:$versions.glide",
+        glideCompiler            : "com.github.bumptech.glide:compiler:$versions.glide",
 
         /* TIMBER */
-        timber       : "com.jakewharton.timber:timber:$versions.timber",
+        timber                   : "com.jakewharton.timber:timber:$versions.timber",
 
         /* RX */
-        rxJava       : "io.reactivex.rxjava2:rxjava:$versions.rxJava",
-        rxAndroid    : "io.reactivex.rxjava2:rxandroid:$versions.rxAndroid",
+        rxJava                   : "io.reactivex.rxjava2:rxjava:$versions.rxJava",
+        rxAndroid                : "io.reactivex.rxjava2:rxandroid:$versions.rxAndroid",
 ]
 
 ext.support = [
-        appCompact  : "com.android.support:appcompat-v7:$versions.supportLibs",
-        recyclerView: "com.android.support:recyclerview-v7:$versions.supportLibs",
+        appCompact      : "com.android.support:appcompat-v7:$versions.supportLibs",
+        recyclerView    : "com.android.support:recyclerview-v7:$versions.supportLibs",
         constraintLayout: "com.android.support.constraint:constraint-layout:$versions.constraintLayout"
 ]
 
