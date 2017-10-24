@@ -1,1 +1,3 @@
 include ':droidbox'
+
+if (!System.env.JITPACK) include':sample'
