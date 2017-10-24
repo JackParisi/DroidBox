@@ -27,7 +27,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     /* TEST */
     testImplementation test.junit
@@ -40,4 +40,11 @@ dependencies {
     /* SUPPORT */
     implementation support.appCompact
     implementation support.constraintLayout
+
+    /* ANDROID LIFECYCLE */
+    kapt deps.lifecycleCompiler
+    implementation deps.lifecycleExtension
+
+    /* DROIDBOX */
+    implementation project(':droidbox')
 }
