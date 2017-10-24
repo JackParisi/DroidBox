@@ -14,6 +14,7 @@ ext.versions = [
 
         /* ANDROID */
         supportLibs  : '26.1.0',
+        constraintLayout: '1.0.2',
         androidPlugin: '3.0.0-alpha9',
         kotlin       : '1.1.51',
         architecture : '1.0.0-rc1',
@@ -70,6 +71,7 @@ ext.deps3RD = [
 ext.support = [
         appCompact  : "com.android.support:appcompat-v7:$versions.supportLibs",
         recyclerView: "com.android.support:recyclerview-v7:$versions.supportLibs",
+        constraintLayout: "com.android.support.constraint:constraint-layout:$versions.constraintLayout"
 ]
 
 ext.google = [
