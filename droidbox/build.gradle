@@ -6,7 +6,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 
-group='com.github.JackParisi'
+group='com.github.giacomoParisi'
 
 android {
     compileSdkVersion android_config.compileSdk
@@ -64,8 +64,8 @@ dependencies {
     implementation deps3RD.timber
 
     /* RX */
-    implementation deps3RD.rxJava
-    implementation deps3RD.rxAndroid
+    api deps3RD.rxJava
+    api deps3RD.rxAndroid
 
     /* RETROFIT */
     implementation deps3RD.retrofit
@@ -74,7 +74,7 @@ dependencies {
     implementation google.firebaseCrash
 
     /*GLIDE*/
-    implementation deps3RD.glide
+    api deps3RD.glide
     kapt deps3RD.glideCompiler
 }
 

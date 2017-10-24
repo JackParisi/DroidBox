@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.github.jackparisi.droidbox">
+    package="com.github.giacomoparisi.droidbox">
 
     <application
         android:allowBackup="true"
