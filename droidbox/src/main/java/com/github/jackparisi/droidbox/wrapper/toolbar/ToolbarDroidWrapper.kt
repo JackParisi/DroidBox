@@ -2,12 +2,12 @@ package com.github.jackparisi.droidbox.wrapper.toolbar
 
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewTreeObserver
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import com.github.jackparisi.droidbox.wrapper.DroidWrapper
 import com.github.jackparisi.droidbox.wrapper.DroidWrapperSettings
-import timber.log.Timber
 
 
 /**
@@ -26,25 +26,22 @@ class ToolbarDroidWrapper : DroidWrapper() {
         if (settings is ToolbarDroidSettings) {
             if (settings.overPageLayout) {
                 val frameLayout = FrameLayout(settings.context)
-                if (settings.wrapperLayout != null) {
-                    frameLayout.addView(settings.pageLayout, settings.params)
-                } else {
-                    //TODO throw exception
-                    Timber.e("Toolbar wrapper is null")
-                }
-                frameLayout.addView(settings.wrapperLayout)
-                settings.wrapperLayout?.viewTreeObserver?.addOnGlobalLayoutListener(
+                frameLayout.addView(settings.pageLayout.view, settings.pageLayout.layoutParams)
+                frameLayout.addView(settings.wrapperLayout.view, settings.wrapperLayout.layoutParams)
+                settings.wrapperLayout.view.viewTreeObserver?.addOnGlobalLayoutListener(
                         object : ViewTreeObserver.OnGlobalLayoutListener {
-                            override fun onGlobalLayout() {
-                                settings.wrapperLayout.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                                val height = settings.wrapperLayout.measuredHeight
 
-                                if (settings.pageLayout is ViewGroup) {
-                                    if (settings.pageLayout.childCount > 0) {
-                                        val params = settings.pageLayout.getChildAt(0).layoutParams
+                            override fun onGlobalLayout() {
+                                settings.wrapperLayout.view.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                                val height = settings.wrapperLayout.layoutParams.height
+
+                                if (settings.pageLayout.view is ViewGroup) {
+                                    if (settings.pageLayout.view.childCount > 0) {
+                                        val view = settings.pageLayout.view.getChildAt(0)
+                                        val params = view.layoutParams
                                         if (params is ViewGroup.MarginLayoutParams) {
                                             params.topMargin = params.topMargin + height
-                                            settings.pageLayout.layoutParams = params
+                                            view.layoutParams = params
                                         }
                                     }
 
@@ -52,23 +49,19 @@ class ToolbarDroidWrapper : DroidWrapper() {
                             }
                         }
                 )
-
                 return frameLayout
             } else {
                 val linearLayout = LinearLayout(settings.context)
+                linearLayout.layoutParams = ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT)
                 linearLayout.orientation = LinearLayout.VERTICAL
-                if (settings.wrapperLayout != null) {
-                    linearLayout.addView(settings.wrapperLayout)
-                } else {
-                    //TODO throw exception
-                    Timber.e("Toolbar wrapper is null")
-                }
-                linearLayout.addView(settings.pageLayout, settings.params)
+                linearLayout.addView(settings.wrapperLayout.view, settings.wrapperLayout.layoutParams)
+
+                linearLayout.addView(settings.pageLayout.view, settings.pageLayout.layoutParams)
 
                 return linearLayout
             }
         }
 
-        return settings.pageLayout
+        return settings.pageLayout.view
     }
 }

@@ -1,10 +1,9 @@
 package com.github.jackparisi.droidbox.wrapper.toolbar
 
 import android.content.Context
-import android.view.View
-import android.view.ViewGroup
 import com.github.jackparisi.droidbox.architecture.model.DroidViewModel
 import com.github.jackparisi.droidbox.wrapper.DroidWrapperSettings
+import com.github.jackparisi.droidbox.wrapper.DroidWrapperView
 
 /**
  * Created by Giacomo Parisi on 20/10/17.
@@ -13,8 +12,7 @@ import com.github.jackparisi.droidbox.wrapper.DroidWrapperSettings
 
 class ToolbarDroidSettings(
         viewModel: DroidViewModel,
-        pageLayout: View,
-        wrapperLayout: View?,
+        pageLayout: DroidWrapperView,
+        wrapperLayout: DroidWrapperView,
         context: Context,
-        params: ViewGroup.LayoutParams,
-        val overPageLayout: Boolean) : DroidWrapperSettings(viewModel, pageLayout, wrapperLayout, context, params)
+        val overPageLayout: Boolean) : DroidWrapperSettings(viewModel, pageLayout, wrapperLayout, context)

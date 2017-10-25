@@ -3,7 +3,6 @@ package com.github.jackparisi.droidbox.wrapper
 import android.content.Context
 import android.databinding.ViewDataBinding
 import android.view.View
-import android.view.ViewGroup
 import com.github.jackparisi.droidbox.architecture.model.DroidViewModel
 import com.github.jackparisi.droidbox.wrapper.toolbar.ToolbarDroidConfigurator
 import com.github.jackparisi.droidbox.wrapper.toolbar.ToolbarDroidSettings
@@ -34,18 +33,14 @@ abstract class DroidWrapperService(val context: Context) {
      *
      * @return The root view wrapped with the error view
      */
-    fun <W : ViewDataBinding> wrapErrorLayout(viewModel: DroidViewModel, root: View, wrapperClass: KClass<W>): View {
+    fun <W : ViewDataBinding> wrapErrorLayout(viewModel: DroidViewModel, root: DroidWrapperView, wrapperClass: KClass<W>): View {
         val wrapperRoot = createErrorWrapper(viewModel, wrapperClass)
         return errorWrapper.wrapLayout(
                 DroidWrapperSettings(
                         viewModel,
                         root,
                         wrapperRoot,
-                        context,
-                        ViewGroup.LayoutParams(
-                                ViewGroup.LayoutParams.MATCH_PARENT,
-                                ViewGroup.LayoutParams.MATCH_PARENT
-                        )
+                        context
                 )
         )
 
@@ -61,18 +56,14 @@ abstract class DroidWrapperService(val context: Context) {
      *
      * @return The root view wrapped with the loading view
      */
-    fun <W : ViewDataBinding> wrapLoadingLayout(viewModel: DroidViewModel, root: View, wrapperClass: KClass<W>): View {
+    fun <W : ViewDataBinding> wrapLoadingLayout(viewModel: DroidViewModel, root: DroidWrapperView, wrapperClass: KClass<W>): View {
         val wrapperRoot = createLoadingWrapper(viewModel, wrapperClass)
         return loadingWrapper.wrapLayout(
                 DroidWrapperSettings(
                         viewModel,
                         root,
                         wrapperRoot,
-                        context,
-                        ViewGroup.LayoutParams(
-                                ViewGroup.LayoutParams.MATCH_PARENT,
-                                ViewGroup.LayoutParams.MATCH_PARENT
-                        )
+                        context
                 )
         )
     }
@@ -87,7 +78,7 @@ abstract class DroidWrapperService(val context: Context) {
      *
      * @return The root view wrapped with the toolbar
      */
-    fun <W : ViewDataBinding> wrapToolbarLayout(viewModel: DroidViewModel, root: View, toolbarDroidConfigurator: ToolbarDroidConfigurator, wrapperClass: KClass<W>, overPageLayout: Boolean): View {
+    fun <W : ViewDataBinding> wrapToolbarLayout(viewModel: DroidViewModel, root: DroidWrapperView, toolbarDroidConfigurator: ToolbarDroidConfigurator, wrapperClass: KClass<W>, overPageLayout: Boolean): View {
         val wrapperRoot = createToolbarWrapper(viewModel, toolbarDroidConfigurator, wrapperClass)
         return toolbarWrapper.wrapLayout(
                 ToolbarDroidSettings(
@@ -95,10 +86,6 @@ abstract class DroidWrapperService(val context: Context) {
                         root,
                         wrapperRoot,
                         context,
-                        ViewGroup.LayoutParams(
-                                ViewGroup.LayoutParams.MATCH_PARENT,
-                                ViewGroup.LayoutParams.MATCH_PARENT
-                        ),
                         overPageLayout
                 )
         )
@@ -113,7 +100,7 @@ abstract class DroidWrapperService(val context: Context) {
      *
      * @return The error view
      */
-    protected abstract fun <W : ViewDataBinding> createErrorWrapper(viewModel: DroidViewModel, wrapperClass: KClass<W>): View?
+    protected abstract fun <W : ViewDataBinding> createErrorWrapper(viewModel: DroidViewModel, wrapperClass: KClass<W>): DroidWrapperView
 
     /**
      *
@@ -124,7 +111,7 @@ abstract class DroidWrapperService(val context: Context) {
      *
      * @return The loading view
      */
-    protected abstract fun <W : ViewDataBinding> createLoadingWrapper(viewModel: DroidViewModel, wrapperClass: KClass<W>): View?
+    protected abstract fun <W : ViewDataBinding> createLoadingWrapper(viewModel: DroidViewModel, wrapperClass: KClass<W>): DroidWrapperView
 
 
     /**
@@ -136,7 +123,7 @@ abstract class DroidWrapperService(val context: Context) {
      *
      * @return The toolbar view
      */
-    protected abstract fun <W : ViewDataBinding> createToolbarWrapper(viewModel: DroidViewModel, toolbarDroidConfigurator: ToolbarDroidConfigurator, wrapperClass: KClass<W>): View?
+    protected abstract fun <W : ViewDataBinding> createToolbarWrapper(viewModel: DroidViewModel, toolbarDroidConfigurator: ToolbarDroidConfigurator, wrapperClass: KClass<W>): DroidWrapperView
 
 
     /**

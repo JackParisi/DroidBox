@@ -1,5 +1,6 @@
 package com.github.jackparisi.droidboxsample.core
 
+import com.github.jackparisi.droidboxsample.activity.HomeViewModel
 import dagger.Component
 import javax.inject.Singleton
 
@@ -10,4 +11,7 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(modules = arrayOf(DroidBoxSampleModule::class))
-interface DroidBoxSampleComponent
+interface DroidBoxSampleComponent {
+
+    fun homeViewModel(): HomeViewModel
+}

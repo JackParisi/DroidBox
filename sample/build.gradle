@@ -39,6 +39,9 @@ dependencies {
     androidTestImplementation test.runner
     androidTestImplementation test.espresso
 
+    /* DATABINDING */
+    kapt deps.dataBinding
+
     /* KOTLIN */
     implementation deps.kotlinStdlib
 

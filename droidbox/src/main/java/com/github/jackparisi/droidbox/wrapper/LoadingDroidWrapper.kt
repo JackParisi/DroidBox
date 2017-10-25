@@ -2,9 +2,9 @@ package com.github.jackparisi.droidbox.wrapper
 
 import android.databinding.Observable
 import android.view.View
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.github.jackparisi.droidbox.architecture.model.DroidViewModel
-import timber.log.Timber
 
 /**
  * Created by Giacomo Parisi on 30/07/17.
@@ -27,27 +27,24 @@ class LoadingDroidWrapper : DroidWrapper() {
 
     override fun <T : DroidWrapperSettings> wrapLayout(settings: T): View {
         val frameLayout = FrameLayout(settings.context)
-        frameLayout.layoutParams = settings.params
-        frameLayout.addView(settings.pageLayout, settings.params)
+        frameLayout.layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT)
+        frameLayout.addView(settings.pageLayout.view, settings.pageLayout.layoutParams)
         this.viewModel = settings.viewModel
 
-        if (settings.wrapperLayout != null) {
-            frameLayout.addView(settings.wrapperLayout, settings.params)
+        frameLayout.addView(settings.wrapperLayout.view, settings.wrapperLayout.layoutParams)
 
-            loadingCallback = object : Observable.OnPropertyChangedCallback() {
-                override fun onPropertyChanged(observable: Observable, i: Int) {
-                    settings.wrapperLayout.visibility = if (shouldShowWrapper()) View.VISIBLE else View.GONE
-                }
+        loadingCallback = object : Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(observable: Observable, i: Int) {
+                settings.wrapperLayout.view.visibility = if (shouldShowWrapper()) View.VISIBLE else View.GONE
             }
-
-            viewModel?.loading?.addOnPropertyChangedCallback(loadingCallback)
-
-
-            settings.wrapperLayout.visibility = if (shouldShowWrapper()) View.VISIBLE else View.GONE
-        }else{
-            //TODO throw exception
-            Timber.e("Error Loading Wrapper is null")
         }
+
+        viewModel?.loading?.addOnPropertyChangedCallback(loadingCallback)
+
+
+        settings.wrapperLayout.view.visibility = if (shouldShowWrapper()) View.VISIBLE else View.GONE
 
         return frameLayout
     }
@@ -58,7 +55,7 @@ class LoadingDroidWrapper : DroidWrapper() {
      *
      * @return True if the loading view is needed
      */
-    private fun shouldShowWrapper(): Boolean{
+    private fun shouldShowWrapper(): Boolean {
 
         return viewModel?.loading!!.get()
     }
