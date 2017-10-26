@@ -31,14 +31,14 @@ fun bindTextHtml(view: TextView, html: String?) {
 
 /**
  *
- * Set text from resource id
+ * Set text from resourceq id
  *
  * @param view The textView that need the text
  * @param res id of the resource
  */
 @BindingAdapter("text_Res")
 fun bindTextRes(view: TextView, res: Int?) =
-        if (res != null) {
+        if (res != null && res != 0) {
             view.setText(res)
         } else {
             view.setText("")
