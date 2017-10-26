@@ -23,17 +23,23 @@ class HomeViewModel @Inject constructor(private val steamGamesRepository: SteamG
         showLoading()
         steamGamesRepository.dataProvider.repository
                 .subscribeOn(Schedulers.io())
+                .map {
+                    val games = it.data?.gameList?.games
+                    if (games != null) {
+                        sortGameByName(games.toMutableList())
+                    }
+                    games ?: mutableListOf()
+                }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    games.data.set(it.data?.gameList?.games)
-                    sortGameByName()
+                    games.data.set(it)
                     hideLoading()
                 }) { showError(it) }
     }
 
-    private fun sortGameByName() {
+    private fun sortGameByName(list: MutableList<Game>) {
 
-        Collections.sort(games.data.get(), { game1, game2 ->
+        Collections.sort(list, { game1, game2 ->
             if (game1.name != null && game2.name != null)
                 game1.name.toLowerCase().compareTo(game2.name.toLowerCase())
             else

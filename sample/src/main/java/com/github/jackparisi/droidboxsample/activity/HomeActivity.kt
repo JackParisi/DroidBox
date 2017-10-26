@@ -5,13 +5,15 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.github.jackparisi.droidbox.delegate.viewModelProvider
 import com.github.jackparisi.droidbox.recycler.DroidAdapter
+import com.github.jackparisi.droidbox.wrapper.DroidWrapperSettings
 import com.github.jackparisi.droidbox.wrapper.DroidWrapperView
-import com.github.jackparisi.droidbox.wrapper.toolbar.ToolbarDroidSettings
 import com.github.jackparisi.droidboxsample.core.DroidBoxSampleActivity
 import com.github.jackparisi.droidboxsample.core.DroidBoxSampleToolbarConfigurator
 import com.github.jackparisi.droidboxsample.core.component
+import com.github.jackparisi.droidboxsample.database.games.GameSection
 import com.github.jackparisi.droidboxsample.databinding.ActivityHomeBinding
 import com.github.jackparisi.droidboxsample.databinding.LoadingBinding
+import com.github.jackparisi.droidboxsample.databinding.SectionGameBinding
 import com.github.jackparisi.droidboxsample.databinding.ToolbarBinding
 
 class HomeActivity : DroidBoxSampleActivity() {
@@ -29,7 +31,7 @@ class HomeActivity : DroidBoxSampleActivity() {
                 viewModel,
                 DroidWrapperView(
                         binding.root,
-                        ToolbarDroidSettings.getMatchParentParams()
+                        DroidWrapperSettings.getMatchParentParams()
                 ),
                 DroidBoxSampleToolbarConfigurator(),
                 ToolbarBinding::class,
@@ -40,7 +42,7 @@ class HomeActivity : DroidBoxSampleActivity() {
                 viewModel,
                 DroidWrapperView(
                         wrappedView,
-                        ToolbarDroidSettings.getMatchParentParams()
+                        DroidWrapperSettings.getMatchParentParams()
                 ),
                 LoadingBinding::class
         )
@@ -58,7 +60,11 @@ class HomeActivity : DroidBoxSampleActivity() {
     private fun createList() {
 
         val adapter = DroidAdapter(viewModel.games.data.get(), layoutInflater, viewModel)
-        binding.recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        binding.recyclerView.adapter = adapter
+        binding.sectionRecyclerView.initializeSections(
+                GameSection(SectionGameBinding.inflate(layoutInflater)),
+                LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false),
+                viewModel.games.data.get(),
+                adapter
+        )
     }
 }

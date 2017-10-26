@@ -6,9 +6,9 @@ import android.databinding.ViewDataBinding
 import android.view.LayoutInflater
 import com.github.jackparisi.droidbox.architecture.model.DroidViewModel
 import com.github.jackparisi.droidbox.wrapper.DroidWrapperService
+import com.github.jackparisi.droidbox.wrapper.DroidWrapperSettings
 import com.github.jackparisi.droidbox.wrapper.DroidWrapperView
 import com.github.jackparisi.droidbox.wrapper.toolbar.ToolbarDroidConfigurator
-import com.github.jackparisi.droidbox.wrapper.toolbar.ToolbarDroidSettings
 import com.github.jackparisi.droidboxsample.R
 import com.github.jackparisi.droidboxsample.databinding.LoadingBinding
 import com.github.jackparisi.droidboxsample.databinding.ToolbarBinding
@@ -30,7 +30,7 @@ class DroidBoxSampleWrapper(context: Context) : DroidWrapperService(context) {
         wrapper.viewModel = viewModel
         wrapper.executePendingBindings()
 
-        return DroidWrapperView(wrapper.root, ToolbarDroidSettings.getMatchParentParams())
+        return DroidWrapperView(wrapper.root, DroidWrapperSettings.getMatchParentParams())
     }
 
 
@@ -40,7 +40,7 @@ class DroidBoxSampleWrapper(context: Context) : DroidWrapperService(context) {
 
         return DroidWrapperView(
                 wrapper.root,
-                ToolbarDroidSettings.getMatchWrapParams()
+                DroidWrapperSettings.getMatchWrapParams()
         )
     }
 

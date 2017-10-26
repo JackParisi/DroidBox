@@ -1,6 +1,7 @@
 package com.github.jackparisi.droidbox.wrapper
 
 import android.content.Context
+import android.view.ViewGroup
 import com.github.jackparisi.droidbox.architecture.model.DroidViewModel
 
 /**
@@ -23,4 +24,15 @@ open class DroidWrapperSettings(
         val pageLayout: DroidWrapperView,
         val wrapperLayout: DroidWrapperView,
         val context: Context
-)
+) {
+    companion object {
+
+        fun getMatchParentParams() = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+
+        fun getWrapContentParams() = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+
+        fun getMatchWrapParams() = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+
+        fun getWrapMatchParams() = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT)
+    }
+}
