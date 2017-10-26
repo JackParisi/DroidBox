@@ -53,7 +53,7 @@ class DroidBoxSampleModule(private val application: DroidBoxSampleApplication) {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(httpClient.build())
-                .baseUrl("PUT_THE_API'S_BASE_URL_HERE")
+                .baseUrl("http://api.steampowered.com/")
                 .build()
 
         return retrofit.create(NetworkService::class.java)
