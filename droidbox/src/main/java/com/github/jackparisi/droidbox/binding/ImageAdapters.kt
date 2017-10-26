@@ -42,6 +42,8 @@ fun bindImage(
         centerCrop: Boolean?,
         dynamicHeight: Boolean?) {
 
+    view.setImageResource(0)
+
     if (!url.isNullOrBlank()) {
         // LOAD IMAGE FROM NETWORK (baseUrl + url or url)
         val urlRequest = GlideApp.with(view.context).asBitmap().load(if (baseUrl != null) baseUrl + url else url)

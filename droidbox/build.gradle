@@ -65,7 +65,7 @@ dependencies {
 
     /* RX */
     implementation deps3RD.rxJava
-    implementation deps3RD.rxAndroid
+    api deps3RD.rxAndroid
 
     /* RETROFIT */
     implementation deps3RD.retrofit

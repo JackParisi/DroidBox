@@ -48,6 +48,7 @@ dependencies {
     /* SUPPORT */
     implementation support.appCompact
     implementation support.constraintLayout
+    implementation support.recyclerView
 
     /* ANDROID LIFECYCLE */
     kapt deps.lifecycleCompiler

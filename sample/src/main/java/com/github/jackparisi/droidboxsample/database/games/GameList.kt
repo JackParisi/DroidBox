@@ -7,4 +7,4 @@ import com.google.gson.annotations.SerializedName
  * https://github.com/JackParisi
  */
 
-data class GameList(@field:SerializedName("apps") val games: List<Game?>? = null)
+data class GameList(@field:SerializedName("apps") val games: List<Game>? = null)
