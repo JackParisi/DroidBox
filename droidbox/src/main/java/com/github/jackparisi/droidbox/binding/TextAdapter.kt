@@ -28,3 +28,18 @@ fun bindTextHtml(view: TextView, html: String?) {
         }
     }
 }
+
+/**
+ *
+ * Set text from resource id
+ *
+ * @param view The textView that need the text
+ * @param res id of the resource
+ */
+@BindingAdapter("text_Res")
+fun bindTextRes(view: TextView, res: Int?) =
+        if (res != null) {
+            view.setText(res)
+        } else {
+            view.setText("")
+        }
