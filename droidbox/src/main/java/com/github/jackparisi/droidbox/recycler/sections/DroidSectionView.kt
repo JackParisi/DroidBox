@@ -9,8 +9,14 @@ import com.github.jackparisi.droidbox.recycler.DroidItem
  */
 
 abstract class DroidSectionView(
-        val view: View
+        val view: View,
+        val updateType: Int = UPDATES_WHEN_ITEMS_DISAPPERARS_COMPLETELY
 ) {
 
     abstract fun updateSection(droidItem: DroidItem)
+
+    companion object {
+        val UPDATES_WHEN_ITEMS_DISAPPERARS_PARTIALLY = 1
+        val UPDATES_WHEN_ITEMS_DISAPPERARS_COMPLETELY = 2
+    }
 }

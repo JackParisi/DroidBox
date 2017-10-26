@@ -8,6 +8,8 @@ import android.util.AttributeSet
 import android.widget.LinearLayout
 import com.github.jackparisi.droidbox.recycler.DroidAdapter
 import com.github.jackparisi.droidbox.recycler.DroidItem
+import com.github.jackparisi.droidbox.recycler.sections.DroidSectionView.Companion.UPDATES_WHEN_ITEMS_DISAPPERARS_COMPLETELY
+import com.github.jackparisi.droidbox.recycler.sections.DroidSectionView.Companion.UPDATES_WHEN_ITEMS_DISAPPERARS_PARTIALLY
 import com.github.jackparisi.droidbox.wrapper.DroidWrapperSettings
 
 /**
@@ -45,7 +47,14 @@ class DroidSectionsRecyclerView : LinearLayout {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                val firstVisibleIndex = layoutManager.findFirstCompletelyVisibleItemPosition()
+                val firstVisibleIndex =
+                        when (this@DroidSectionsRecyclerView.sectionView!!.updateType) {
+                            UPDATES_WHEN_ITEMS_DISAPPERARS_PARTIALLY ->
+                                layoutManager.findFirstCompletelyVisibleItemPosition()
+                            UPDATES_WHEN_ITEMS_DISAPPERARS_COMPLETELY ->
+                                layoutManager.findFirstVisibleItemPosition()
+                            else -> -1
+                        }
                 if (list.getOrNull(firstVisibleIndex) != null) {
                     this@DroidSectionsRecyclerView.sectionView!!.updateSection(list[firstVisibleIndex])
                 }
