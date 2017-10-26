@@ -32,6 +32,7 @@ import com.github.jackparisi.droidbox.architecture.glide.GlideRequest
         "image_byte",
         "image_centerCrop",
         "image_dynamicHeight",
+        "image_clearOnReload",
         requireAll = false)
 fun bindImage(
         view: ImageView,
@@ -40,9 +41,12 @@ fun bindImage(
         resId: Int?,
         byte: String?,
         centerCrop: Boolean?,
-        dynamicHeight: Boolean?) {
+        dynamicHeight: Boolean?,
+        clearOnReload: Boolean?) {
 
-    view.setImageResource(0)
+    if (clearOnReload != null && clearOnReload) {
+        view.setImageResource(android.R.color.transparent)
+    }
 
     if (!url.isNullOrBlank()) {
         // LOAD IMAGE FROM NETWORK (baseUrl + url or url)

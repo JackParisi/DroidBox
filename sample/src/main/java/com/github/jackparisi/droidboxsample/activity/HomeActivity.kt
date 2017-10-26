@@ -3,15 +3,15 @@ package com.github.jackparisi.droidboxsample.activity
 import android.databinding.Observable
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.view.ViewGroup
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import com.github.jackparisi.droidbox.delegate.viewModelProvider
 import com.github.jackparisi.droidbox.recycler.DroidAdapter
 import com.github.jackparisi.droidbox.wrapper.DroidWrapperView
+import com.github.jackparisi.droidbox.wrapper.toolbar.ToolbarDroidSettings
 import com.github.jackparisi.droidboxsample.core.DroidBoxSampleActivity
 import com.github.jackparisi.droidboxsample.core.DroidBoxSampleToolbarConfigurator
 import com.github.jackparisi.droidboxsample.core.component
 import com.github.jackparisi.droidboxsample.databinding.ActivityHomeBinding
+import com.github.jackparisi.droidboxsample.databinding.LoadingBinding
 import com.github.jackparisi.droidboxsample.databinding.ToolbarBinding
 
 class HomeActivity : DroidBoxSampleActivity() {
@@ -25,16 +25,24 @@ class HomeActivity : DroidBoxSampleActivity() {
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
 
-        val wrappedView = wrapper.wrapToolbarLayout(
+        var wrappedView = wrapper.wrapToolbarLayout(
                 viewModel,
                 DroidWrapperView(
                         binding.root,
-                        ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT
-                        )
+                        ToolbarDroidSettings.getMatchParentParams()
                 ),
                 DroidBoxSampleToolbarConfigurator(),
                 ToolbarBinding::class,
                 true
+        )
+
+        wrappedView = wrapper.wrapLoadingLayout(
+                viewModel,
+                DroidWrapperView(
+                        wrappedView,
+                        ToolbarDroidSettings.getMatchParentParams()
+                ),
+                LoadingBinding::class
         )
         setContentView(wrappedView)
 

@@ -10,6 +10,7 @@ import com.github.jackparisi.droidbox.wrapper.DroidWrapperView
 import com.github.jackparisi.droidbox.wrapper.toolbar.ToolbarDroidConfigurator
 import com.github.jackparisi.droidbox.wrapper.toolbar.ToolbarDroidSettings
 import com.github.jackparisi.droidboxsample.R
+import com.github.jackparisi.droidboxsample.databinding.LoadingBinding
 import com.github.jackparisi.droidboxsample.databinding.ToolbarBinding
 import kotlin.reflect.KClass
 
@@ -25,7 +26,11 @@ class DroidBoxSampleWrapper(context: Context) : DroidWrapperService(context) {
     }
 
     override fun <W : ViewDataBinding> createLoadingWrapper(viewModel: DroidViewModel, wrapperClass: KClass<W>): DroidWrapperView {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val wrapper: LoadingBinding = LoadingBinding.inflate(LayoutInflater.from(context))
+        wrapper.viewModel = viewModel
+        wrapper.executePendingBindings()
+
+        return DroidWrapperView(wrapper.root, ToolbarDroidSettings.getMatchParentParams())
     }
 
 
