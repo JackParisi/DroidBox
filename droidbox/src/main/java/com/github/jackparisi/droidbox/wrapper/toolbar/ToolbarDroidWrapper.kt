@@ -33,7 +33,7 @@ class ToolbarDroidWrapper : DroidWrapper() {
 
                             override fun onGlobalLayout() {
                                 settings.wrapperLayout.view.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                                val height = settings.wrapperLayout.layoutParams.height
+                                val height = settings.wrapperLayout.view.measuredHeight
 
                                 if (settings.pageLayout.view is ViewGroup) {
                                     if (settings.pageLayout.view.childCount > 0) {
@@ -44,7 +44,6 @@ class ToolbarDroidWrapper : DroidWrapper() {
                                             view.layoutParams = params
                                         }
                                     }
-
                                 }
                             }
                         }
