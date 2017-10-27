@@ -8,8 +8,8 @@ import android.util.AttributeSet
 import android.widget.LinearLayout
 import com.github.jackparisi.droidbox.recycler.DroidAdapter
 import com.github.jackparisi.droidbox.recycler.DroidItem
-import com.github.jackparisi.droidbox.recycler.sections.DroidSectionView.Companion.UPDATES_WHEN_ITEMS_DISAPPERARS_COMPLETELY
-import com.github.jackparisi.droidbox.recycler.sections.DroidSectionView.Companion.UPDATES_WHEN_ITEMS_DISAPPERARS_PARTIALLY
+import com.github.jackparisi.droidbox.recycler.sections.DroidSectionView.Companion.UPDATES_WHEN_ITEMS_DISAPPEARS_COMPLETELY
+import com.github.jackparisi.droidbox.recycler.sections.DroidSectionView.Companion.UPDATES_WHEN_ITEMS_DISAPPEARS_PARTIALLY
 import com.github.jackparisi.droidbox.wrapper.DroidWrapperSettings
 
 /**
@@ -41,7 +41,10 @@ class DroidSectionsRecyclerView : LinearLayout {
         this.removeAllViews()
 
         this@DroidSectionsRecyclerView.sectionView = sectionView
-        addView(this@DroidSectionsRecyclerView.sectionView!!.view, DroidWrapperSettings.getMatchWrapParams())
+        addView(
+                this@DroidSectionsRecyclerView.sectionView!!.view,
+                this@DroidSectionsRecyclerView.sectionView!!.layoutParams
+        )
         recyclerView = RecyclerView(context)
         recyclerView!!.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
@@ -49,9 +52,9 @@ class DroidSectionsRecyclerView : LinearLayout {
 
                 val firstVisibleIndex =
                         when (this@DroidSectionsRecyclerView.sectionView!!.updateType) {
-                            UPDATES_WHEN_ITEMS_DISAPPERARS_PARTIALLY ->
+                            UPDATES_WHEN_ITEMS_DISAPPEARS_PARTIALLY ->
                                 layoutManager.findFirstCompletelyVisibleItemPosition()
-                            UPDATES_WHEN_ITEMS_DISAPPERARS_COMPLETELY ->
+                            UPDATES_WHEN_ITEMS_DISAPPEARS_COMPLETELY ->
                                 layoutManager.findFirstVisibleItemPosition()
                             else -> -1
                         }
