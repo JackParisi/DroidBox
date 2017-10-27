@@ -1,4 +1,4 @@
-package com.github.jackparisi.droidboxsample.activity
+package com.github.jackparisi.droidboxsample.activity.steam.game
 
 import android.databinding.Observable
 import android.os.Bundle
@@ -11,21 +11,21 @@ import com.github.jackparisi.droidboxsample.core.DroidBoxSampleActivity
 import com.github.jackparisi.droidboxsample.core.DroidBoxSampleToolbarConfigurator
 import com.github.jackparisi.droidboxsample.core.component
 import com.github.jackparisi.droidboxsample.database.games.GameSection
-import com.github.jackparisi.droidboxsample.databinding.ActivityHomeBinding
+import com.github.jackparisi.droidboxsample.databinding.ActivitySteamGamesBinding
 import com.github.jackparisi.droidboxsample.databinding.LoadingBinding
 import com.github.jackparisi.droidboxsample.databinding.SectionGameBinding
 import com.github.jackparisi.droidboxsample.databinding.ToolbarBinding
 
-class HomeActivity : DroidBoxSampleActivity() {
+class SteamGamesActivity : DroidBoxSampleActivity() {
 
-    private lateinit var binding: ActivityHomeBinding
+    private lateinit var binding: ActivitySteamGamesBinding
 
     private val viewModel by viewModelProvider { component.homeViewModel() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityHomeBinding.inflate(layoutInflater)
+        binding = ActivitySteamGamesBinding.inflate(layoutInflater)
 
         var wrappedView = wrapper.wrapToolbarLayout(
                 viewModel,

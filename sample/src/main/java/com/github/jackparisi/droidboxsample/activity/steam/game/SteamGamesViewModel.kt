@@ -1,4 +1,4 @@
-package com.github.jackparisi.droidboxsample.activity
+package com.github.jackparisi.droidboxsample.activity.steam.game
 
 import android.databinding.ObservableField
 import com.github.jackparisi.droidbox.architecture.model.DroidViewModel
@@ -15,7 +15,7 @@ import javax.inject.Inject
  * https://github.com/JackParisi
  */
 
-class HomeViewModel @Inject constructor(private val steamGamesRepository: SteamGamesRepository) : DroidViewModel() {
+class SteamGamesViewModel @Inject constructor(private val steamGamesRepository: SteamGamesRepository) : DroidViewModel() {
 
     var games = DroidObservableData<ObservableField<List<Game>>>(ObservableField(mutableListOf()))
 
@@ -23,6 +23,7 @@ class HomeViewModel @Inject constructor(private val steamGamesRepository: SteamG
         showLoading()
         steamGamesRepository.dataProvider.repository
                 .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.computation())
                 .map {
                     val games = it.data?.gameList?.games
                     if (games != null) {
@@ -32,8 +33,8 @@ class HomeViewModel @Inject constructor(private val steamGamesRepository: SteamG
                 }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    games.data.set(it)
                     hideLoading()
+                    games.data.set(it)
                 }) { showError(it) }
     }
 
