@@ -25,11 +25,10 @@ class SteamGamesViewModel @Inject constructor(private val steamGamesRepository: 
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.computation())
                 .map {
-                    val games = it.data?.gameList?.games
-                    if (games != null) {
-                        sortGameByName(games.toMutableList())
-                    }
-                    games ?: mutableListOf()
+                    val games = mutableListOf<Game>()
+                    it.data?.gameList?.games?.let { it1 -> games.addAll(it1) }
+                    sortGameByName(games)
+                    games
                 }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
@@ -42,7 +41,7 @@ class SteamGamesViewModel @Inject constructor(private val steamGamesRepository: 
 
         Collections.sort(list, { game1, game2 ->
             if (game1.name != null && game2.name != null)
-                game1.name.toLowerCase().compareTo(game2.name.toLowerCase())
+                game1.name.toLowerCase().trimStart().compareTo(game2.name.toLowerCase().trimStart())
             else
                 0
         })

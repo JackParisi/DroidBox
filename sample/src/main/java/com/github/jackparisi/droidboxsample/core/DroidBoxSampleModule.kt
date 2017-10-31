@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import com.github.jackparisi.droidboxsample.BuildConfig
 import com.github.jackparisi.droidboxsample.networking.NetworkService
+import com.github.jackparisi.droidboxsample.networking.OverwatchNetworkService
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
@@ -32,8 +33,28 @@ class DroidBoxSampleModule(private val application: DroidBoxSampleApplication) {
     fun gson(): Gson = Gson()
 
     @Provides
-    fun networkService(gson: Gson): NetworkService {
+    fun sharedPreferences(): SharedPreferences {
+        return PreferenceManager.getDefaultSharedPreferences(application)
+    }
 
+
+    /* ====================================== NETWORKING ====================================== */
+
+    @Provides
+    fun networkService(gson: Gson): NetworkService =
+            getRetrofitBuilder(
+                    "http://api.steampowered.com/",
+                    gson
+            ).create(NetworkService::class.java)
+
+    @Provides
+    fun overwatchNetworkService(gson: Gson): OverwatchNetworkService =
+            getRetrofitBuilder(
+                    "https://owapi.net/",
+                    gson
+            ).create(OverwatchNetworkService::class.java)
+
+    private fun getRetrofitBuilder(baseUrl: String, gson: Gson): Retrofit {
         val httpClient = OkHttpClient.Builder()
 
         // Add logging interceptor only for debug build
@@ -49,18 +70,11 @@ class DroidBoxSampleModule(private val application: DroidBoxSampleApplication) {
         httpClient.readTimeout(40, TimeUnit.SECONDS)
 
         // Create the retrofit NetworkService
-        val retrofit = Retrofit.Builder()
+        return Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(httpClient.build())
-                .baseUrl("http://api.steampowered.com/")
+                .baseUrl(baseUrl)
                 .build()
-
-        return retrofit.create(NetworkService::class.java)
-    }
-
-    @Provides
-    fun sharedPreferences(): SharedPreferences {
-        return PreferenceManager.getDefaultSharedPreferences(application)
     }
 }

@@ -16,6 +16,11 @@ import com.github.jackparisi.droidboxsample.databinding.LoadingBinding
 import com.github.jackparisi.droidboxsample.databinding.SectionGameBinding
 import com.github.jackparisi.droidboxsample.databinding.ToolbarBinding
 
+/**
+ * Created by Giacomo Parisi on 25/10/17.
+ * https://github.com/JackParisi
+ */
+
 class SteamGamesActivity : DroidBoxSampleActivity() {
 
     private lateinit var binding: ActivitySteamGamesBinding

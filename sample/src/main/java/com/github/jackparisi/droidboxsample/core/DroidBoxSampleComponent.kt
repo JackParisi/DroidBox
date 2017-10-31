@@ -1,5 +1,6 @@
 package com.github.jackparisi.droidboxsample.core
 
+import com.github.jackparisi.droidboxsample.activity.overwatch.OverwatchViewModel
 import com.github.jackparisi.droidboxsample.activity.steam.game.SteamGamesViewModel
 import dagger.Component
 import javax.inject.Singleton
@@ -14,4 +15,6 @@ import javax.inject.Singleton
 interface DroidBoxSampleComponent {
 
     fun homeViewModel(): SteamGamesViewModel
+
+    fun overwatchViewModel(): OverwatchViewModel
 }
