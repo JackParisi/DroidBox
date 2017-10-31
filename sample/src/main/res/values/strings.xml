@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">DroidBoxSample</string>
+
+    <!--GAMES-->
+    <string name="GAME_Overwatch">Overwatch</string>
 </resources>

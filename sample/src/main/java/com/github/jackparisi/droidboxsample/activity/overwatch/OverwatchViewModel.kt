@@ -2,6 +2,7 @@ package com.github.jackparisi.droidboxsample.activity.overwatch
 
 import android.util.Log
 import com.github.jackparisi.droidbox.architecture.model.DroidViewModel
+import com.github.jackparisi.droidboxsample.core.DroidBoxSampleApplication
 import com.github.jackparisi.droidboxsample.database.overwatch.OverwatchStatsRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -12,7 +13,9 @@ import javax.inject.Inject
  * https://github.com/JackParisi
  */
 
-class OverwatchViewModel @Inject constructor(private val overwatchStatsRepository: OverwatchStatsRepository) : DroidViewModel() {
+class OverwatchViewModel @Inject constructor(
+        application: DroidBoxSampleApplication,
+        private val overwatchStatsRepository: OverwatchStatsRepository) : DroidViewModel(application) {
 
     fun loadData() {
         overwatchStatsRepository.battletag = "Jack-23410"

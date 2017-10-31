@@ -36,7 +36,7 @@ class ErrorDroidWrapper : DroidWrapper() {
                 }
             }
 
-            viewModel?.error?.addOnPropertyChangedCallback(errorCallback)
+        viewModel?.uiManager?.error?.addOnPropertyChangedCallback(errorCallback)
 
 
         settings.wrapperLayout.view.visibility = if (shouldShowWrapper()) View.VISIBLE else View.GONE
@@ -46,10 +46,10 @@ class ErrorDroidWrapper : DroidWrapper() {
 
     private fun shouldShowWrapper(): Boolean{
 
-        return viewModel?.error!!.get()
+        return viewModel?.uiManager?.error!!.get()
     }
 
     fun removeCallback() {
-        viewModel?.error?.removeOnPropertyChangedCallback(errorCallback)
+        viewModel?.uiManager?.error?.removeOnPropertyChangedCallback(errorCallback)
     }
 }

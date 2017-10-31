@@ -3,7 +3,6 @@ package com.github.jackparisi.droidboxsample.core
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import com.github.jackparisi.droidboxsample.BuildConfig
-import com.github.jackparisi.droidboxsample.networking.NetworkService
 import com.github.jackparisi.droidboxsample.networking.OverwatchNetworkService
 import com.google.gson.Gson
 import dagger.Module
@@ -40,12 +39,6 @@ class DroidBoxSampleModule(private val application: DroidBoxSampleApplication) {
 
     /* ====================================== NETWORKING ====================================== */
 
-    @Provides
-    fun networkService(gson: Gson): NetworkService =
-            getRetrofitBuilder(
-                    "http://api.steampowered.com/",
-                    gson
-            ).create(NetworkService::class.java)
 
     @Provides
     fun overwatchNetworkService(gson: Gson): OverwatchNetworkService =

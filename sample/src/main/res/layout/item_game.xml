@@ -15,7 +15,8 @@
 
         <ImageView
             android:id="@+id/game_banner"
-            image_url="@{viewHolder.data.banner}"
+            image_res="@{viewHolder.data.banner}"
+            image_centerCrop="@{true}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"

@@ -5,7 +5,6 @@ import com.github.jackparisi.droidbox.recycler.DroidViewHolder
 import com.github.jackparisi.droidbox.recycler.ViewHolderFactory
 import com.github.jackparisi.droidboxsample.R
 import com.github.jackparisi.droidboxsample.databinding.ItemGameBinding
-import com.google.gson.annotations.SerializedName
 
 /**
  * Created by Giacomo Parisi on 25/10/17.
@@ -13,15 +12,10 @@ import com.google.gson.annotations.SerializedName
  */
 
 class Game(
-        @field:SerializedName("appid") val id: Int? = null,
-        @field:SerializedName("name") val name: String? = null
+        val id: Int,
+        val name: String,
+        val banner: Int
 ) : DroidItem {
-
-    var banner: String? = null
-
-    fun getBannerUrl() {
-        banner = "http://cdn.akamai.steamstatic.com/steam/apps/$id/header.jpg"
-    }
 
     override fun getItemViewHolder(): DroidViewHolder.Factory<*> =
             DroidViewHolder.Factory(

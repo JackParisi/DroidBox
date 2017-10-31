@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.overwatch.OverwatchActivity"
+            android:name=".activity.game.GamesActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,7 +19,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.steam.game.SteamGamesActivity" />
+        <activity
+            android:name=".activity.overwatch.OverwatchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.steam.game.SteamGamesActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

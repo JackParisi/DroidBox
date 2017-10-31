@@ -20,7 +20,6 @@ class GameViewHolder(private val bindingView: ItemGameBinding) : DroidViewHolder
 
     override fun bind(data: DroidItem) {
         if (data is Game) {
-            data.getBannerUrl()
             this.data.set(data)
             bindingView.executePendingBindings()
         }

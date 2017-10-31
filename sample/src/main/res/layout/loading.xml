@@ -14,7 +14,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            animationRotation_enable="@{viewModel.loading}"
+            animationRotation_enable="@{viewModel.uiManager.loading}"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"

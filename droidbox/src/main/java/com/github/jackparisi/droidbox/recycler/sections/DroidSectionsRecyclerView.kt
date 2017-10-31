@@ -1,7 +1,6 @@
 package com.github.jackparisi.droidbox.recycler.sections
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
@@ -63,7 +62,6 @@ class DroidSectionsRecyclerView : LinearLayout {
                 }
             }
         })
-        recyclerView!!.setBackgroundColor(ContextCompat.getColor(context, android.R.color.white))
         addView(recyclerView, DroidWrapperSettings.getMatchParentParams())
 
         recyclerView!!.layoutManager = layoutManager

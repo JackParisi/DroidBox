@@ -41,7 +41,7 @@ class LoadingDroidWrapper : DroidWrapper() {
             }
         }
 
-        viewModel?.loading?.addOnPropertyChangedCallback(loadingCallback)
+        viewModel?.uiManager?.loading?.addOnPropertyChangedCallback(loadingCallback)
 
 
         settings.wrapperLayout.view.visibility = if (shouldShowWrapper()) View.VISIBLE else View.GONE
@@ -57,7 +57,7 @@ class LoadingDroidWrapper : DroidWrapper() {
      */
     private fun shouldShowWrapper(): Boolean {
 
-        return viewModel?.loading!!.get()
+        return viewModel?.uiManager?.loading!!.get()
     }
 
     /**
@@ -65,6 +65,6 @@ class LoadingDroidWrapper : DroidWrapper() {
      * Remove the binding to the droidViewModel's loading field
      */
     fun removeCallback() {
-        viewModel?.loading?.removeOnPropertyChangedCallback(loadingCallback)
+        viewModel?.uiManager?.loading?.removeOnPropertyChangedCallback(loadingCallback)
     }
 }
