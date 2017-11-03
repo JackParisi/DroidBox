@@ -15,7 +15,7 @@ import android.view.View
  * @param view The view that need the visibility update
  * @param visible Set it to true for VISIBLE status or false for GONE status
  */
-@BindingAdapter("visibleOrGone")
+@BindingAdapter("view_visibleOrGone")
 fun bindVisibleOrGone(view: View, visible: Boolean) {
     view.visibility = if (visible) View.VISIBLE else View.GONE
 }
@@ -27,7 +27,7 @@ fun bindVisibleOrGone(view: View, visible: Boolean) {
  * @param view The view that need the visibility update
  * @param visible Set it to true for VISIBLE status or false for INVISIBLE status
  */
-@BindingAdapter("visibleOrInvisible")
+@BindingAdapter("view_visibleOrInvisible")
 fun bindVisibleOrInvisible(view: View, visible: Boolean) {
     view.visibility = if (visible) View.VISIBLE else View.INVISIBLE
 }
