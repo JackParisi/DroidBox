@@ -1,6 +1,6 @@
 package com.github.jackparisi.droidbox.architecture
 
-import android.app.Fragment
+import android.support.v4.app.Fragment
 import com.github.jackparisi.droidbox.wrapper.DroidWrapperService
 
 /**
