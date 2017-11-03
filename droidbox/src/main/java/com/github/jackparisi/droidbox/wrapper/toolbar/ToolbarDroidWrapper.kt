@@ -24,31 +24,8 @@ class ToolbarDroidWrapper : DroidWrapper() {
 
     override fun <T : DroidWrapperSettings> wrapLayout(settings: T): View {
         if (settings is ToolbarDroidSettings) {
-            if (settings.overPageLayout) {
-                val frameLayout = FrameLayout(settings.context)
-                frameLayout.addView(settings.pageLayout.view, settings.pageLayout.layoutParams)
-                frameLayout.addView(settings.wrapperLayout.view, settings.wrapperLayout.layoutParams)
-                settings.wrapperLayout.view.viewTreeObserver?.addOnGlobalLayoutListener(
-                        object : ViewTreeObserver.OnGlobalLayoutListener {
-
-                            override fun onGlobalLayout() {
-                                settings.wrapperLayout.view.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                                val height = settings.wrapperLayout.view.measuredHeight
-
-                                if (settings.pageLayout.view is ViewGroup) {
-                                    if (settings.pageLayout.view.childCount > 0) {
-                                        val view = settings.pageLayout.view.getChildAt(0)
-                                        val params = view.layoutParams
-                                        if (params is ViewGroup.MarginLayoutParams) {
-                                            params.topMargin = params.topMargin + height
-                                            view.layoutParams = params
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                )
-                return frameLayout
+            return if (settings.overPageLayout) {
+                wrapOverPageLayout(settings)
             } else {
                 val linearLayout = LinearLayout(settings.context)
                 linearLayout.layoutParams = ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT)
@@ -57,10 +34,40 @@ class ToolbarDroidWrapper : DroidWrapper() {
 
                 linearLayout.addView(settings.pageLayout.view, settings.pageLayout.layoutParams)
 
-                return linearLayout
+                linearLayout
             }
         }
 
         return settings.pageLayout.view
+    }
+
+    private fun wrapOverPageLayout(settings: ToolbarDroidSettings): View {
+        val frameLayout = FrameLayout(settings.context)
+        frameLayout.addView(settings.pageLayout.view, settings.pageLayout.layoutParams)
+        frameLayout.addView(settings.wrapperLayout.view, settings.wrapperLayout.layoutParams)
+
+        if (settings.pushDownContentAtIndex >= 0) {
+            settings.wrapperLayout.view.viewTreeObserver?.addOnGlobalLayoutListener(
+                    object : ViewTreeObserver.OnGlobalLayoutListener {
+
+                        override fun onGlobalLayout() {
+                            settings.wrapperLayout.view.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                            val height = settings.wrapperLayout.view.measuredHeight
+
+                            if (settings.pageLayout.view is ViewGroup) {
+                                if (settings.pageLayout.view.childCount > 0) {
+                                    val view = settings.pageLayout.view.getChildAt(settings.pushDownContentAtIndex)
+                                    val params = view.layoutParams
+                                    if (params is ViewGroup.MarginLayoutParams) {
+                                        params.topMargin = params.topMargin + height
+                                        view.layoutParams = params
+                                    }
+                                }
+                            }
+                        }
+                    }
+            )
+        }
+        return frameLayout
     }
 }

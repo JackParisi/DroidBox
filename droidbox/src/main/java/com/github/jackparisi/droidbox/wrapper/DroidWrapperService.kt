@@ -75,10 +75,19 @@ abstract class DroidWrapperService(val context: Context) {
      * @param viewModel DroidViewModel used for binding
      * @param root The root view that need the toolbar
      * @param wrapperClass The class of the wrapper (for take different toolbar layout based on the wrapper class)
+     * @param overPageLayout True if you want the toolbar over your layout
+     * @param pushDownContentAtIndex If the toolbar is over you layout select the index of the child that you want to push down,
+     *                               based on toolbar height. Set NONE for ignore push down feature
      *
      * @return The root view wrapped with the toolbar
      */
-    fun <W : ViewDataBinding> wrapToolbarLayout(viewModel: DroidViewModel, root: DroidWrapperView, toolbarDroidConfigurator: ToolbarDroidConfigurator, wrapperClass: KClass<W>, overPageLayout: Boolean): View {
+    fun <W : ViewDataBinding> wrapToolbarLayout(
+            viewModel: DroidViewModel,
+            root: DroidWrapperView,
+            toolbarDroidConfigurator: ToolbarDroidConfigurator,
+            wrapperClass: KClass<W>,
+            overPageLayout: Boolean = false,
+            pushDownContentAtIndex: Int = ToolbarDroidSettings.NONE): View {
         val wrapperRoot = createToolbarWrapper(viewModel, toolbarDroidConfigurator, wrapperClass)
         return toolbarWrapper.wrapLayout(
                 ToolbarDroidSettings(
@@ -86,7 +95,8 @@ abstract class DroidWrapperService(val context: Context) {
                         root,
                         wrapperRoot,
                         context,
-                        overPageLayout
+                        overPageLayout,
+                        pushDownContentAtIndex
                 )
         )
     }

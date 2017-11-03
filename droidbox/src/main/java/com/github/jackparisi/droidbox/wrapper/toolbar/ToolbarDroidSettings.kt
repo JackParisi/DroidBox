@@ -15,4 +15,10 @@ class ToolbarDroidSettings(
         pageLayout: DroidWrapperView,
         wrapperLayout: DroidWrapperView,
         context: Context,
-        val overPageLayout: Boolean) : DroidWrapperSettings(viewModel, pageLayout, wrapperLayout, context)
+        val overPageLayout: Boolean,
+        val pushDownContentAtIndex: Int) : DroidWrapperSettings(viewModel, pageLayout, wrapperLayout, context) {
+
+    companion object {
+        val NONE = -1
+    }
+}
