@@ -1,4 +1,4 @@
-package com.github.jackparisi.droidbox.recycler
+package com.github.jackparisi.droidbox.recycler.decoration
 
 import android.content.Context
 import android.graphics.Rect
