@@ -16,5 +16,7 @@ abstract class DroidViewModel(application: Application) : AndroidViewModel(appli
 
     val uiManager = UiManager()
 
-
+    fun retryFromError() {
+        uiManager.hideError()
+    }
 }

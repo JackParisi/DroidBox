@@ -17,6 +17,9 @@ class UiManager {
     // Class type of the last error produced
     var lastError: Class<Throwable>? = null
 
+    // Id of the last error produced
+    var lastErrorCode: Int = 0
+
     // Error message text
     var errorMessage = ObservableInt()
 
@@ -32,11 +35,12 @@ class UiManager {
     var defaultErrorMessage = R.string.ERROR_DefaultMessage
     var defaultRetryMessage = R.string.ERROR_Retry
 
-    fun showError(throwable: Throwable) {
+    fun showError(throwable: Throwable, errorCode: Int = 0) {
         hideLoading()
         getErrorMessage(throwable)
         getRetryMessage(throwable)
         lastError = throwable.javaClass
+        lastErrorCode = errorCode
         error.set(true)
     }
 
@@ -46,10 +50,6 @@ class UiManager {
 
     fun hideLoading() {
         loading.set(false)
-    }
-
-    fun retryFromError() {
-        hideError()
     }
 
     fun hideError() {
