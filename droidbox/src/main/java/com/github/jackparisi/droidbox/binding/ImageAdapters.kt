@@ -4,8 +4,6 @@ import android.databinding.BindingAdapter
 import android.graphics.Bitmap
 import android.util.Base64
 import android.widget.ImageView
-import com.bumptech.glide.request.target.SimpleTarget
-import com.bumptech.glide.request.transition.Transition
 import com.github.jackparisi.droidbox.architecture.glide.GlideApp
 import com.github.jackparisi.droidbox.architecture.glide.GlideRequest
 
@@ -90,21 +88,8 @@ private fun executeGlideOperations(glideRequest: GlideRequest<Bitmap>, view: Ima
 
     if (dynamicHeight != null && dynamicHeight) {
 
-        // UPDATE THE VIEW HEIGHT PROPORTIONALLY TO IMAGE HEIGHT
-        glideRequest
-                .into(object : SimpleTarget<Bitmap>() {
-                    override fun onResourceReady(resource: Bitmap?, transition: Transition<in Bitmap>?) {
-                        if (resource != null) {
-                            val height = (view.width / resource.width) * resource.height
-                            val layoutParams = view.layoutParams
-                            layoutParams.height = height
-                            view.layoutParams = layoutParams
-                            val bitmap = Bitmap.createScaledBitmap(resource, view.width, height, false)
-                            view.setImageBitmap(bitmap)
-                        }
-                    }
-                })
-    } else {
-        glideRequest.into(view)
+        view.layout(0, 0, 0, 0)
     }
+
+    glideRequest.into(view)
 }
