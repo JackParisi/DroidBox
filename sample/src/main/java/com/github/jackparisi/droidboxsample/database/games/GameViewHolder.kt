@@ -10,18 +10,17 @@ import com.github.jackparisi.droidboxsample.databinding.ItemGameBinding
  * https://github.com/JackParisi
  */
 
-class GameViewHolder(private val bindingView: ItemGameBinding) : DroidViewHolder(bindingView.root) {
+class GameViewHolder(binding: ItemGameBinding) : DroidViewHolder(binding) {
 
     val data = ObservableField<Game>()
 
     init {
-        bindingView.viewHolder = this
+        binding.viewHolder = this
     }
 
     override fun bind(data: DroidItem) {
         if (data is Game) {
             this.data.set(data)
-            bindingView.executePendingBindings()
         }
     }
 }

@@ -35,6 +35,7 @@ class DroidAdapter(
     override fun onBindViewHolder(holder: DroidViewHolder?, position: Int) {
         holder?.globalPosition?.set(position)
         holder?.bind(itemList[position])
+        holder?.binding?.executePendingBindings()
     }
 
     override fun getItemCount(): Int {

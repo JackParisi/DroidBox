@@ -74,7 +74,7 @@ dependencies {
     implementation google.firebaseCrash
 
     /*GLIDE*/
-    implementation deps3RD.glide
+    api deps3RD.glide
     kapt deps3RD.glideCompiler
 }
 

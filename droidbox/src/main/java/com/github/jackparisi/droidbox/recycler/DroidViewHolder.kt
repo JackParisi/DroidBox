@@ -5,7 +5,6 @@ import android.databinding.ObservableInt
 import android.databinding.ViewDataBinding
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import com.github.jackparisi.droidbox.architecture.model.DroidViewModel
 
@@ -18,7 +17,7 @@ import com.github.jackparisi.droidbox.architecture.model.DroidViewModel
  *
  * RecyclerView ViewHolder that support the DroidBox architecture
  */
-abstract class DroidViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+abstract class DroidViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
 
     // DroidViewModel of the page that menage the recyclerView
     var viewModel: DroidViewModel? = null
