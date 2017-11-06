@@ -4,6 +4,7 @@ import android.databinding.BindingAdapter
 import android.graphics.Bitmap
 import android.util.Base64
 import android.widget.ImageView
+import com.bumptech.glide.request.RequestListener
 import com.github.jackparisi.droidbox.architecture.glide.GlideApp
 import com.github.jackparisi.droidbox.architecture.glide.GlideRequest
 
@@ -31,6 +32,7 @@ import com.github.jackparisi.droidbox.architecture.glide.GlideRequest
         "image_centerCrop",
         "image_dynamicHeight",
         "image_clearOnReload",
+        "image_listener",
         requireAll = false)
 fun bindImage(
         view: ImageView,
@@ -40,7 +42,8 @@ fun bindImage(
         byte: String?,
         centerCrop: Boolean?,
         dynamicHeight: Boolean?,
-        clearOnReload: Boolean?) {
+        clearOnReload: Boolean?,
+        imageListener: RequestListener<Bitmap>?) {
 
     if (clearOnReload != null && clearOnReload) {
         view.setImageResource(android.R.color.transparent)
@@ -49,14 +52,14 @@ fun bindImage(
     if (!url.isNullOrBlank()) {
         // LOAD IMAGE FROM NETWORK (baseUrl + url or url)
         val urlRequest = GlideApp.with(view.context).asBitmap().load(if (baseUrl != null) baseUrl + url else url)
-        executeGlideOperations(urlRequest, view, centerCrop, dynamicHeight)
+        executeGlideOperations(urlRequest, view, centerCrop, dynamicHeight, imageListener)
 
     } else if (!byte.isNullOrBlank()) {
 
         // LOAD IMAGE FROM BYTE ARRAY
         val imageByteArray = Base64.decode(byte, Base64.DEFAULT)
         val byteRequest = GlideApp.with(view.context).asBitmap().load(imageByteArray)
-        executeGlideOperations(byteRequest, view, centerCrop, dynamicHeight)
+        executeGlideOperations(byteRequest, view, centerCrop, dynamicHeight, imageListener)
 
     } else if (resId != null) {
 
@@ -76,8 +79,13 @@ fun bindImage(
  * @param view The imageView that need the image
  * @param centerCrop Set it to true if you want that Glide use centerCrop for the image
  * @param dynamicHeight Set it to true if you want the height of the view to be adjusted proportionally based on the height of the downloaded image
+ * @param imageListener Glide image listener for perform custom action on image load with success or fail
  */
-private fun executeGlideOperations(glideRequest: GlideRequest<Bitmap>, view: ImageView, centerCrop: Boolean?, dynamicHeight: Boolean?) {
+private fun executeGlideOperations(
+        glideRequest: GlideRequest<Bitmap>,
+        view: ImageView, centerCrop: Boolean?,
+        dynamicHeight: Boolean?,
+        imageListener: RequestListener<Bitmap>?) {
 
     // SELECT SCALE TYPE METHOD
     if (centerCrop != null && centerCrop) {
@@ -87,8 +95,11 @@ private fun executeGlideOperations(glideRequest: GlideRequest<Bitmap>, view: Ima
     }
 
     if (dynamicHeight != null && dynamicHeight) {
-
         view.layout(0, 0, 0, 0)
+    }
+
+    if (imageListener != null) {
+        glideRequest.listener(imageListener)
     }
 
     glideRequest.into(view)
