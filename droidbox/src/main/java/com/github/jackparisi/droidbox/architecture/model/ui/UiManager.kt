@@ -72,10 +72,10 @@ class UiManager(private val application: Application) {
 
     private fun getRetryMessage(throwable: Throwable) {
         if (throwable is ManagedException) {
-            if (throwable.errorMessageRes != 0) {
-                errorMessage.set(application.getString(throwable.retryButtonLabelId))
+            if (throwable.retryButtonLabelId != 0) {
+                retryButtonMessage.set(application.getString(throwable.retryButtonLabelId))
             } else {
-                errorMessage.set(throwable.retryButtonLabel)
+                retryButtonMessage.set(throwable.retryButtonLabel)
             }
         } else {
             retryButtonMessage.set(application.getString(defaultRetryMessage))
