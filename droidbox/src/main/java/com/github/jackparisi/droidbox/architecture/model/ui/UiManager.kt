@@ -1,6 +1,8 @@
 package com.github.jackparisi.droidbox.architecture.model.ui
 
+import android.app.Application
 import android.databinding.ObservableBoolean
+import android.databinding.ObservableField
 import android.databinding.ObservableInt
 import com.github.jackparisi.droidbox.R
 import com.github.jackparisi.droidbox.architecture.model.exception.ManagedException
@@ -9,7 +11,7 @@ import com.github.jackparisi.droidbox.architecture.model.exception.ManagedExcept
  * Created by Giacomo Parisi on 30/06/2017.
  * https://github.com/JackParisi
  */
-class UiManager {
+class UiManager(private val application: Application) {
 
     // True if error view is needed
     var error = ObservableBoolean()
@@ -21,10 +23,10 @@ class UiManager {
     var lastErrorCode: Int = 0
 
     // Error message text
-    var errorMessage = ObservableInt()
+    var errorMessage = ObservableField<String>()
 
     // Retry button text
-    var retryButtonMessage = ObservableInt()
+    var retryButtonMessage = ObservableField<String>()
 
     // True if loading view is needed
     var loading = ObservableBoolean()
@@ -58,17 +60,25 @@ class UiManager {
 
     private fun getErrorMessage(throwable: Throwable) {
         if (throwable is ManagedException) {
-            errorMessage.set(throwable.errorMessageRes)
+            if (throwable.errorMessageRes != 0) {
+                errorMessage.set(application.getString(throwable.errorMessageRes))
+            } else {
+                errorMessage.set(throwable.errorMessage)
+            }
         } else {
-            errorMessage.set(defaultErrorMessage)
+            errorMessage.set(application.getString(defaultErrorMessage))
         }
     }
 
     private fun getRetryMessage(throwable: Throwable) {
         if (throwable is ManagedException) {
-            retryButtonMessage.set(throwable.retryButtonLabelId)
+            if (throwable.errorMessageRes != 0) {
+                errorMessage.set(application.getString(throwable.retryButtonLabelId))
+            } else {
+                errorMessage.set(throwable.retryButtonLabel)
+            }
         } else {
-            retryButtonMessage.set(defaultRetryMessage)
+            retryButtonMessage.set(application.getString(defaultRetryMessage))
         }
     }
 }
