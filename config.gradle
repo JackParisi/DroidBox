@@ -86,12 +86,14 @@ ext.support = [
 ext.google = [
 
         /* FIREBASE CRASH */
-        firebaseCrash         : "com.google.firebase:firebase-crash:$versions.playServices",
+        firebaseCrash               : "com.google.firebase:firebase-crash:$versions.playServices",
 
         /* DAGGER 2 */
-        dagger                : "com.google.dagger:dagger:$versions.dagger",
-        daggerCompiler        : "com.google.dagger:dagger-compiler:$versions.dagger",
-        daggerAndroidProcessor: "com.google.dagger:dagger-android-processor:$versions.dagger",
+        daggerCompiler              : "com.google.dagger:dagger-compiler:$versions.dagger",
+        daggerRuntime               : "com.google.dagger:dagger:$versions.dagger",
+        daggerAndroid               : "com.google.dagger:dagger-android:$versions.dagger",
+        daggerAndroidSupport        : "com.google.dagger:dagger-android-support:$versions.dagger",
+        daggerAndroidSupportCompiler: "com.google.dagger:dagger-android-processor:$versions.dagger",
 ]
 
 ext.network = [

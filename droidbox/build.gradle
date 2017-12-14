@@ -70,6 +70,11 @@ dependencies {
 
     /* GOOGLE */
     implementation google.firebaseCrash
+    implementation google.daggerRuntime
+    implementation google.daggerAndroid
+    implementation google.daggerAndroidSupport
+    kapt google.daggerAndroidSupportCompiler
+    kapt google.daggerCompiler
 
     /* NETWORKING */
     implementation network.retrofit
