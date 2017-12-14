@@ -5,6 +5,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
+apply plugin: 'com.github.ben-manes.versions'
 
 group='com.github.giacomoParisi'
 
@@ -37,45 +38,54 @@ android {
     }
 }
 
+dependencyUpdates.resolutionStrategy = {
+    componentSelection { rules ->
+        rules.all { ComponentSelection selection ->
+            boolean rejected = ['alpha', 'beta', 'rc', 'cr', 'm'].any { qualifier ->
+                selection.candidate.version ==~ /(?i).*[.-]${qualifier}[.\d-]*/
+            }
+            if (rejected) {
+                selection.reject('Release candidate')
+            }
+        }
+    }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    /* CORE */
+    implementation core.kotlinStdlib
+    kapt core.dataBinding
+    api core.rxJava
+    api core.rxAndroid
+
+    /* ARCH */
+    kapt arch.lifecycleCompiler
+    implementation arch.lifecycleExtension
+
+    /* SUPPORT */
+    implementation support.appCompact
+    implementation support.recyclerView
+
+    /* GOOGLE */
+    implementation google.firebaseCrash
+
+    /* NETWORKING */
+    implementation network.retrofit
+
+    /* RESOURCES */
+    api res.glide
+    kapt res.glideCompiler
+
+    /* LOGGING */
+    implementation log.timber
 
     /* TEST */
     androidTestImplementation(test.espresso, {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testImplementation test.junit
-
-    /* KOTLIN */
-    implementation deps.kotlinStdlib
-
-    /* SUPPORT */
-    implementation support.appCompact
-    implementation support.recyclerView
-
-    /* DATA BINDING */
-    kapt deps.dataBinding
-
-    /* ANDROID LIFECYCLE */
-    kapt deps.lifecycleCompiler
-    implementation deps.lifecycleExtension
-
-    /*TIMBER*/
-    implementation deps3RD.timber
-
-    /* RX */
-    api deps3RD.rxJava
-    api deps3RD.rxAndroid
-
-    /* RETROFIT */
-    implementation deps3RD.retrofit
-
-    /*FIREBASE*/
-    implementation google.firebaseCrash
-
-    /*GLIDE*/
-    api deps3RD.glide
-    kapt deps3RD.glideCompiler
 }
 
 

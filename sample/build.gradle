@@ -34,40 +34,37 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    /* TEST */
-    testImplementation test.junit
-    androidTestImplementation test.runner
-    androidTestImplementation test.espresso
-
-    /* DATABINDING */
-    kapt deps.dataBinding
-
-    /* KOTLIN */
-    implementation deps.kotlinStdlib
+    /* CORE */
+    implementation project(':droidbox')
+    kapt core.dataBinding
+    implementation core.kotlinStdlib
 
     /* SUPPORT */
     implementation support.appCompact
     implementation support.constraintLayout
     implementation support.recyclerView
+    implementation support.supportV4
 
-    /* ANDROID LIFECYCLE */
-    kapt deps.lifecycleCompiler
-    implementation deps.lifecycleExtension
+    /* ARCH */
+    kapt arch.lifecycleCompiler
+    implementation arch.lifecycleExtension
 
-    /* RETROFIT */
-    implementation deps3RD.retrofit
-    implementation deps3RD.retorfitGsonConverter
-    implementation deps3RD.retrofitRxAdapter
-    implementation deps3RD.retorfitOkHttpInterceptor
+    /* GOOGLE */
+    implementation google.dagger
+    kapt google.daggerAndroidProcessor
+    kapt google.daggerCompiler
 
-    /* DAGGER */
-    implementation deps.dagger
-    kapt deps.daggerAndroidProcessor
-    kapt deps.daggerCompiler
+    /* NETWORKING */
+    implementation network.retrofit
+    implementation network.retorfitGsonConverter
+    implementation network.retrofitRxAdapter
+    implementation network.retorfitOkHttpInterceptor
 
-    /* TIMBER */
-    implementation deps3RD.timber
+    /* LOGGING */
+    implementation log.timber
 
-    /* DROIDBOX */
-    implementation project(':droidbox')
+    /* TEST */
+    testImplementation test.junit
+    androidTestImplementation test.runner
+    androidTestImplementation test.espresso
 }

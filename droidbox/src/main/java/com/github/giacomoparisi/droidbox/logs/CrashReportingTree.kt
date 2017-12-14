@@ -17,17 +17,17 @@ class CrashReportingTree : Timber.Tree() {
      * @param priority The priority value of the exception
      * @param tag The tag of the exception
      * @param message The error message of the exception
-     * @param throwable The exception that need to be analyzed
+     * @param t The exception that need to be analyzed
      */
-    override fun log(priority: Int, tag: String, message: String, throwable: Throwable?) {
+    override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
         if (priority == Log.VERBOSE || priority == Log.DEBUG) {
             return
         }
 
         FirebaseCrash.logcat(priority, tag, message)
 
-        if (throwable != null) {
-            FirebaseCrash.report(throwable)
+        if (t != null) {
+            FirebaseCrash.report(t)
         }
     }
 }
