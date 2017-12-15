@@ -1,5 +1,8 @@
 # DroidBox
+
 DroidBox is a Android library (written in Kotlin), based on AndroidArchitecure, RxJava, AndroidDatabinding and Dagger2, which allows you to create your android apps more efficiently and faster.
+
+![Banner](https://raw.githubusercontent.com/giacomoParisi/DroidBox/master/resources/droidbox_banner.png)
 
 ## License
   Copyright 2017-2018 Giacomo Parisi
@@ -15,3 +18,4 @@ DroidBox is a Android library (written in Kotlin), based on AndroidArchitecure, 
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
+
