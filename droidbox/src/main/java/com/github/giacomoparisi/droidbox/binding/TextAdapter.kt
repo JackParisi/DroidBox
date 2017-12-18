@@ -18,7 +18,7 @@ import android.widget.TextView
  * @param view The textView that need the html text
  * @param html The html string
  */
-@BindingAdapter("text_Html")
+@BindingAdapter("text_html")
 fun bindTextHtml(view: TextView, html: String?) {
 
     if (html != null) {
@@ -37,7 +37,7 @@ fun bindTextHtml(view: TextView, html: String?) {
  * @param view The textView that need the text
  * @param res id of the resource
  */
-@BindingAdapter("text_Res")
+@BindingAdapter("text_res")
 fun bindTextRes(view: TextView, res: Int?) = if (res != null && res != 0) {
     view.setText(res)
 } else {
@@ -51,7 +51,7 @@ fun bindTextRes(view: TextView, res: Int?) = if (res != null && res != 0) {
  * @param view The text view that has the text to underline
  * @param enable Set to true to enable underline
  */
-@BindingAdapter("text_Underline")
+@BindingAdapter("text_underline")
 fun bindTextUnderline(view: TextView, enable: Boolean) {
     if (enable) {
         view.paintFlags = view.paintFlags or Paint.UNDERLINE_TEXT_FLAG
