@@ -90,7 +90,8 @@ fun bindLoading(
         "animationBounce_scaleX",
         "animationBounce_scaleY",
         "animationBounce_upDuration",
-        "animationBounce_downDuration")
+        "animationBounce_downDuration",
+        requireAll = false)
 fun bindBounce(
         view: View,
         enabled: Boolean?,
@@ -157,7 +158,7 @@ fun bindBounce(
                                 1f,
                                 upDuration ?: 100)
                         if (!touchOutside) {
-                            view.callOnClick()
+                            view.performClick()
                         }
                         touchOutside = true
                     }
