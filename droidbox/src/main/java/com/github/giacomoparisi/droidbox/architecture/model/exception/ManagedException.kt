@@ -4,7 +4,7 @@ package com.github.giacomoparisi.droidbox.architecture.model.exception
  * Created by Giacomo Parisi on 30/06/2017.
  * https://github.com/giacomoParisi
  */
-abstract class ManagedException : Exception {
+open class ManagedException : Exception {
 
     // Error message resource's id
     var errorMessageRes: Int = 0
