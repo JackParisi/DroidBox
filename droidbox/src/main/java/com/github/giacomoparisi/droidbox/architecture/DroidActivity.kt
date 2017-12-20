@@ -1,6 +1,7 @@
 package com.github.giacomoparisi.droidbox.architecture
 
 import android.support.v7.app.AppCompatActivity
+import com.github.giacomoparisi.droidbox.architecture.model.DroidViewModel
 import com.github.giacomoparisi.droidbox.wrapper.DroidWrapperService
 
 /**
@@ -16,5 +17,13 @@ abstract class DroidActivity<out W : DroidWrapperService> : AppCompatActivity() 
     override fun onDestroy() {
         super.onDestroy()
         wrapper.onViewDestroy()
+    }
+
+    protected fun observeViewModel(viewModel: DroidViewModel) {
+        viewModel.droidUiActions.observe(this) { it(this) }
+    }
+
+    protected fun observeViewModelForever(viewModel: DroidViewModel) {
+        viewModel.droidUiActions.observeForever { it(this) }
     }
 }
