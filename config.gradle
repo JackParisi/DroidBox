@@ -79,6 +79,9 @@ ext.support = [
         /* RECYCLER VIEW */
         recyclerView    : "com.android.support:recyclerview-v7:$versions.supportLibs",
 
+        /* DESIGN */
+        design          : "com.android.support:design:$versions.supportLibs",
+
         /* CONSTRAINT LAYOUT */
         constraintLayout: "com.android.support.constraint:constraint-layout:$versions.constraintLayout"
 ]

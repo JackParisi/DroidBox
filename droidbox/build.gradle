@@ -67,6 +67,7 @@ dependencies {
     /* SUPPORT */
     implementation support.appCompact
     implementation support.recyclerView
+    implementation support.design
 
     /* GOOGLE */
     implementation google.firebaseCrash
