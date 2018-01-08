@@ -6,6 +6,7 @@ import android.arch.lifecycle.Observer
 import android.support.annotation.MainThread
 import android.support.v4.app.FragmentActivity
 import java.util.*
+import javax.inject.Inject
 
 /**
  * Created by Giacomo Parisi on 18/07/17.
@@ -14,7 +15,7 @@ import java.util.*
 
 typealias UiAction = (FragmentActivity) -> Unit
 
-class DroidUiActions {
+class DroidUIActions @Inject constructor() {
 
     // MutableLiveData for the UIAction lists
     private val delegate = MutableLiveData<List<UiAction>>()

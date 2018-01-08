@@ -4,14 +4,17 @@ import android.app.Application
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
 import android.databinding.ObservableInt
+import android.support.annotation.StringRes
+import android.widget.Toast
 import com.github.giacomoparisi.droidbox.R
 import com.github.giacomoparisi.droidbox.architecture.model.exception.ManagedException
+import javax.inject.Inject
 
 /**
  * Created by Giacomo Parisi on 30/06/2017.
  * https://github.com/giacomoParisi
  */
-class UiManager(private val application: Application) {
+class DroidUIManager @Inject constructor(private val application: Application, val droidUIAction: DroidUIActions) {
 
     // True if error view is needed
     var error = ObservableBoolean()
@@ -79,6 +82,32 @@ class UiManager(private val application: Application) {
             }
         } else {
             retryButtonMessage.set(application.getString(defaultRetryMessage))
+        }
+    }
+
+    /* ============= ANDROID NATIVE UI ============= */
+
+    /**
+     * Show toast message in the activities that observe the current droidViewModel
+     *
+     * @param message String resource id of the toast message
+     * @param toastDuration Duration id of toast, it can be Toast.LENGTH_LONG or Toast.LENGTH_SHORT
+     */
+    fun showToast(@StringRes message: Int, toastDuration: Int = Toast.LENGTH_LONG) {
+        droidUIAction {
+            Toast.makeText(it, message, toastDuration).show()
+        }
+    }
+
+    /**
+     * Show toast message in the activities that observe the current droidViewModel
+     *
+     * @param message String message
+     * @param toastDuration Duration id of toast, it can be Toast.LENGTH_LONG or Toast.LENGTH_SHORT
+     */
+    fun showToast(message: String, toastDuration: Int = Toast.LENGTH_LONG) {
+        droidUIAction {
+            Toast.makeText(it, message, toastDuration).show()
         }
     }
 }

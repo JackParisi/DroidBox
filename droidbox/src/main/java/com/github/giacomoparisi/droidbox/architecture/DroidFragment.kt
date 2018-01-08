@@ -21,13 +21,13 @@ abstract class DroidFragment<out W : DroidWrapperService> : Fragment() {
 
     protected fun observeViewModel(viewModel: DroidViewModel) {
         if (activity != null) {
-            viewModel.droidUiActions.observe(this) { it(this.activity!!) }
+            viewModel.droidUIActions.observe(this) { it(this.activity!!) }
         }
     }
 
     protected fun observeViewModelForever(viewModel: DroidViewModel) {
         if (activity != null) {
-            viewModel.droidUiActions.observeForever { it(this.activity!!) }
+            viewModel.droidUIActions.observeForever { it(this.activity!!) }
         }
     }
 }
