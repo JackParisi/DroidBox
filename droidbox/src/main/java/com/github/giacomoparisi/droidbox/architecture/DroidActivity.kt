@@ -19,11 +19,11 @@ abstract class DroidActivity<out W : DroidWrapperService> : AppCompatActivity() 
         wrapper.onViewDestroy()
     }
 
-    protected fun observeViewModel(viewModel: DroidViewModel) {
+    fun observeViewModel(viewModel: DroidViewModel) {
         viewModel.droidUiActions.observe(this) { it(this) }
     }
 
-    protected fun observeViewModelForever(viewModel: DroidViewModel) {
+    fun observeViewModelForever(viewModel: DroidViewModel) {
         viewModel.droidUiActions.observeForever { it(this) }
     }
 }
