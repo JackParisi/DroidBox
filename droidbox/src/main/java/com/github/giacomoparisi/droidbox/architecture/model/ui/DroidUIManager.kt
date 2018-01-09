@@ -14,7 +14,9 @@ import javax.inject.Inject
  * Created by Giacomo Parisi on 30/06/2017.
  * https://github.com/giacomoParisi
  */
-open class DroidUIManager @Inject constructor(private val application: Application, val droidUIAction: DroidUIActions) {
+open class DroidUIManager @Inject constructor(private val application: Application, val droidUIActions: DroidUIActions) {
+
+    /* ============= FIELDS ============= */
 
     // True if error view is needed
     var error = ObservableBoolean()
@@ -39,6 +41,9 @@ open class DroidUIManager @Inject constructor(private val application: Applicati
 
     var defaultErrorMessage = R.string.ERROR_DefaultMessage
     var defaultRetryMessage = R.string.ERROR_Retry
+
+
+    /* ============= ERROR / LOADING  ============= */
 
     fun showError(throwable: Throwable, errorCode: Int = 0) {
         hideLoading()
@@ -94,7 +99,7 @@ open class DroidUIManager @Inject constructor(private val application: Applicati
      * @param toastDuration Duration id of toast, it can be Toast.LENGTH_LONG or Toast.LENGTH_SHORT
      */
     fun showToast(@StringRes message: Int, toastDuration: Int = Toast.LENGTH_LONG) {
-        droidUIAction {
+        droidUIActions {
             Toast.makeText(it, message, toastDuration).show()
         }
     }
@@ -106,7 +111,7 @@ open class DroidUIManager @Inject constructor(private val application: Applicati
      * @param toastDuration Duration id of toast, it can be Toast.LENGTH_LONG or Toast.LENGTH_SHORT
      */
     fun showToast(message: String, toastDuration: Int = Toast.LENGTH_LONG) {
-        droidUIAction {
+        droidUIActions {
             Toast.makeText(it, message, toastDuration).show()
         }
     }
