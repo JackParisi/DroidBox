@@ -66,7 +66,7 @@ open class DroidUIManager @Inject constructor(private val application: Applicati
         error.set(false)
     }
 
-    private fun getErrorMessage(throwable: Throwable) {
+    fun getErrorMessage(throwable: Throwable) {
         if (throwable is ManagedException) {
             if (throwable.errorMessageRes != 0) {
                 errorMessage.set(application.getString(throwable.errorMessageRes))
@@ -78,7 +78,7 @@ open class DroidUIManager @Inject constructor(private val application: Applicati
         }
     }
 
-    private fun getRetryMessage(throwable: Throwable) {
+    fun getRetryMessage(throwable: Throwable) {
         if (throwable is ManagedException) {
             if (throwable.retryButtonLabelId != 0) {
                 retryButtonMessage.set(application.getString(throwable.retryButtonLabelId))
