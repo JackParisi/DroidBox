@@ -47,8 +47,8 @@ open class DroidUIManager @Inject constructor(private val application: Applicati
 
     fun showError(throwable: Throwable, errorCode: Int = 0) {
         hideLoading()
-        getErrorMessage(throwable)
-        getRetryMessage(throwable)
+        errorMessage.set(getErrorMessage(throwable))
+        retryButtonMessage.set(getRetryMessage(throwable))
         lastError = throwable.javaClass
         lastErrorCode = errorCode
         error.set(true)
@@ -66,27 +66,27 @@ open class DroidUIManager @Inject constructor(private val application: Applicati
         error.set(false)
     }
 
-    fun getErrorMessage(throwable: Throwable) {
-        if (throwable is ManagedException) {
+    fun getErrorMessage(throwable: Throwable): String? {
+        return if (throwable is ManagedException) {
             if (throwable.errorMessageRes != 0) {
-                errorMessage.set(application.getString(throwable.errorMessageRes))
+                application.getString(throwable.errorMessageRes)
             } else {
-                errorMessage.set(throwable.errorMessage)
+                throwable.errorMessage
             }
         } else {
-            errorMessage.set(application.getString(defaultErrorMessage))
+            application.getString(defaultErrorMessage)
         }
     }
 
-    fun getRetryMessage(throwable: Throwable) {
-        if (throwable is ManagedException) {
+    fun getRetryMessage(throwable: Throwable): String? {
+        return if (throwable is ManagedException) {
             if (throwable.retryButtonLabelId != 0) {
-                retryButtonMessage.set(application.getString(throwable.retryButtonLabelId))
+                application.getString(throwable.retryButtonLabelId)
             } else {
-                retryButtonMessage.set(throwable.retryButtonLabel)
+                throwable.retryButtonLabel
             }
         } else {
-            retryButtonMessage.set(application.getString(defaultRetryMessage))
+            application.getString(defaultRetryMessage)
         }
     }
 
