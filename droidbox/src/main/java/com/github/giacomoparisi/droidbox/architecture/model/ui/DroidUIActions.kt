@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 typealias UiAction = (FragmentActivity) -> Unit
 
-class DroidUIActions @Inject constructor() {
+open class DroidUIActions @Inject constructor() {
 
     // MutableLiveData for the UIAction lists
     private val delegate = MutableLiveData<List<UiAction>>()

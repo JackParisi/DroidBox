@@ -14,7 +14,7 @@ import javax.inject.Inject
  * Created by Giacomo Parisi on 30/06/2017.
  * https://github.com/giacomoParisi
  */
-class DroidUIManager @Inject constructor(private val application: Application, val droidUIAction: DroidUIActions) {
+open class DroidUIManager @Inject constructor(private val application: Application, val droidUIAction: DroidUIActions) {
 
     // True if error view is needed
     var error = ObservableBoolean()
