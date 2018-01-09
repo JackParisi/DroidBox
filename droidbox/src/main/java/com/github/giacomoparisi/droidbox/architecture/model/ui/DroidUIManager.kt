@@ -14,7 +14,7 @@ import javax.inject.Inject
  * Created by Giacomo Parisi on 30/06/2017.
  * https://github.com/giacomoParisi
  */
-open class DroidUIManager @Inject constructor(private val application: Application, val droidUIActions: DroidUIActions) {
+open class DroidUIManager @Inject constructor(private val application: Application) {
 
     /* ============= FIELDS ============= */
 
@@ -98,7 +98,7 @@ open class DroidUIManager @Inject constructor(private val application: Applicati
      * @param message String resource id of the toast message
      * @param toastDuration Duration id of toast, it can be Toast.LENGTH_LONG or Toast.LENGTH_SHORT
      */
-    fun showToast(@StringRes message: Int, toastDuration: Int = Toast.LENGTH_LONG) {
+    fun showToast(@StringRes message: Int, toastDuration: Int, droidUIActions: DroidUIActions) {
         droidUIActions {
             Toast.makeText(it, message, toastDuration).show()
         }
@@ -110,7 +110,7 @@ open class DroidUIManager @Inject constructor(private val application: Applicati
      * @param message String message
      * @param toastDuration Duration id of toast, it can be Toast.LENGTH_LONG or Toast.LENGTH_SHORT
      */
-    fun showToast(message: String, toastDuration: Int = Toast.LENGTH_LONG) {
+    fun showToast(message: String, toastDuration: Int, droidUIActions: DroidUIActions) {
         droidUIActions {
             Toast.makeText(it, message, toastDuration).show()
         }

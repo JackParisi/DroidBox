@@ -12,7 +12,7 @@ import com.github.giacomoparisi.droidbox.architecture.model.ui.DroidUIManager
 
 abstract class DroidViewModel constructor(
         application: Application,
-        droidUiActions: DroidUIActions,
+        val droidUIActions: DroidUIActions,
         val droidUIManager: DroidUIManager) : AndroidViewModel(application) {
 
     open fun retryFromError() {
