@@ -3,8 +3,6 @@
     <!--ERROR-->
     <string name="ERROR_DefaultMessage">Oops! Something went wrong!</string>
     <string name="ERROR_NetworkError">Connection not available!</string>
-    <string name="ERROR_Retry">Retry</string>
-    <string name="ERROR_Reconnect">Reconnect</string>
 
     <!--EXCEPTION-->
     <string name="EXCEPTION_EmptyRepository">The repository is empty: it can not fetch from the network or upload data from databases</string>

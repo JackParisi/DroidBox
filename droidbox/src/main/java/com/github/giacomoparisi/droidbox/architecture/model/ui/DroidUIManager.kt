@@ -30,9 +30,6 @@ open class DroidUIManager @Inject constructor(private val application: Applicati
     // Error message text
     var errorMessage = ObservableField<String>()
 
-    // Retry button text
-    var retryButtonMessage = ObservableField<String>()
-
     // True if loading view is needed
     var loading = ObservableBoolean()
 
@@ -40,15 +37,12 @@ open class DroidUIManager @Inject constructor(private val application: Applicati
     var title = ObservableInt()
 
     var defaultErrorMessage = R.string.ERROR_DefaultMessage
-    var defaultRetryMessage = R.string.ERROR_Retry
-
 
     /* ============= ERROR / LOADING  ============= */
 
     fun showError(throwable: Throwable, errorCode: Int = 0) {
         hideLoading()
         errorMessage.set(getErrorMessage(throwable))
-        retryButtonMessage.set(getRetryMessage(throwable))
         lastError = throwable.javaClass
         lastErrorCode = errorCode
         error.set(true)
@@ -75,18 +69,6 @@ open class DroidUIManager @Inject constructor(private val application: Applicati
             }
         } else {
             application.getString(defaultErrorMessage)
-        }
-    }
-
-    fun getRetryMessage(throwable: Throwable): String? {
-        return if (throwable is ManagedException) {
-            if (throwable.retryButtonLabelId != 0) {
-                application.getString(throwable.retryButtonLabelId)
-            } else {
-                throwable.retryButtonLabel
-            }
-        } else {
-            application.getString(defaultRetryMessage)
         }
     }
 

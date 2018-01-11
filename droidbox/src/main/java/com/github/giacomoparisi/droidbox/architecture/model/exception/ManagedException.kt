@@ -12,49 +12,19 @@ open class ManagedException : Exception {
     var errorMessage: String? = null
         private set
 
-    // Retry button label resource's id
-    var retryButtonLabelId: Int = 0
-        private set
-    var retryButtonLabel: String? = null
-
-
-    constructor(errorMessageRes: Int, retryButtonLabelId: Int) {
+    constructor(errorMessageRes: Int) {
         this.errorMessageRes = errorMessageRes
-        this.retryButtonLabelId = retryButtonLabelId
     }
 
-    constructor(errorMessage: String, retryButtonLabel: String) {
+    constructor(errorMessage: String) {
         this.errorMessage = errorMessage
-        this.retryButtonLabel = retryButtonLabel
     }
 
-    constructor(errorMessageRes: Int, retryButtonLabelId: Int, cause: Throwable) : super(cause) {
+    constructor(errorMessageRes: Int, cause: Throwable) : super(cause) {
         this.errorMessageRes = errorMessageRes
-        this.retryButtonLabelId = retryButtonLabelId
     }
 
-    constructor(errorMessage: String, retryButtonLabel: String, cause: Throwable) : super(cause) {
+    constructor(errorMessage: String, cause: Throwable) : super(cause) {
         this.errorMessage = errorMessage
-        this.retryButtonLabel = retryButtonLabel
-    }
-
-    constructor(errorMessageRes: Int, retryButtonLabel: String, cause: Throwable) : super(cause) {
-        this.errorMessageRes = errorMessageRes
-        this.retryButtonLabel = retryButtonLabel
-    }
-
-    constructor(errorMessage: String, retryButtonLabelId: Int, cause: Throwable) : super(cause) {
-        this.errorMessage = errorMessage
-        this.retryButtonLabelId = retryButtonLabelId
-    }
-
-    constructor(errorMessageRes: Int, retryButtonLabel: String) {
-        this.errorMessageRes = errorMessageRes
-        this.retryButtonLabel = retryButtonLabel
-    }
-
-    constructor(errorMessage: String, retryButtonLabelId: Int) {
-        this.errorMessage = errorMessage
-        this.retryButtonLabelId = retryButtonLabelId
     }
 }
