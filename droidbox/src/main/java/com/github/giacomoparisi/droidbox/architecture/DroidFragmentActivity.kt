@@ -21,10 +21,10 @@ abstract class DroidFragmentActivity<out W : DroidWrapperService> : FragmentActi
     }
 
     protected fun observeViewModel(viewModel: DroidViewModel) {
-        viewModel.fragmentActivity.observe(this) { it(this) }
+        viewModel.activity.observe(this) { it(this) }
     }
 
     protected fun observeViewModelForever(viewModel: DroidViewModel) {
-        viewModel.fragmentActivity.observeForever { it(this) }
+        viewModel.activity.observeForever { it(this) }
     }
 }
