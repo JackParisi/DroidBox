@@ -7,6 +7,7 @@ import android.databinding.ObservableInt
 import android.support.annotation.StringRes
 import android.widget.Toast
 import com.github.giacomoparisi.droidbox.R
+import com.github.giacomoparisi.droidbox.architecture.DroidFragmentActivity
 import com.github.giacomoparisi.droidbox.architecture.model.exception.ManagedException
 import javax.inject.Inject
 
@@ -80,7 +81,7 @@ open class DroidUIManager @Inject constructor(private val application: Applicati
      * @param message String resource id of the toast message
      * @param toastDuration Duration id of toast, it can be Toast.LENGTH_LONG or Toast.LENGTH_SHORT
      */
-    fun showToast(@StringRes message: Int, toastDuration: Int, droidUIActions: DroidUIActions) {
+    fun showToast(@StringRes message: Int, toastDuration: Int, droidUIActions: DroidUIActions<DroidFragmentActivity<*>>) {
         droidUIActions {
             Toast.makeText(it, message, toastDuration).show()
         }
@@ -92,9 +93,10 @@ open class DroidUIManager @Inject constructor(private val application: Applicati
      * @param message String message
      * @param toastDuration Duration id of toast, it can be Toast.LENGTH_LONG or Toast.LENGTH_SHORT
      */
-    fun showToast(message: String, toastDuration: Int, droidUIActions: DroidUIActions) {
+    fun showToast(message: String, toastDuration: Int, droidUIActions: DroidUIActions<DroidFragmentActivity<*>>) {
         droidUIActions {
             Toast.makeText(it, message, toastDuration).show()
         }
+
     }
 }

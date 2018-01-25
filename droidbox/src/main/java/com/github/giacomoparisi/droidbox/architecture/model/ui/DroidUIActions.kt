@@ -4,28 +4,23 @@ import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
 import android.support.annotation.MainThread
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
 import java.util.*
 import javax.inject.Inject
 
-/**
- * Created by Giacomo Parisi on 18/07/17.
- * https://github.com/giacomoParisi
- */
+        /**
+         * Created by Giacomo Parisi on 18/07/17.
+         * https://github.com/giacomoParisi
+         */
 
-typealias UiAction = (FragmentActivity) -> Unit
+typealias UiAction<T> = (T) -> Unit
 
-typealias UiFragmentAction = (Fragment) -> Unit
-
-open class DroidUIActions @Inject constructor() {
+open class DroidUIActions<V> @Inject constructor() {
 
     // MutableLiveData for the UIAction lists
-    private val delegate = MutableLiveData<List<UiAction>>()
+    private val delegate = MutableLiveData<List<UiAction<V>>>()
 
     // List of UIAction that need to be delegate to the view for activity
-    private var activityActionsList: MutableList<UiAction> = ArrayList()
-    private var fragmentActionsList: MutableList<UiFragmentAction> = ArrayList()
+    private var actionsList: MutableList<UiAction<V>> = ArrayList()
 
     /**
      *
@@ -33,12 +28,12 @@ open class DroidUIActions @Inject constructor() {
      *
      * @param action UIAction that will be added to the activityActionsList
      */
-    private fun execute(action: UiAction) {
-        activityActionsList.add(action)
-        delegate.value = activityActionsList
+    private fun execute(action: UiAction<V>) {
+        actionsList.add(action)
+        delegate.value = actionsList
     }
 
-    operator fun invoke(action: UiAction) {
+    operator fun invoke(action: UiAction<V>) {
         execute(action)
     }
 
@@ -49,16 +44,10 @@ open class DroidUIActions @Inject constructor() {
      * @param owner The view that observe the action activityActionsList and perform it when actions are added
      * @param executor The executor function that execute the action
      */
-    fun observe(owner: LifecycleOwner, executor: (UiAction) -> Unit) =
+    fun observe(owner: LifecycleOwner, executor: (UiAction<V>) -> Unit) =
             delegate.observe(owner, Observer {
-                activityActionsList.forEach { executor(it) }
-                activityActionsList = ArrayList()
-            })
-
-    fun observeFragment(owner: LifecycleOwner, executor: (UiFragmentAction) -> Unit) =
-            delegate.observe(owner, Observer {
-                fragmentActionsList.forEach { executor(it) }
-                fragmentActionsList = ArrayList()
+                actionsList.forEach { executor(it) }
+                actionsList = ArrayList()
             })
 
     /**
@@ -67,16 +56,10 @@ open class DroidUIActions @Inject constructor() {
      *
      * @param executor The executor function that execute the action
      */
-    @MainThread fun observeForever(executor: (UiAction) -> Unit) =
-            delegate.observeForever {
-                activityActionsList.forEach { executor(it) }
-                activityActionsList = ArrayList()
-            }
-
     @MainThread
-    fun observeForeverFragment(executor: (UiFragmentAction) -> Unit) =
+    fun observeForever(executor: (UiAction<V>) -> Unit) =
             delegate.observeForever {
-                fragmentActionsList.forEach { executor(it) }
-                fragmentActionsList = ArrayList()
+                actionsList.forEach { executor(it) }
+                actionsList = ArrayList()
             }
 }
