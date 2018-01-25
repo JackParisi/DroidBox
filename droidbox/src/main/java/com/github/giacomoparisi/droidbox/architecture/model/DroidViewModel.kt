@@ -14,8 +14,8 @@ import com.github.giacomoparisi.droidbox.architecture.model.ui.DroidUIManager
 
 abstract class DroidViewModel constructor(
         application: Application,
-        val activity: DroidUIActions<FragmentActivity>,
-        val fragment: DroidUIActions<Fragment>,
+        val activityActions: DroidUIActions<FragmentActivity>,
+        val fragmentActions: DroidUIActions<Fragment>,
         val droidUIManager: DroidUIManager) : AndroidViewModel(application) {
 
     open fun retryFromError() {

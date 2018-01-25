@@ -22,25 +22,25 @@ abstract class DroidFragment<out W : DroidWrapperService> : Fragment(), DroidVie
 
     protected fun observeViewModelFromActivity(viewModel: DroidViewModel) {
         if (activity != null) {
-            viewModel.activity.observe(this) { it((this.activity!!)) }
+            viewModel.activityActions.observe(this) { it((this.activity!!)) }
         }
     }
 
     protected fun observeViewModelForeverFromActivity(viewModel: DroidViewModel) {
         if (activity != null) {
-            viewModel.activity.observeForever { it((this.activity!!)) }
+            viewModel.activityActions.observeForever { it((this.activity!!)) }
         }
     }
 
     protected fun observeViewModel(viewModel: DroidViewModel) {
         if (activity != null) {
-            viewModel.fragment.observe(this) { it((this)) }
+            viewModel.fragmentActions.observe(this) { it((this)) }
         }
     }
 
     protected fun observeViewModelForever(viewModel: DroidViewModel) {
         if (activity != null) {
-            viewModel.fragment.observeForever { it((this)) }
+            viewModel.fragmentActions.observeForever { it((this)) }
         }
     }
 }

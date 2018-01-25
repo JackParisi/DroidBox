@@ -21,10 +21,10 @@ abstract class DroidActivity<out W : DroidWrapperService> : AppCompatActivity(),
     }
 
     protected fun observeViewModel(viewModel: DroidViewModel) {
-        viewModel.activity.observe(this) { it(this) }
+        viewModel.activityActions.observe(this) { it(this) }
     }
 
     protected fun observeViewModelForever(viewModel: DroidViewModel) {
-        viewModel.activity.observeForever { it(this) }
+        viewModel.activityActions.observeForever { it(this) }
     }
 }
