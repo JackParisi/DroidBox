@@ -4,6 +4,9 @@ import android.databinding.BindingAdapter
 import android.graphics.Paint
 import android.text.Html
 import android.widget.TextView
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Created by Giacomo Parisi on 11/09/2017.
@@ -57,5 +60,61 @@ fun bindTextUnderline(view: TextView, enable: Boolean) {
         view.paintFlags = view.paintFlags or Paint.UNDERLINE_TEXT_FLAG
     } else {
         view.paintFlags = view.paintFlags xor Paint.UNDERLINE_TEXT_FLAG
+    }
+}
+
+/**
+ *
+ * Change the date format of a date string, from original to target, and set it as text in the view
+ *
+ * @param view The text view that need the formatted date
+ * @param date The date that needs to be formatted in the target format
+ * @param originalFormat The original date format
+ * @param targetFormat The target format of the date desired for viewing
+ * @param originalLocale The locale object of the original date, used for parsing the original date (default is current phone locale)
+ * @param targetLocale The locale object for the target date, used for the conversion (default is current phone locale)
+ */
+@BindingAdapter(
+        "text_date",
+        "text_date_placeholder",
+        "text_date_original_format",
+        "text_date_target_format",
+        "text_date_original_locale",
+        "text_date_target_locale",
+        requireAll = false)
+fun bindTextDate(
+        view: TextView,
+        date: String?,
+        datePlaceholder: String?,
+        originalFormat: String?,
+        targetFormat: String?,
+        originalLocale: Locale?,
+        targetLocale: Locale?) {
+    if (!originalFormat.isNullOrEmpty() && !targetFormat.isNullOrEmpty() && !date.isNullOrEmpty()) {
+        try {
+            val originalDateFormat = SimpleDateFormat(
+                    originalFormat,
+                    originalLocale ?: Locale.getDefault())
+            val targetDateFormat = SimpleDateFormat(
+                    targetFormat,
+                    targetLocale ?: Locale.getDefault())
+            val originalDate = originalDateFormat.parse(date)
+            val targetDate = targetDateFormat.format(originalDate)
+            view.text = targetDate
+        } catch (error: ParseException) {
+            if (!datePlaceholder.isNullOrEmpty()) {
+                view.text = datePlaceholder
+            } else if (!date.isNullOrEmpty()) {
+                view.text = date
+            } else {
+                view.text = ""
+            }
+        }
+    } else if (!datePlaceholder.isNullOrEmpty()) {
+        view.text = datePlaceholder
+    } else if (!date.isNullOrEmpty()) {
+        view.text = date
+    } else {
+        view.text = ""
     }
 }
