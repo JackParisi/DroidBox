@@ -4,8 +4,7 @@ import android.databinding.BindingAdapter
 import android.graphics.Paint
 import android.text.Html
 import android.widget.TextView
-import java.text.ParseException
-import java.text.SimpleDateFormat
+import com.github.giacomoparisi.droidbox.utility.formatDateString
 import java.util.*
 
 /**
@@ -77,6 +76,7 @@ fun bindTextUnderline(view: TextView, enable: Boolean) {
 @BindingAdapter(
         "text_date",
         "text_date_placeholder",
+        "text_date_error_placeholder",
         "text_date_original_format",
         "text_date_target_format",
         "text_date_original_locale",
@@ -85,36 +85,11 @@ fun bindTextUnderline(view: TextView, enable: Boolean) {
 fun bindTextDate(
         view: TextView,
         date: String?,
-        datePlaceholder: String?,
+        placeholder: String?,
+        errorPlaceholder: String?,
         originalFormat: String?,
         targetFormat: String?,
         originalLocale: Locale?,
         targetLocale: Locale?) {
-    if (!originalFormat.isNullOrEmpty() && !targetFormat.isNullOrEmpty() && !date.isNullOrEmpty()) {
-        try {
-            val originalDateFormat = SimpleDateFormat(
-                    originalFormat,
-                    originalLocale ?: Locale.getDefault())
-            val targetDateFormat = SimpleDateFormat(
-                    targetFormat,
-                    targetLocale ?: Locale.getDefault())
-            val originalDate = originalDateFormat.parse(date)
-            val targetDate = targetDateFormat.format(originalDate)
-            view.text = targetDate
-        } catch (error: ParseException) {
-            if (!datePlaceholder.isNullOrEmpty()) {
-                view.text = datePlaceholder
-            } else if (!date.isNullOrEmpty()) {
-                view.text = date
-            } else {
-                view.text = ""
-            }
-        }
-    } else if (!datePlaceholder.isNullOrEmpty()) {
-        view.text = datePlaceholder
-    } else if (!date.isNullOrEmpty()) {
-        view.text = date
-    } else {
-        view.text = ""
-    }
+    view.text = formatDateString(date, placeholder, errorPlaceholder, originalFormat, targetFormat, originalLocale, targetLocale)
 }
