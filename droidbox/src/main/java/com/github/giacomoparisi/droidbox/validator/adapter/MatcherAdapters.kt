@@ -36,3 +36,26 @@ fun bindValidatorMatch(view: TextView, @IdRes match: Int, errorMessage: String?,
         )
     }
 }
+
+@BindingAdapter("validator_not_match", "validator_not_match_ErrorMessage", "validator_not_match_AutoDismiss", requireAll = false)
+fun bindValidatorNotMatch(view: TextView, @IdRes notMatch: Int, errorMessage: String?, autoDismiss: Boolean?) {
+    if (autoDismiss != null && autoDismiss) {
+        DroidEditTextHelper.disableErrorOnChanged(view)
+    }
+
+    val matchView = view.rootView.findViewById<TextView>(notMatch)
+    if (matchView != null) {
+        val handledErrorMessage = DroidResourcesHelper.getStringOrDefault(view,
+                errorMessage, R.string.error_message_match_validation)
+        DroidViewTagHelper.appendValue(
+                R.id.validator_rule,
+                view,
+                MatcherDroidValidatorRule(
+                        view,
+                        matchView,
+                        handledErrorMessage,
+                        false
+                )
+        )
+    }
+}

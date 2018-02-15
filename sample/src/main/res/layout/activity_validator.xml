@@ -6,6 +6,8 @@
         <variable
             name="viewModel"
             type="com.github.giacomoparisi.droidboxsample.ui.validator.ValidatorViewModel" />
+
+        <import type="com.github.giacomoparisi.droidbox.validator.adapter.type.EValidatorType" />
     </data>
 
     <ScrollView
@@ -91,6 +93,64 @@
                     android:hint="Matcher Confirm"
                     android:inputType="text"
                     android:maxLines="1" />
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email Rule"
+                android:textStyle="bold|italic"
+                android:textSize="20sp"
+                android:layout_marginTop="20dp" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint="Email"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    validator_type="@{EValidatorType.EMAIL}" />
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LENGTH RULES"
+                android:textStyle="bold|italic"
+                android:textSize="20sp"
+                android:layout_marginTop="20dp" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint="Max Length"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    validator_maxLength="@{3}" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint="Min Length"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    validator_minLength="@{3}" />
             </android.support.design.widget.TextInputLayout>
 
             <Button
