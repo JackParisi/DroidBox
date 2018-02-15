@@ -44,6 +44,7 @@ dependencies {
     implementation support.constraintLayout
     implementation support.recyclerView
     implementation support.supportV4
+    implementation support.design
 
     /* ARCH */
     kapt arch.lifecycleCompiler
