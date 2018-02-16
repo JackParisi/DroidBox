@@ -22,5 +22,8 @@
     <string name="error_message_not_equal_password">Passwords are not the same</string>
     <string name="error_message_not_match_validation">Field values can not be the same</string>
     <string name="error_message_match_validation">The fields do not match</string>
+    <string name="error_message_date_after_validation">The date must be greater</string>
+    <string name="error_message_date_before_validation">The date must be less</string>
+    <string name="error_message_date_equal_validation">The date fields do not match</string>
 
 </resources>

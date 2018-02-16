@@ -43,3 +43,16 @@ fun formatDateString(date: String? = null,
         return ""
     }
 }
+
+fun toDate(date: String, format: String, locale: Locale? = null): Date? {
+    val dateFormat = SimpleDateFormat(format, locale ?: Locale.getDefault())
+
+    return try {
+        dateFormat.parse(date)
+    } catch (e: ParseException) {
+        null
+    }
+}
+
+
+
