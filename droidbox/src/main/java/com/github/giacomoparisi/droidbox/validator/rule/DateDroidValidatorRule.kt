@@ -25,6 +25,9 @@ class DateDroidValidatorRule(
 
 
     public override fun isValid(view: TextView): Boolean {
+        if (view.text.isNullOrEmpty() || value.text.isNullOrEmpty()) {
+            return true
+        }
 
         if (viewDateFormat != null && valueDateFormat != null) {
             val viewDate = toDate(view.text.toString(), viewDateFormat, viewLocale)
