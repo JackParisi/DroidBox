@@ -194,6 +194,29 @@
                     validator_date_comparisonType="@{EDateRuleType.AFTER}" />
             </android.support.design.widget.TextInputLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="REGEX RULES"
+                android:textStyle="bold|italic"
+                android:textSize="20sp"
+                android:layout_marginTop="20dp" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/regex"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint="[0-9] Regex"
+                    android:inputType="date"
+                    android:maxLines="1"
+                    validator_regex='@{"[0-9]"}' />
+            </android.support.design.widget.TextInputLayout>
+
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="50dp"

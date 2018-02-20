@@ -21,8 +21,10 @@ fun bindValidatorEmpty(view: TextView, empty: Boolean, errorMessage: String?, au
         DroidEditTextHelper.disableErrorOnChanged(view)
     }
 
-    val handledErrorMessage = DroidResourcesHelper.getStringOrDefault(view,
-            errorMessage, R.string.error_message_empty_validation)
+    val handledErrorMessage = DroidResourcesHelper.getStringOrDefault(
+            view,
+            errorMessage,
+            R.string.error_message_empty_validation)
     DroidViewTagHelper.appendValue(R.id.validator_rule, view, EmptyDroidValidatorRule(view, empty, handledErrorMessage))
 }
 
@@ -32,8 +34,11 @@ fun bindValidatorMaxLength(view: TextView, maxLength: Int, errorMessage: String?
         DroidEditTextHelper.disableErrorOnChanged(view)
     }
 
-    val handledErrorMessage = DroidResourcesHelper.getStringOrDefault(view,
-            errorMessage, R.string.error_message_max_length, maxLength)
+    val handledErrorMessage = DroidResourcesHelper.getStringOrDefault(
+            view,
+            errorMessage,
+            R.string.error_message_max_length,
+            maxLength)
     DroidViewTagHelper.appendValue(R.id.validator_rule, view, MaxLenghtDroidValidatorRule(view, maxLength, handledErrorMessage))
 }
 
@@ -43,7 +48,10 @@ fun bindValidatorMinLength(view: TextView, minLength: Int, errorMessage: String?
         DroidEditTextHelper.disableErrorOnChanged(view)
     }
 
-    val handledErrorMessage = DroidResourcesHelper.getStringOrDefault(view,
-            errorMessage, R.string.error_message_min_length, minLength)
+    val handledErrorMessage = DroidResourcesHelper.getStringOrDefault(
+            view,
+            errorMessage,
+            R.string.error_message_min_length,
+            minLength)
     DroidViewTagHelper.appendValue(R.id.validator_rule, view, MinLenghtDroidValidatorRule(view, minLength, handledErrorMessage))
 }
