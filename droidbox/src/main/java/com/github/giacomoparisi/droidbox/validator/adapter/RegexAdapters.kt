@@ -19,11 +19,10 @@ fun bindValidatorRegex(view: TextView, regex: String?, errorMessage: String?, au
         DroidEditTextHelper.disableErrorOnChanged(view)
     }
 
-    if (regex != null && regex.isNotEmpty()) {
-        val handledErrorMessage = DroidResourcesHelper.getStringOrDefault(
-                view,
-                errorMessage,
-                R.string.error_message_regex_validation)
-        DroidViewTagHelper.appendValue(R.id.validator_rule, view, RegexDroidValidatorRule(view, regex, handledErrorMessage))
-    }
+    val handledErrorMessage = DroidResourcesHelper.getStringOrDefault(
+            view,
+            errorMessage,
+            R.string.error_message_regex_validation)
+    DroidViewTagHelper.appendValue(R.id.validator_rule, view, RegexDroidValidatorRule(view, regex, handledErrorMessage))
+
 }

@@ -10,16 +10,21 @@ import com.github.giacomoparisi.droidbox.validator.rule.core.DroidValidatorRule
  */
 class MatcherDroidValidatorRule(
         view: TextView,
-        value: TextView,
+        value: TextView?,
         errorMessage: String,
         private val match: Boolean)
-    : DroidValidatorRule<TextView, TextView>(view, value, errorMessage) {
+    : DroidValidatorRule<TextView, TextView?>(view, value, errorMessage) {
 
     public override fun isValid(view: TextView): Boolean {
+
+        if (value == null || view.text.isNullOrEmpty() || view.text.isNullOrBlank()) {
+            return true
+        }
+
         return if (match) {
-            view.text.toString() == value.text.toString()
+            view.text.toString() == value!!.text.toString()
         } else {
-            view.text.toString() != value.text.toString()
+            view.text.toString() != value!!.text.toString()
         }
     }
 

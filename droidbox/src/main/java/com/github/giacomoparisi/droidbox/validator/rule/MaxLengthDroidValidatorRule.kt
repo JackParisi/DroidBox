@@ -8,14 +8,14 @@ import com.github.giacomoparisi.droidbox.validator.rule.core.DroidValidatorRule
  * Created by Giacomo Parisi on 15/02/18.
  * https://github.com/giacomoParisi
  */
-class MaxLenghtDroidValidatorRule(
+class MaxLengthDroidValidatorRule(
         view: TextView,
-        value: Int,
+        value: Int?,
         errorMessage: String)
-    : DroidValidatorRule<TextView, Int>(view, value, errorMessage) {
+    : DroidValidatorRule<TextView, Int?>(view, value, errorMessage) {
 
     public override fun isValid(view: TextView): Boolean {
-        return view.length() <= value
+        return value != null && view.length() <= value!!
     }
 
     public override fun onValidationSucceeded(view: TextView) {

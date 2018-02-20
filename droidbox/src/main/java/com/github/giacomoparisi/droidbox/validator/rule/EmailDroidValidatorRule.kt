@@ -17,6 +17,12 @@ class EmailDroidValidatorRule(
     : DroidValidatorRule<TextView, EValidatorType>(view, value, errorMessage) {
 
     public override fun isValid(view: TextView): Boolean {
+
+        if (view.text.isNullOrEmpty() ||
+                view.text.isNullOrBlank()) {
+            return true
+        }
+
         val emailPattern = Patterns.EMAIL_ADDRESS
         return emailPattern.matcher(view.text).matches()
     }

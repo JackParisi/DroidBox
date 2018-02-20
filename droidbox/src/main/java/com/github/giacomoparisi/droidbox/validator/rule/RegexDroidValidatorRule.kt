@@ -10,15 +10,20 @@ import com.github.giacomoparisi.droidbox.validator.rule.core.DroidValidatorRule
  */
 class RegexDroidValidatorRule(
         view: TextView,
-        value: String,
+        value: String?,
         errorMessage: String)
-    : DroidValidatorRule<TextView, String>(view, value, errorMessage) {
+    : DroidValidatorRule<TextView, String?>(view, value, errorMessage) {
 
     public override fun isValid(view: TextView): Boolean {
-        if (view.text.isNullOrEmpty()) {
+        if (view.text.toString().isEmpty() || view.text.toString().isBlank()) {
             return true
         }
-        return view.text.toString().matches(Regex(value))
+
+        if (value == null || value!!.isEmpty() || value!!.isBlank()) {
+            return false
+        }
+
+        return view.text.toString().matches(Regex(value!!))
     }
 
     public override fun onValidationSucceeded(view: TextView) {

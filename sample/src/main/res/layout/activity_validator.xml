@@ -79,8 +79,7 @@
                     android:hint="Matcher"
                     android:inputType="text"
                     android:maxLines="1"
-                    validator_match="@{@id/matcher_confirm_field}"
-                    validator_empty="@{true}" />
+                    validator_match="@{@id/matcher_confirm_field}" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -211,10 +210,10 @@
                     android:id="@+id/regex"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:hint="[0-9] Regex"
-                    android:inputType="date"
+                    android:hint="Phone Regex"
+                    android:inputType="phone"
                     android:maxLines="1"
-                    validator_regex='@{"[0-9]"}' />
+                    validator_regex="@{@string/VALIDATOR_Regex}" />
             </android.support.design.widget.TextInputLayout>
 
             <Button

@@ -1,6 +1,5 @@
 package com.github.giacomoparisi.droidbox.validator.rule
 
-import android.text.TextUtils
 import android.widget.TextView
 import com.github.giacomoparisi.droidbox.validator.helper.DroidEditTextHelper
 import com.github.giacomoparisi.droidbox.validator.rule.core.DroidValidatorRule
@@ -11,12 +10,15 @@ import com.github.giacomoparisi.droidbox.validator.rule.core.DroidValidatorRule
  */
 class EmptyDroidValidatorRule(
         view: TextView,
-        value: Boolean,
+        value: Boolean?,
         errorMessage: String)
-    : DroidValidatorRule<TextView, Boolean>(view, value, errorMessage) {
+    : DroidValidatorRule<TextView, Boolean?>(view, value, errorMessage) {
 
     public override fun isValid(view: TextView): Boolean {
-        return !value || !TextUtils.isEmpty(view.text)
+        return value != null &&
+                value!! &&
+                view.text.toString().isNotBlank() &&
+                view.text.toString().isNotEmpty()
     }
 
     public override fun onValidationSucceeded(view: TextView) {

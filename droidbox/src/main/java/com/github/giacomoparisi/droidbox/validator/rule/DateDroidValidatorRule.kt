@@ -13,7 +13,7 @@ import java.util.*
  */
 class DateDroidValidatorRule(
         view: TextView,
-        value: TextView,
+        value: TextView?,
         errorMessage: String,
         private val viewDateFormat: String?,
         private val valueDateFormat: String?,
@@ -21,17 +21,21 @@ class DateDroidValidatorRule(
         private val viewLocale: Locale?,
         private val valueLocale: Locale?,
         private val timeZone: TimeZone?)
-    : DroidValidatorRule<TextView, TextView>(view, value, errorMessage) {
+    : DroidValidatorRule<TextView, TextView?>(view, value, errorMessage) {
 
 
     public override fun isValid(view: TextView): Boolean {
-        if (view.text.isNullOrEmpty() || value.text.isNullOrEmpty()) {
+        if (view.text.isNullOrEmpty() ||
+                view.text.isNullOrBlank() ||
+                value == null ||
+                value!!.text.isNullOrEmpty() ||
+                value!!.text.isNullOrEmpty()) {
             return true
         }
 
         if (viewDateFormat != null && valueDateFormat != null) {
             val viewDate = toDate(view.text.toString(), viewDateFormat, viewLocale)
-            val valueDate = toDate(value.text.toString(), valueDateFormat, valueLocale)
+            val valueDate = toDate(value!!.text.toString(), valueDateFormat, valueLocale)
 
             if (valueDate != null && viewDate != null && dateRuleType != null) {
                 return when (dateRuleType) {
