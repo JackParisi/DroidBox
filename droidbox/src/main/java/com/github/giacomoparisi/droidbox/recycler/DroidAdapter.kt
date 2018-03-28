@@ -32,18 +32,18 @@ class DroidAdapter(
     // Map of the all DroidViewHolder.Factory for the different DroidItems
     private var viewHolderMap: MutableMap<Int, DroidViewHolder.Factory<*>> = mutableMapOf()
 
-    override fun onBindViewHolder(holder: DroidViewHolder?, position: Int) {
-        holder?.globalPosition?.set(position)
-        holder?.bind(itemList[position])
-        holder?.binding?.executePendingBindings()
+    override fun onBindViewHolder(holder: DroidViewHolder, position: Int) {
+        holder.globalPosition.set(position)
+        holder.bind(itemList[position])
+        holder.binding.executePendingBindings()
     }
 
     override fun getItemCount(): Int {
         return itemList.size
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): DroidViewHolder {
-        val viewHolder = viewHolderMap[viewType]!!.create(layoutInflater, parent!!)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DroidViewHolder {
+        val viewHolder = viewHolderMap[viewType]!!.create(layoutInflater, parent)
         viewModel.let { viewHolder.viewModel = viewModel}
         return viewHolder
     }
@@ -58,7 +58,7 @@ class DroidAdapter(
             }
         }
 
-        viewHolderMap.put(viewHolderMap.size + 1, itemList[position].getItemViewHolder())
+        viewHolderMap[viewHolderMap.size + 1] = itemList[position].getItemViewHolder()
         return viewHolderMap.size
     }
 }

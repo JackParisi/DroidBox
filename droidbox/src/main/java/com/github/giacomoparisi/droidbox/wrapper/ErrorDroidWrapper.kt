@@ -32,14 +32,18 @@ class ErrorDroidWrapper : DroidWrapper() {
 
             errorCallback = object : Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(observable: Observable, i: Int) {
-                    settings.wrapperLayout.view.visibility = if (shouldShowWrapper()) View.VISIBLE else View.GONE
+                    settings.wrapperLayout.view.visibility =
+                            if (shouldShowWrapper()) View.VISIBLE
+                            else View.GONE
                 }
             }
 
-            viewModel?.droidUIManager?.error?.addOnPropertyChangedCallback(errorCallback)
+            viewModel?.droidUIManager?.error?.addOnPropertyChangedCallback(errorCallback!!)
 
 
-            settings.wrapperLayout.view.visibility = if (shouldShowWrapper()) View.VISIBLE else View.GONE
+            settings.wrapperLayout.view.visibility =
+                    if (shouldShowWrapper()) View.VISIBLE
+                    else View.GONE
 
         }
         return frameLayout
@@ -48,6 +52,8 @@ class ErrorDroidWrapper : DroidWrapper() {
     private fun shouldShowWrapper(): Boolean = viewModel?.droidUIManager?.error!!.get()
 
     fun removeCallback() {
-        viewModel?.droidUIManager?.error?.removeOnPropertyChangedCallback(errorCallback)
+        errorCallback?.let {
+            viewModel?.droidUIManager?.error?.removeOnPropertyChangedCallback(it)
+        }
     }
 }

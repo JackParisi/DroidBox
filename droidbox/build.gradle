@@ -11,7 +11,6 @@ group='com.github.giacomoParisi'
 
 android {
     compileSdkVersion android_config.compileSdk
-    buildToolsVersion android_config.buildTools
     defaultConfig {
         minSdkVersion android_config.minSdk
         targetSdkVersion android_config.targetSdk
@@ -36,8 +35,10 @@ android {
     dexOptions{
         javaMaxHeapSize= "4g"
     }
+    buildToolsVersion '27.0.3'
 }
 
+// DEPS VERSION CHECK (https://github.com/ben-manes/gradle-versions-plugin)
 dependencyUpdates.resolutionStrategy = {
     componentSelection { rules ->
         rules.all { ComponentSelection selection ->

@@ -38,14 +38,18 @@ class LoadingDroidWrapper : DroidWrapper() {
 
             loadingCallback = object : Observable.OnPropertyChangedCallback() {
                 override fun onPropertyChanged(observable: Observable, i: Int) {
-                    settings.wrapperLayout.view.visibility = if (shouldShowWrapper()) View.VISIBLE else View.GONE
+                    settings.wrapperLayout.view.visibility =
+                            if (shouldShowWrapper()) View.VISIBLE
+                            else View.GONE
                 }
             }
 
-            viewModel?.droidUIManager?.loading?.addOnPropertyChangedCallback(loadingCallback)
+            viewModel?.droidUIManager?.loading?.addOnPropertyChangedCallback(loadingCallback!!)
 
 
-            settings.wrapperLayout.view.visibility = if (shouldShowWrapper()) View.VISIBLE else View.GONE
+            settings.wrapperLayout.view.visibility =
+                    if (shouldShowWrapper()) View.VISIBLE
+                    else View.GONE
 
         }
         return frameLayout
@@ -67,6 +71,8 @@ class LoadingDroidWrapper : DroidWrapper() {
      * Remove the binding to the droidViewModel's loading field
      */
     fun removeCallback() {
-        viewModel?.droidUIManager?.loading?.removeOnPropertyChangedCallback(loadingCallback)
+        loadingCallback?.let {
+            viewModel?.droidUIManager?.loading?.removeOnPropertyChangedCallback(it)
+        }
     }
 }

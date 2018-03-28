@@ -5,36 +5,36 @@ ext.app_config = [
 
 ext.android_config = [
         minSdk    : 21,
-        targetSdk : 26,
-        compileSdk: 26,
-        buildTools: '26.0.2'
+        targetSdk : 27,
+        compileSdk: 27,
+        buildTools: '27.0.3'
 ]
 
 ext.versions = [
 
         /* CORE */
-        androidPlugin            : '3.0.1',
-        kotlin                   : '1.2.0',
-        rxJava                   : '2.1.7',
-        rxAndroid                : '2.0.1',
+        androidPlugin            : '3.1.0',
+        kotlin                   : '1.2.31',
+        rxJava                   : '2.1.12',
+        rxAndroid                : '2.0.2',
 
         /* ARCH */
-        architecture             : '1.0.0',
+        architecture             : '1.1.1',
 
         /* SUPPORT */
-        supportLibs              : '27.0.2',
+        supportLibs              : '27.1.0',
         constraintLayout         : '1.0.2',
 
         /* GOOGLE */
         playServices             : '11.6.2',
-        dagger                   : '2.11-rc2',
+        dagger                   : '2.15',
 
         /* NETWORK */
         retrofit                 : '2.3.0',
         retorfitOkHttpInterceptor: '3.8.1',
 
         /* RES */
-        glide                    : '4.4.0',
+        glide                    : '4.6.1',
 
         /* LOG */
         timber                   : '4.6.0',

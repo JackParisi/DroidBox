@@ -28,7 +28,7 @@ class DroidObservableData<T : ObservableField<*>>(var data: T) : LiveData<T>() {
 
     override fun onInactive() {
         if (callback != null) {
-            data.removeOnPropertyChangedCallback(callback)
+            data.removeOnPropertyChangedCallback(callback!!)
         }
     }
 }
