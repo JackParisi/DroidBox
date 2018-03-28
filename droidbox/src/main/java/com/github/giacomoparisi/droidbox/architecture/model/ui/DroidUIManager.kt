@@ -61,12 +61,12 @@ open class DroidUIManager @Inject constructor(private val application: Applicati
         error.set(false)
     }
 
-    fun getErrorMessage(throwable: Throwable): String? {
+    fun getErrorMessage(throwable: Throwable): String {
         return if (throwable is ManagedException) {
             if (throwable.errorMessageRes != 0) {
                 application.getString(throwable.errorMessageRes)
             } else {
-                throwable.errorMessage
+                throwable.errorMessage ?: application.getString(defaultErrorMessage)
             }
         } else {
             application.getString(defaultErrorMessage)
