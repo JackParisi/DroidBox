@@ -26,7 +26,7 @@ ext.versions = [
         constraintLayout         : '1.0.2',
 
         /* GOOGLE */
-        playServices             : '11.6.2',
+        playServices             : '12.0.1',
         dagger                   : '2.15',
 
         /* NETWORK */
