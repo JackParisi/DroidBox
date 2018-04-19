@@ -12,7 +12,7 @@ import android.databinding.ViewDataBinding
  * Factory class used to create a DroidViewHolder for a specifc item
  * Every DroidItem need this
  */
-interface ViewHolderFactory<in B : ViewDataBinding> {
+interface ViewHolderFactory<in B : ViewDataBinding, D: DroidItem> {
 
     /**
      *
@@ -20,5 +20,5 @@ interface ViewHolderFactory<in B : ViewDataBinding> {
      *
      * @param binding The ViewDataBinding object of the DroidItem
      */
-    fun newInstance(binding: B): DroidViewHolder
+    fun newInstance(binding: B): DroidViewHolder<D>
 }

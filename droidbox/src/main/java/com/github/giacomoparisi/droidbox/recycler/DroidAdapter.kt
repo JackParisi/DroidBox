@@ -27,12 +27,12 @@ class DroidAdapter(
         private var itemList: List<DroidItem>,
         private val layoutInflater: LayoutInflater,
         private val viewModel: DroidViewModel? = null)
-    : RecyclerView.Adapter<DroidViewHolder>() {
+    : RecyclerView.Adapter<DroidViewHolder<*>>() {
 
     // Map of the all DroidViewHolder.Factory for the different DroidItems
-    private var viewHolderMap: MutableMap<Int, DroidViewHolder.Factory<*>> = mutableMapOf()
+    private var viewHolderMap: MutableMap<Int, DroidViewHolder.Factory<*,*>> = mutableMapOf()
 
-    override fun onBindViewHolder(holder: DroidViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DroidViewHolder<*>, position: Int) {
         holder.globalPosition.set(position)
         holder.bind(itemList[position])
         holder.binding.executePendingBindings()
@@ -42,7 +42,7 @@ class DroidAdapter(
         return itemList.size
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DroidViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DroidViewHolder<*> {
         val viewHolder = viewHolderMap[viewType]!!.create(layoutInflater, parent)
         viewModel.let { viewHolder.viewModel = viewModel}
         return viewHolder

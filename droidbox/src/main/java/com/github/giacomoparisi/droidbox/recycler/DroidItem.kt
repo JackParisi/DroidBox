@@ -16,5 +16,5 @@ interface DroidItem {
      *
      * Method that return the specific DroidViewHolder.Factory for the item
      */
-    fun getItemViewHolder(): DroidViewHolder.Factory<*>
+    fun getItemViewHolder(): DroidViewHolder.Factory<*, *>
 }
