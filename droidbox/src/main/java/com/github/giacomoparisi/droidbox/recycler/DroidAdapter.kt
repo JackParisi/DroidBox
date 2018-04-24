@@ -23,7 +23,7 @@ import com.github.giacomoparisi.droidbox.architecture.model.DroidViewModel
  * @param layoutInflater The layoutInflater reference for layout inflating
  * @param viewModel The viewModel of the view that hold the recyclerView
  */
-class DroidAdapter(
+open class DroidAdapter(
         private var itemList: List<DroidItem>,
         private val layoutInflater: LayoutInflater,
         private val viewModel: DroidViewModel? = null)
