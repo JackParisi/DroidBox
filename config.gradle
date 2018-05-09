@@ -14,7 +14,7 @@ ext.versions = [
 
         /* CORE */
         androidPlugin            : '3.1.2',
-        kotlin                   : '1.2.31',
+        kotlin                   : '1.2.41',
         rxJava                   : '2.1.12',
         rxAndroid                : '2.0.2',
 
@@ -51,7 +51,7 @@ ext.core = [
         dataBinding  : "com.android.databinding:compiler:$versions.androidPlugin",
 
         /* KOTLIN */
-        kotlinStdlib : "org.jetbrains.kotlin:kotlin-stdlib-jre7:$versions.kotlin",
+        kotlinStdlib : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin",
 
         /* ANDROID */
         androidPlugin: "com.android.tools.build:gradle:$versions.androidPlugin",

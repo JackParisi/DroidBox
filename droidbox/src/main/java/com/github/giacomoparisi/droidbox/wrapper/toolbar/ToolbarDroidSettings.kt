@@ -19,6 +19,6 @@ class ToolbarDroidSettings(
         val pushDownContentAtIndex: Int) : DroidWrapperSettings(viewModel, pageLayout, wrapperLayout, context) {
 
     companion object {
-        val NONE = -1
+        const val NONE = -1
     }
 }
