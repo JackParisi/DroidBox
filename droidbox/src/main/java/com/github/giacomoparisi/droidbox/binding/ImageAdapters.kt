@@ -2,6 +2,7 @@ package com.github.giacomoparisi.droidbox.binding
 
 import android.databinding.BindingAdapter
 import android.graphics.Bitmap
+import android.net.Uri
 import android.util.Base64
 import android.widget.ImageView
 import com.bumptech.glide.request.RequestListener
@@ -29,6 +30,7 @@ import com.github.giacomoparisi.droidbox.architecture.glide.GlideRequest
         "image_baseUrl",
         "image_res",
         "image_byte",
+        "image_uri",
         "image_centerCrop",
         "image_dynamicHeight",
         "image_clearOnReload",
@@ -40,6 +42,7 @@ fun bindImage(
         baseUrl: String?,
         resId: Int?,
         byte: String?,
+        uri: Uri?,
         centerCrop: Boolean?,
         dynamicHeight: Boolean?,
         clearOnReload: Boolean?,
@@ -65,6 +68,11 @@ fun bindImage(
 
         // LOAD IMAGE FROM RESOURCE
         view.setImageResource(resId)
+        if (centerCrop != null && centerCrop) {
+            view.scaleType = ImageView.ScaleType.CENTER_CROP
+        }
+    } else if (uri != null) {
+        view.setImageURI(uri)
         if (centerCrop != null && centerCrop) {
             view.scaleType = ImageView.ScaleType.CENTER_CROP
         }
