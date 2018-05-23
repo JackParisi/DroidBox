@@ -31,6 +31,7 @@ import com.github.giacomoparisi.droidbox.architecture.glide.GlideRequest
         "image_res",
         "image_byte",
         "image_uri",
+        "image_bitmap",
         "image_centerCrop",
         "image_dynamicHeight",
         "image_clearOnReload",
@@ -43,6 +44,7 @@ fun bindImage(
         resId: Int?,
         byte: String?,
         uri: Uri?,
+        bitmap: Bitmap?,
         centerCrop: Boolean?,
         dynamicHeight: Boolean?,
         clearOnReload: Boolean?,
@@ -73,6 +75,11 @@ fun bindImage(
         }
     } else if (uri != null) {
         view.setImageURI(uri)
+        if (centerCrop != null && centerCrop) {
+            view.scaleType = ImageView.ScaleType.CENTER_CROP
+        }
+    } else if (bitmap != null) {
+        view.setImageBitmap(bitmap)
         if (centerCrop != null && centerCrop) {
             view.scaleType = ImageView.ScaleType.CENTER_CROP
         }
