@@ -57,7 +57,7 @@ dependencies {
 
     /* CORE */
     implementation core.kotlinStdlib
-    kapt core.dataBinding
+    //kapt core.dataBinding
     api core.rxJava
     api core.rxAndroid
 

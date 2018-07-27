@@ -36,7 +36,7 @@ dependencies {
 
     /* CORE */
     implementation project(':droidbox')
-    kapt core.dataBinding
+    //kapt core.dataBinding
     implementation core.kotlinStdlib
 
     /* SUPPORT */

@@ -13,7 +13,7 @@ ext.android_config = [
 ext.versions = [
 
         /* CORE */
-        androidPlugin            : '3.1.2',
+        androidPlugin            : '3.1.3',
         kotlin                   : '1.2.41',
         rxJava                   : '2.1.12',
         rxAndroid                : '2.0.2',
