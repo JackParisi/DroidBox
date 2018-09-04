@@ -1,10 +1,10 @@
 package com.github.giacomoparisi.droidbox.recycler
 
-import android.databinding.DataBindingUtil
-import android.databinding.ObservableField
-import android.databinding.ObservableInt
-import android.databinding.ViewDataBinding
-import android.support.v7.widget.RecyclerView
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ObservableField
+import androidx.databinding.ObservableInt
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.github.giacomoparisi.droidbox.architecture.model.DroidViewModel
@@ -18,7 +18,7 @@ import com.github.giacomoparisi.droidbox.architecture.model.DroidViewModel
  *
  * RecyclerView ViewHolder that support the DroidBox architecture
  */
-abstract class DroidViewHolder<T : DroidItem>(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
+abstract class DroidViewHolder<T : DroidItem>(val binding: ViewDataBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
 
     // DroidViewModel of the page that menage the recyclerView
     var viewModel: DroidViewModel? = null

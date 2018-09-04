@@ -1,6 +1,6 @@
 package com.github.giacomoparisi.droidbox.wrapper
 
-import android.databinding.Observable
+import androidx.databinding.Observable
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout

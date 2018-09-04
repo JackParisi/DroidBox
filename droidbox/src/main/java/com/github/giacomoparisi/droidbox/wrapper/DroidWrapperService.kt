@@ -1,7 +1,7 @@
 package com.github.giacomoparisi.droidbox.wrapper
 
 import android.content.Context
-import android.databinding.ViewDataBinding
+import androidx.databinding.ViewDataBinding
 import android.view.View
 import com.github.giacomoparisi.droidbox.architecture.model.DroidViewModel
 import com.github.giacomoparisi.droidbox.wrapper.toolbar.ToolbarDroidConfigurator

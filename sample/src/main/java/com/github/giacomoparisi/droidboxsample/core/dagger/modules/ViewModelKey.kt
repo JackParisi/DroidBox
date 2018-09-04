@@ -1,6 +1,6 @@
 package com.github.giacomoparisi.droidboxsample.core.dagger.modules
 
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 import dagger.MapKey
 import kotlin.reflect.KClass
 

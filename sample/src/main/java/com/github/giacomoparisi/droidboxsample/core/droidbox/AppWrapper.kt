@@ -1,7 +1,7 @@
 package com.github.giacomoparisi.droidboxsample.core.droidbox
 
 import android.content.Context
-import android.databinding.ViewDataBinding
+import androidx.databinding.ViewDataBinding
 
 import com.github.giacomoparisi.droidbox.architecture.model.DroidViewModel
 import com.github.giacomoparisi.droidbox.wrapper.DroidWrapperService

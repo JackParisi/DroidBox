@@ -1,6 +1,6 @@
 package com.github.giacomoparisi.droidbox.binding
 
-import android.databinding.BindingAdapter
+import androidx.databinding.BindingAdapter
 import android.graphics.Rect
 import android.view.MotionEvent
 import android.view.View

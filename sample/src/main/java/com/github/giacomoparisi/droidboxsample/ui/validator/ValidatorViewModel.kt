@@ -1,10 +1,10 @@
 package com.github.giacomoparisi.droidboxsample.ui.validator
 
 import android.app.Application
-import android.databinding.ObservableBoolean
-import android.databinding.ObservableField
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
+import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableField
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.github.giacomoparisi.droidbox.architecture.model.ui.DroidUIActions
 import com.github.giacomoparisi.droidbox.architecture.model.ui.DroidUIManager
 import com.github.giacomoparisi.droidbox.validator.DroidValidator
@@ -18,8 +18,8 @@ import javax.inject.Inject
  */
 class ValidatorViewModel @Inject constructor(
         application: Application,
-        activityActions: DroidUIActions<FragmentActivity>,
-        fragmentActions: DroidUIActions<Fragment>,
+        activityActions: DroidUIActions<androidx.fragment.app.FragmentActivity>,
+        fragmentActions: DroidUIActions<androidx.fragment.app.Fragment>,
         droidUIManager: DroidUIManager,
         navigator: Navigator,
         val validator: DroidValidator) :

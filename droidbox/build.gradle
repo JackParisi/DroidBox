@@ -16,7 +16,7 @@ android {
         targetSdkVersion android_config.targetSdk
         versionCode app_config.versionCode
         versionName app_config.versionName
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -35,7 +35,6 @@ android {
     dexOptions{
         javaMaxHeapSize= "4g"
     }
-    buildToolsVersion '27.0.3'
 }
 
 // DEPS VERSION CHECK (https://github.com/ben-manes/gradle-versions-plugin)
@@ -66,9 +65,9 @@ dependencies {
     implementation arch.lifecycleExtension
 
     /* SUPPORT */
-    implementation support.appCompact
-    implementation support.recyclerView
-    implementation support.design
+    implementation androidX.appCompact
+    implementation androidX.recyclerView
+    implementation androidX.design
 
     /* GOOGLE */
     implementation google.firebaseCrash

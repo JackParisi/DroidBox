@@ -5,24 +5,24 @@ ext.app_config = [
 
 ext.android_config = [
         minSdk    : 21,
-        targetSdk : 27,
-        compileSdk: 27,
-        buildTools: '27.0.3'
+        targetSdk : 28,
+        compileSdk: 28,
+        buildTools: '28.0.2'
 ]
 
 ext.versions = [
 
         /* CORE */
         androidPlugin            : '3.1.3',
-        kotlin                   : '1.2.41',
+        kotlin                   : '1.2.61',
         rxJava                   : '2.1.12',
         rxAndroid                : '2.0.2',
 
         /* ARCH */
-        architecture             : '1.1.1',
+        architecture             : '2.0.0-beta01',
 
         /* SUPPORT */
-        supportLibs              : '27.1.0',
+        android_x              : '1.0.0-beta01',
         constraintLayout         : '1.0.2',
 
         /* GOOGLE */
@@ -34,14 +34,14 @@ ext.versions = [
         retorfitOkHttpInterceptor: '3.8.1',
 
         /* RES */
-        glide                    : '4.6.1',
+        glide                    : '4.8.0',
 
         /* LOG */
         timber                   : '4.6.0',
 
         /* TEST */
         junit                    : '4.12',
-        espresso                 : '3.0.1',
+        espresso                 : '3.1.0-alpha4',
         runner                   : '1.0.1'
 ]
 
@@ -64,23 +64,23 @@ ext.core = [
 ext.arch = [
 
         /* ANDROID ARCHITECTURE */
-        lifecycleExtension: "android.arch.lifecycle:extensions:$versions.architecture",
-        lifecycleCompiler : "android.arch.lifecycle:compiler:$versions.architecture",
+        lifecycleExtension: "androidx.lifecycle:lifecycle-extensions:$versions.architecture",
+        lifecycleCompiler : "androidx.lifecycle:lifecycle-compiler:$versions.architecture",
 ]
 
-ext.support = [
+ext.androidX = [
 
         /* APP COMPACT */
-        appCompact      : "com.android.support:appcompat-v7:$versions.supportLibs",
+        appCompact      : "androidx.appcompat:appcompat:$versions.android_x",
 
         /* SUPPORT V4 */
-        supportV4       : "com.android.support:support-v4:$versions.supportLibs",
+        supportV4       : "com.android.support:support-v4:$versions.android_x",
 
         /* RECYCLER VIEW */
-        recyclerView    : "com.android.support:recyclerview-v7:$versions.supportLibs",
+        recyclerView    : "androidx.recyclerview:recyclerview:$versions.android_x",
 
         /* DESIGN */
-        design          : "com.android.support:design:$versions.supportLibs",
+        design          : "com.google.android.material:material:$versions.android_x",
 
         /* CONSTRAINT LAYOUT */
         constraintLayout: "com.android.support.constraint:constraint-layout:$versions.constraintLayout"
@@ -130,6 +130,6 @@ ext.test = [
         runner  : "com.android.support.test:runner:$versions.runner",
 
         /* ESPRESSO */
-        espresso: "com.android.support.test.espresso:espresso-core:$versions.espresso"
+        espresso: "androidx.test.espresso:espresso-core:$versions.espresso"
 ]
 

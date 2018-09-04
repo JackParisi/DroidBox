@@ -1,6 +1,6 @@
 package com.github.giacomoparisi.droidbox.binding
 
-import android.databinding.BindingAdapter
+import androidx.databinding.BindingAdapter
 import android.graphics.Paint
 import android.text.Html
 import android.widget.TextView

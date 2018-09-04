@@ -1,8 +1,8 @@
 package com.github.giacomoparisi.droidbox.recycler.layoutmanager
 
 import android.content.Context
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.ViewGroup
 
@@ -11,7 +11,7 @@ import android.view.ViewGroup
  * https://github.com/giacomoParisi
  */
 
-class DroidSpanningLayoutManager : LinearLayoutManager {
+class DroidSpanningLayoutManager : androidx.recyclerview.widget.LinearLayoutManager {
 
     private val horizontalSpace: Int
         get() = width - paddingRight - paddingLeft
@@ -25,16 +25,16 @@ class DroidSpanningLayoutManager : LinearLayoutManager {
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes)
 
-    override fun generateDefaultLayoutParams(): RecyclerView.LayoutParams = spanLayoutSize(super.generateDefaultLayoutParams())
+    override fun generateDefaultLayoutParams(): androidx.recyclerview.widget.RecyclerView.LayoutParams = spanLayoutSize(super.generateDefaultLayoutParams())
 
-    override fun generateLayoutParams(c: Context, attrs: AttributeSet): RecyclerView.LayoutParams = spanLayoutSize(super.generateLayoutParams(c, attrs))
+    override fun generateLayoutParams(c: Context, attrs: AttributeSet): androidx.recyclerview.widget.RecyclerView.LayoutParams = spanLayoutSize(super.generateLayoutParams(c, attrs))
 
-    override fun generateLayoutParams(lp: ViewGroup.LayoutParams): RecyclerView.LayoutParams = spanLayoutSize(super.generateLayoutParams(lp))
+    override fun generateLayoutParams(lp: ViewGroup.LayoutParams): androidx.recyclerview.widget.RecyclerView.LayoutParams = spanLayoutSize(super.generateLayoutParams(lp))
 
-    private fun spanLayoutSize(layoutParams: RecyclerView.LayoutParams): RecyclerView.LayoutParams {
-        if (orientation == LinearLayoutManager.HORIZONTAL) {
+    private fun spanLayoutSize(layoutParams: androidx.recyclerview.widget.RecyclerView.LayoutParams): androidx.recyclerview.widget.RecyclerView.LayoutParams {
+        if (orientation == androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL) {
             layoutParams.width = Math.round(horizontalSpace / itemCount.toDouble()).toInt()
-        } else if (orientation == LinearLayoutManager.VERTICAL) {
+        } else if (orientation == androidx.recyclerview.widget.LinearLayoutManager.VERTICAL) {
             layoutParams.height = Math.round(verticalSpace / itemCount.toDouble()).toInt()
         }
         return layoutParams

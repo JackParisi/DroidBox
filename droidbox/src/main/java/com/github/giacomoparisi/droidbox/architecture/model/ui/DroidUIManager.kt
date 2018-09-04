@@ -1,11 +1,11 @@
 package com.github.giacomoparisi.droidbox.architecture.model.ui
 
 import android.app.Application
-import android.databinding.ObservableBoolean
-import android.databinding.ObservableField
-import android.databinding.ObservableInt
-import android.support.annotation.StringRes
-import android.support.v4.app.FragmentActivity
+import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableField
+import androidx.databinding.ObservableInt
+import androidx.annotation.StringRes
+import androidx.fragment.app.FragmentActivity
 import android.widget.Toast
 import com.github.giacomoparisi.droidbox.R
 import com.github.giacomoparisi.droidbox.architecture.model.exception.ManagedException
@@ -81,7 +81,7 @@ open class DroidUIManager @Inject constructor(private val application: Applicati
      * @param message String resource id of the toast message
      * @param toastDuration Duration id of toast, it can be Toast.LENGTH_LONG or Toast.LENGTH_SHORT
      */
-    fun showToast(@StringRes message: Int, toastDuration: Int, droidUIActions: DroidUIActions<FragmentActivity>) {
+    fun showToast(@StringRes message: Int, toastDuration: Int, droidUIActions: DroidUIActions<androidx.fragment.app.FragmentActivity>) {
         droidUIActions {
             Toast.makeText(it, message, toastDuration).show()
         }
@@ -93,7 +93,7 @@ open class DroidUIManager @Inject constructor(private val application: Applicati
      * @param message String message
      * @param toastDuration Duration id of toast, it can be Toast.LENGTH_LONG or Toast.LENGTH_SHORT
      */
-    fun showToast(message: String, toastDuration: Int, droidUIActions: DroidUIActions<FragmentActivity>) {
+    fun showToast(message: String, toastDuration: Int, droidUIActions: DroidUIActions<androidx.fragment.app.FragmentActivity>) {
         droidUIActions {
             Toast.makeText(it, message, toastDuration).show()
         }

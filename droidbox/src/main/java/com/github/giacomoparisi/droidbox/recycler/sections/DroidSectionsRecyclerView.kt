@@ -1,8 +1,6 @@
 package com.github.giacomoparisi.droidbox.recycler.sections
 
 import android.content.Context
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import com.github.giacomoparisi.droidbox.recycler.DroidAdapter
@@ -23,7 +21,7 @@ import com.github.giacomoparisi.droidbox.wrapper.DroidWrapperSettings
  */
 class DroidSectionsRecyclerView : LinearLayout {
 
-    private var recyclerView: RecyclerView? = null
+    private var recyclerView: androidx.recyclerview.widget.RecyclerView? = null
     private var sectionView: DroidSectionView? = null
 
     constructor(context: Context?) : super(context)
@@ -35,7 +33,7 @@ class DroidSectionsRecyclerView : LinearLayout {
         orientation = LinearLayout.VERTICAL
     }
 
-    fun initializeSections(sectionView: DroidSectionView, layoutManager: LinearLayoutManager, list: List<DroidItem>, adapter: DroidAdapter) {
+    fun initializeSections(sectionView: DroidSectionView, layoutManager: androidx.recyclerview.widget.LinearLayoutManager, list: List<DroidItem>, adapter: DroidAdapter) {
 
         this.removeAllViews()
 
@@ -44,9 +42,9 @@ class DroidSectionsRecyclerView : LinearLayout {
                 this@DroidSectionsRecyclerView.sectionView!!.view,
                 this@DroidSectionsRecyclerView.sectionView!!.layoutParams
         )
-        recyclerView = RecyclerView(context)
-        recyclerView!!.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+        recyclerView = androidx.recyclerview.widget.RecyclerView(context)
+        recyclerView!!.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
                 val firstVisibleIndex =

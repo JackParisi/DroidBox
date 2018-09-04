@@ -1,6 +1,6 @@
 package com.github.giacomoparisi.droidbox.recycler
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.github.giacomoparisi.droidbox.architecture.model.DroidViewModel
@@ -27,7 +27,7 @@ open class DroidAdapter(
         private var itemList: List<DroidItem>,
         private val layoutInflater: LayoutInflater,
         private val viewModel: DroidViewModel? = null)
-    : RecyclerView.Adapter<DroidViewHolder<*>>() {
+    : androidx.recyclerview.widget.RecyclerView.Adapter<DroidViewHolder<*>>() {
 
     // Map of the all DroidViewHolder.Factory for the different DroidItems
     private var viewHolderMap: MutableMap<Int, DroidViewHolder.Factory<*,*>> = mutableMapOf()

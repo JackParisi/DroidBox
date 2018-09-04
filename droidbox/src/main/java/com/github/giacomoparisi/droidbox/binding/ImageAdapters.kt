@@ -1,6 +1,6 @@
 package com.github.giacomoparisi.droidbox.binding
 
-import android.databinding.BindingAdapter
+import androidx.databinding.BindingAdapter
 import android.graphics.Bitmap
 import android.net.Uri
 import android.util.Base64

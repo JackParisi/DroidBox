@@ -1,7 +1,7 @@
 package com.github.giacomoparisi.droidboxsample.core
 
 import android.content.Intent
-import android.support.v4.app.FragmentActivity
+import androidx.fragment.app.FragmentActivity
 import com.github.giacomoparisi.droidbox.architecture.model.ui.DroidUIActions
 import com.github.giacomoparisi.droidboxsample.ui.validator.ValidatorActivity
 import javax.inject.Inject
@@ -12,7 +12,7 @@ import javax.inject.Inject
  */
 class Navigator @Inject constructor() {
 
-    fun openValidator(droidUIActions: DroidUIActions<FragmentActivity>) {
+    fun openValidator(droidUIActions: DroidUIActions<androidx.fragment.app.FragmentActivity>) {
         droidUIActions { fragmentActivity ->
             val validator = Intent(fragmentActivity, ValidatorActivity::class.java)
             fragmentActivity.startActivity(validator)

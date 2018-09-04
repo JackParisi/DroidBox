@@ -1,7 +1,7 @@
 package com.github.giacomoparisi.droidbox.validator.helper
 
-import android.databinding.adapters.ListenerUtil
-import android.support.design.widget.TextInputLayout
+import androidx.databinding.adapters.ListenerUtil
+import com.google.android.material.textfield.TextInputLayout
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
@@ -29,12 +29,12 @@ object DroidEditTextHelper {
         }
     }
 
-    private fun getTextInputLayout(textView: TextView): TextInputLayout? {
-        var textInputLayout: TextInputLayout? = null
+    private fun getTextInputLayout(textView: TextView): com.google.android.material.textfield.TextInputLayout? {
+        var textInputLayout: com.google.android.material.textfield.TextInputLayout? = null
 
         var parent = textView.parent
         while (parent is View) {
-            if (parent is TextInputLayout) {
+            if (parent is com.google.android.material.textfield.TextInputLayout) {
                 textInputLayout = parent
                 break
             }

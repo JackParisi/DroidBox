@@ -1,7 +1,7 @@
 package com.github.giacomoparisi.droidbox.validator.adapter
 
-import android.databinding.BindingAdapter
-import android.support.annotation.IdRes
+import androidx.databinding.BindingAdapter
+import androidx.annotation.IdRes
 import android.widget.TextView
 import com.github.giacomoparisi.droidbox.R
 import com.github.giacomoparisi.droidbox.utility.DroidResourcesHelper

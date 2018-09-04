@@ -1,8 +1,8 @@
 package com.github.giacomoparisi.droidboxsample.core.droidbox
 
 import android.app.Application
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.github.giacomoparisi.droidbox.architecture.model.DroidViewModel
 import com.github.giacomoparisi.droidbox.architecture.model.ui.DroidUIActions
 import com.github.giacomoparisi.droidbox.architecture.model.ui.DroidUIManager
@@ -15,8 +15,8 @@ import javax.inject.Inject
  */
 open class DroidBoxSampleViewModel @Inject constructor(
         application: Application,
-        activityActions: DroidUIActions<FragmentActivity>,
-        fragmentActions: DroidUIActions<Fragment>,
+        activityActions: DroidUIActions<androidx.fragment.app.FragmentActivity>,
+        fragmentActions: DroidUIActions<androidx.fragment.app.Fragment>,
         droidUIManager: DroidUIManager,
         val navigator: Navigator) : DroidViewModel(application, activityActions, fragmentActions, droidUIManager) {
 }

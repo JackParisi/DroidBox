@@ -1,6 +1,6 @@
 package com.github.giacomoparisi.droidbox.architecture
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.github.giacomoparisi.droidbox.architecture.model.DroidViewModel
 import com.github.giacomoparisi.droidbox.architecture.model.ui.DroidView
 import com.github.giacomoparisi.droidbox.wrapper.DroidWrapperService

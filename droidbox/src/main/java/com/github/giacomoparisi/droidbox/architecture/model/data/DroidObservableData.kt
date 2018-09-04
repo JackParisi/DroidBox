@@ -1,8 +1,8 @@
 package com.github.giacomoparisi.droidbox.architecture.model.data
 
-import android.arch.lifecycle.LiveData
-import android.databinding.Observable
-import android.databinding.ObservableField
+import androidx.lifecycle.LiveData
+import androidx.databinding.Observable
+import androidx.databinding.ObservableField
 
 /**
  * Created by Giacomo Parisi on 15/07/2017.

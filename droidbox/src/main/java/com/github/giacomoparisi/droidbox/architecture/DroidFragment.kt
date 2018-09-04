@@ -1,6 +1,6 @@
 package com.github.giacomoparisi.droidbox.architecture
 
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import com.github.giacomoparisi.droidbox.architecture.model.DroidViewModel
 import com.github.giacomoparisi.droidbox.architecture.model.ui.DroidView
 import com.github.giacomoparisi.droidbox.wrapper.DroidWrapperService
@@ -10,7 +10,7 @@ import com.github.giacomoparisi.droidbox.wrapper.DroidWrapperService
  * https://github.com/giacomoParisi
  */
 
-abstract class DroidFragment<out W : DroidWrapperService> : Fragment(), DroidView {
+abstract class DroidFragment<out W : DroidWrapperService> : androidx.fragment.app.Fragment(), DroidView {
 
     // Wrapper for build Fragment view
     protected abstract val wrapper: W

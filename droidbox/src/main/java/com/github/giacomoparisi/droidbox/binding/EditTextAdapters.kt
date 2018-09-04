@@ -1,6 +1,6 @@
 package com.github.giacomoparisi.droidbox.binding
 
-import android.databinding.BindingAdapter
+import androidx.databinding.BindingAdapter
 import android.widget.EditText
 import com.github.giacomoparisi.droidbox.utility.formatDateString
 import java.util.*

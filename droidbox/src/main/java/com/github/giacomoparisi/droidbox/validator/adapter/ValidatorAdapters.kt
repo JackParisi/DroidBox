@@ -1,8 +1,8 @@
 package com.github.giacomoparisi.droidbox.validator.adapter
 
-import android.databinding.BindingAdapter
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
+import androidx.databinding.BindingAdapter
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import android.view.View
 import com.github.giacomoparisi.droidbox.validator.DroidValidator
 

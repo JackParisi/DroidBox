@@ -1,7 +1,7 @@
 package com.github.giacomoparisi.droidboxsample.core.dagger.modules
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 
 
 import com.github.giacomoparisi.droidboxsample.core.dagger.DroidBoxSampleViewModelFactory

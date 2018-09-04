@@ -2,7 +2,6 @@ package com.github.giacomoparisi.droidbox.recycler.decoration
 
 import android.content.Context
 import android.graphics.Rect
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.github.giacomoparisi.droidbox.utility.dpToPx
 
@@ -12,7 +11,7 @@ import com.github.giacomoparisi.droidbox.utility.dpToPx
  */
 class DroidItemDecoration(
         private val context: Context,
-        private val listSize: Int) : RecyclerView.ItemDecoration() {
+        private val listSize: Int) : androidx.recyclerview.widget.RecyclerView.ItemDecoration() {
 
     var leftMarginDp: Float = 0.0f
         set(value) {
@@ -23,7 +22,12 @@ class DroidItemDecoration(
             field = dpToPx(value, context)
         }
 
-    override fun getItemOffsets(outRect: Rect?, view: View?, parent: RecyclerView?, state: RecyclerView.State?) {
+    override fun getItemOffsets(
+            outRect: Rect,
+            view: View,
+            parent: androidx.recyclerview.widget.RecyclerView,
+            state: androidx.recyclerview.widget.RecyclerView.State
+    ) {
         super.getItemOffsets(outRect, view, parent, state)
 
         if (outRect != null) {

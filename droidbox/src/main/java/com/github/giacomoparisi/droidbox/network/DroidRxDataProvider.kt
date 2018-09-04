@@ -1,7 +1,7 @@
 package com.github.giacomoparisi.droidbox.network
 
-import android.support.annotation.MainThread
-import android.support.annotation.WorkerThread
+import androidx.annotation.MainThread
+import androidx.annotation.WorkerThread
 import com.github.giacomoparisi.droidbox.architecture.model.exception.EmptyRepositoryException
 import io.reactivex.*
 import io.reactivex.schedulers.Schedulers

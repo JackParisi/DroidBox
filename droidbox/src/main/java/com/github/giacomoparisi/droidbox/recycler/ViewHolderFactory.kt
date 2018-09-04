@@ -1,6 +1,6 @@
 package com.github.giacomoparisi.droidbox.recycler
 
-import android.databinding.ViewDataBinding
+import androidx.databinding.ViewDataBinding
 
 /**
  * Created by Giacomo Parisi on 10/04/17.

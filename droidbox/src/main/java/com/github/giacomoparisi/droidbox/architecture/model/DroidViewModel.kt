@@ -1,9 +1,9 @@
 package com.github.giacomoparisi.droidbox.architecture.model
 
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
+import androidx.lifecycle.AndroidViewModel
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.github.giacomoparisi.droidbox.architecture.model.ui.DroidUIActions
 import com.github.giacomoparisi.droidbox.architecture.model.ui.DroidUIManager
 
@@ -14,8 +14,8 @@ import com.github.giacomoparisi.droidbox.architecture.model.ui.DroidUIManager
 
 abstract class DroidViewModel constructor(
         application: Application,
-        val activityActions: DroidUIActions<FragmentActivity>,
-        val fragmentActions: DroidUIActions<Fragment>,
+        val activityActions: DroidUIActions<androidx.fragment.app.FragmentActivity>,
+        val fragmentActions: DroidUIActions<androidx.fragment.app.Fragment>,
         val droidUIManager: DroidUIManager) : AndroidViewModel(application) {
 
     open fun retryFromError() {

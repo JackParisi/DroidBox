@@ -1,6 +1,6 @@
 package com.github.giacomoparisi.droidbox.validator
 
-import android.databinding.ViewDataBinding
+import androidx.databinding.ViewDataBinding
 import android.view.View
 import android.view.ViewGroup
 import com.github.giacomoparisi.droidbox.R
